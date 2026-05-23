@@ -6,14 +6,15 @@ const ProjectItem = ({ project }) => {
   return (
     <div className={styles.mainProject}>
       <div className={styles.headerProject}>
-        <b>Name: {project.project_name}</b>
-        <span className="ml-2 underline">
+        <span>Project Name: {project.project_name}</span>
+        <span className="underline">
           Status: {project.project_status}
         </span>
-        <Button className="bg-blue-500">+ New Task</Button>
+        <Button className="bg-white text-sm px-2 py-1 h-7 text-black">
+          + Task
+        </Button>      
       </div>
-
-      <div className="ml-6 mt-3 space-y-4">
+      <div className="space-y-4">
         {project.tasks.map(task => (
           <TaskItem key={task.task_id} task={task} />
         ))}

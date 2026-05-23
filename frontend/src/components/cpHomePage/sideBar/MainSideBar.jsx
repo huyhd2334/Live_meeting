@@ -1,5 +1,5 @@
 import styles from '../homePage.module.css'
-import { CircleUser, ClipboardList, LayoutDashboard, Settings, Users, Video } from 'lucide-react'
+import { CircleUser, ClipboardList, LayoutDashboard, LogOut, Settings, Users, Video } from 'lucide-react'
 import { toast } from 'sonner'
 import { useUIContext } from '@/context/UIContext.jsx'
 import { useAuthContext } from '@/context/AuthContext'
@@ -48,7 +48,7 @@ const MainSideBar = ({userAccount}) => {
             <a className='text-sm'>Account: {userAccount.user_account}</a>
        </div>
        <div className={styles.buttonLogOut} onClick={()=>logoutContex()}>
-          LogOut
+          <LogOut />
        </div>
     </div>
     </div>

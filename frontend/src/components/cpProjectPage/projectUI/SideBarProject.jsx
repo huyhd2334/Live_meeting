@@ -1,6 +1,5 @@
 import styles from './projectUI.module.css'
-import { CircleUser} from 'lucide-react'
-import { useUIContext } from '@/context/UIContext.jsx'
+import { CircleUser, LogOut} from 'lucide-react'
 import { useAuthContext } from '@/context/AuthContext'
 import { Button } from '@/components/ui/button'
 import { useProject } from '@/hooks/useProject.js'
@@ -10,15 +9,14 @@ const SideBarProject = ({id}) => {
   const str = localStorage.getItem("userAccount") || JSON.stringify({name: "guest"})
   const userAccount = JSON.parse(str)
 
-  const {setOption, option} = useUIContext()
   const {logoutContex} = useAuthContext()
   
   const [project_name, setProjectName] = useState("")
   const [description, setDescription] = useState("")
   const [status, setStatus] = useState("active")
   
-  const [create, setCreate] = useState("project")
-  const [back, setBack] = useState(true)
+  const [create, setCreate] = useState("none")
+  const [back, setBack] = useState(false)
 
   // workspace_id, project_name, description, status
   const { createProject } = useProject()
@@ -32,7 +30,7 @@ const SideBarProject = ({id}) => {
   }
   return (
     <div className={`${styles.SideBar}`}>
-      <div className='flex space-x-4 items-center'>
+      <div className='flex space-x-2 items-center'>
         <h1 className={styles.title}>Workspace ID: {id}</h1>
         {back?(
           <Button className="bg-black " onClick={() => {setCreate("none"), setBack(pre => !pre)}}>Return !</Button>
@@ -83,8 +81,7 @@ const SideBarProject = ({id}) => {
         )} 
       </div>
       
-    <div className={`${styles.profileContainer} ${option === "user" ? styles.stars : ""}` } 
-         onClick={() => setOption("user")}>
+    <div className={`${styles.profileContainer}` } >
        <div>
           <CircleUser size={36} />
        </div>
@@ -93,7 +90,7 @@ const SideBarProject = ({id}) => {
             <a className='text-sm'>Account: {userAccount.user_account}</a>
        </div>
        <div className={styles.buttonLogOut} onClick={()=>logoutContex()}>
-          LogOut
+          <LogOut />
        </div>
     </div>
     </div>

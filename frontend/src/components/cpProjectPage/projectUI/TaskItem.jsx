@@ -7,10 +7,10 @@ const TaskItem = ({ task }) => {
   return (
     <div className={styles.task}>
       <div className='flex space-x-4'>
-        <b>{task.title}</b>
-        <b className={task.status === "done" ? styles.statusDone : styles.status}>
+        <span>{task.title}</span>
+        <span className={task.status === "done" ? styles.statusDone : styles.status}>
           {task.status}
-        </b>
+        </span>
       </div>
 
       <div className="text-sm text-gray-600">

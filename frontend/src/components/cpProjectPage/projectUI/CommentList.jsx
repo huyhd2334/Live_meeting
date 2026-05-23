@@ -7,8 +7,8 @@ const CommentList = ({ comments }) => {
   return (
     <div className="ml-6 mt-2 text-sm">
       <div className='flex space-x-2 items-center'>
-        <b>Comments:</b>
-        <Button className="size-[15px]">+</Button>
+        <label>Comments:</label>
+        <Button className="bg-white text-black size-0.5"> + </Button>
       </div>
 
       {comments.map(c => (

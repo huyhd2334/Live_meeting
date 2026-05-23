@@ -65,15 +65,15 @@ const WorkSpace = ({userAccount}) => {
                 <div key={ws.workspace_id} className={styles.widget} onClick={() => {handleWidgetClick(ws.workspace_id)}}>
                   { ws.role === "admin" ?
                   (
-                   <div className='flex flex-row space-x-2 '>
-                      <h1 className={`text-2xl font-semibold ${styles.highlightTitle}`}> Work Space {idx+1} </h1>
+                    <div className='flex flex-row justify-between items-center w-full'>
+                      <h1 className={`text-2xl font-semibold`}> Work Space {idx+1} </h1>
                       <div className='flex flex-row space-x-2'>
-                        <Button className='bg-red-400 h-10' onClick={(e) => {e.stopPropagation(), handleDelete(ws.workspace_id)}}> <Trash2 /> </Button>
-                        <Button className='bg-[#34b22f] opacity-80 h-10 ' onClick={(e) => {e.stopPropagation(), setMode("addMember"), setDataWorkSpace({"workspace_id": ws.workspace_id, "workspace_name": ws.workspace_name})}}> 
+                        <Button className='bg-black text-white w-8 h-8' onClick={(e) => {e.stopPropagation(), handleDelete(ws.workspace_id)}}> <Trash2 /> </Button>
+                        <Button className='bg-black text-white w-8 h-8' onClick={(e) => {e.stopPropagation(), setMode("addMember"), setDataWorkSpace({"workspace_id": ws.workspace_id, "workspace_name": ws.workspace_name})}}> 
                           <Plus /> 
                         </Button>
                       </div>
-                   </div>
+                    </div>
                   ): (
                     <h1 className={`text-3xl font-semibold ${styles.highlightTitle}`}> Work Space {idx+1} </h1>)}
                     <span className={`${styles.widgetTitle} ${styles.highlight}`}> Name: {ws.workspace_name} </span>

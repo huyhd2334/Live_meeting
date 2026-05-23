@@ -50,7 +50,7 @@ body {
 .activate{
     opacity: 1;
     background: #c8ddf0;
-    color: #3B82F6;
+    color: black;
 }
 
 
@@ -126,9 +126,8 @@ body {
     height: 90px;
     border-radius: 16px;
     border: 1px solid #dee2eb;
-    padding: 4px;
-    gap: 8px;
-
+    gap: 12px;
+    justify-content: center;
     position: absolute;
     bottom: 100px;
     left: 10px;
@@ -136,15 +135,14 @@ body {
 }
 
 .stars {
-    box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
-    border: 1px solid #3B82F6;
+    border: 2px solid black;
 }
 
 .buttonLogOut {
     display: inline-block;
     opacity: 0.8;
     color: aliceblue;
-    background-color: #e71a1a;
+    background-color: black;
     padding: 4px;
     border-radius: 10px;
     cursor: pointer;
