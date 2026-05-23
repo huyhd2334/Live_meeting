@@ -6,15 +6,23 @@ export const createProjectService = async (data) => {
     const client = await pool.connect()
     try {
         const {workspace_id, project_name, description, status} = data.body
-        const user = data.user.user_id
-
-        await client.query("BEGIN")
-        const check = await checkMember(client,{workspace_id, user})
         
+        console.log("workspace_id, project_name, description, status")
+        console.log(workspace_id)
+        console.log(project_name)
+        console.log(description)
+        console.log(status)
+
+        const user = data.user.user_id
+        console.log("user_id", user)
+        await client.query("BEGIN")
+        console.log("checking member")
+        const check = await checkMember(client,{workspace_id, user_id: user})
+        console.log("check:", check.length)
+
         if (check.length === 0) {
            throw new Error("You are not in this workspace")}
-        
-        const newProject = await createProject(client, {workspace_id, project_name, description, created_by, status})
+        const newProject = await createProject(client, {workspace_id, project_name, description, created_by: user, status})
         await client.query("COMMIT")
 
         console.log({success: true, message: "created project", project: newProject})

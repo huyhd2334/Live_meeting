@@ -6,7 +6,7 @@ const ProjectItem = ({ project }) => {
   return (
     <div className={styles.mainProject}>
       <div className={styles.headerProject}>
-        <b>{project.project_name}</b>
+        <b>Name: {project.project_name}</b>
         <span className="ml-2 underline">
           Status: {project.project_status}
         </span>

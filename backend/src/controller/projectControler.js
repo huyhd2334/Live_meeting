@@ -2,6 +2,7 @@ import { createProjectService, deleteProjectService, findByProjectIdService, fin
 
 export const createProjectControler = async(req, res) => {
     try {
+        console.log("Got req")
         const result = await createProjectService(req)
         console.log("Created success", result.project)
         res.status(201).json(result)

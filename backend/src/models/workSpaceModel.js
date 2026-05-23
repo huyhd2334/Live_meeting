@@ -64,7 +64,7 @@ export const getWorkSpaceProject = async(client, workspace_id) => {
 
 export const checkMember = async(client, {workspace_id, user_id}) => {
    const result = await client.query(`SELECT * FROM workspacemembers WHERE workspace_id = $1 AND user_id = $2`,[workspace_id, user_id])
-   return result
+   return result.rows
 }
 
 export const getFull = async (client, workspace_id) => {

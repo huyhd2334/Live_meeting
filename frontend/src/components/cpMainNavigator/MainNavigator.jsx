@@ -25,12 +25,6 @@ const MainNavigator = () => {
                  }}/>
        </div> 
     </div>
-    <div className='flex flex-row space-x-4 justify-center items-center'>
-       <div className={`${styles.button}`}>
-            <Plus /> 
-            <a> New Project </a>
-       </div>
-    </div>
     </div>
   )
 }

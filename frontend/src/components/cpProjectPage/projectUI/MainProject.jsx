@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './projectUI.module.css'
 import { useWorkSpace } from '@/hooks/useWorkSpace.js'
-import { Button } from '@/components/ui/button'
-import ProjectItem from './ProjectItem'
+import ProjectItem from './ProjectItem.jsx'
+import SideBarProject from './SideBarProject.jsx'
 
 const MainProject = ({ id }) => {
   const [workspace, setWorkspace] = useState([])
@@ -86,12 +86,9 @@ const MainProject = ({ id }) => {
   }, [id])
 
   return (
-    <div className="flex flex-col p-12 space-y-6">
-      <div className='flex space-x-4 items-center'>
-        <h1 className={styles.title}>Workspace ID: {id}</h1>
-        <Button className="bg-green-500">+ New Project</Button>
-      </div>
-
+    <div className={styles.layOut}>
+      <SideBarProject id={id}/>
+    <div className={styles.Project}>
       {workspace.length === 0 ? (
         <h2 className={styles.subTitle}>No project found</h2>
       ) : (
@@ -99,6 +96,7 @@ const MainProject = ({ id }) => {
           <ProjectItem key={project.project_id} project={project} />
         ))
       )}
+    </div>
     </div>
   )
 }

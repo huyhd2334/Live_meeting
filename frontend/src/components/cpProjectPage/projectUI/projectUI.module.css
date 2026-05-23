@@ -1,6 +1,6 @@
 .title {
-    font-size: xx-large;
-    font-weight: 700;
+    font-size: x-large;
+    font-weight: 500;
 }
 .subTitle {
     font-size: x-large;
@@ -21,12 +21,8 @@
 .mainProject {
     display: flex;
     flex-direction: column;
-    padding-left: 32px;
     padding-top: 16px;
-    padding-right: 32px;
     border-radius: 15px;
-    border: 1px solid rgb(175, 173, 203);
-   
 }
 
 .task {
@@ -53,4 +49,110 @@
     color: white;
     border-radius: 12px;
     padding: 4px;
+}
+
+.layOut {
+   height: 100vh;
+   display: flex;
+   gap: 12px;
+}
+
+.Project {
+   position: relative;
+   flex: 5.3;
+   display: flex;
+   flex-direction: column;
+
+   height: 100vh;
+
+   overflow-y: auto;
+
+   background-color: #FFFFFF;
+   opacity: 0.95;
+
+   padding: 14px;
+   gap: 6px;
+}
+
+.SideBar {
+   position: relative;
+   flex: 1;
+   display: flex; 
+   overflow-y: auto;
+   background-color:  #FFFFFF;
+   opacity: 0.95;
+   flex-direction: column;
+   justify-items: center;
+   align-items: center;
+   border: 1px solid #e2e8f0;
+   padding: 12px;
+   padding-top: 20px;
+   gap: 4px;
+}
+
+.sideBarOption {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    flex-direction: row;
+    color: #475569;
+    font-size: medium;
+    font-weight: 500;
+    cursor: pointer;
+    opacity: 1;
+    width: 100%;
+    padding-left: 40px;
+    gap: 12px;
+    align-items: center;
+    height: 50px;
+    border-radius: 12px;
+}
+
+.sideBarOption:hover {
+    opacity: 1;
+    background-color: #eef1f4;
+}
+
+.buttonLogOut {
+    display: inline-block;
+    opacity: 0.8;
+    color: aliceblue;
+    background-color: #e71a1a;
+    padding: 4px;
+    border-radius: 10px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    text-align: center;
+}
+
+.profileContainer {
+    color: #1E293B;
+    font-size: small;
+    font-weight: 600;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 230px;
+    height: 90px;
+    border-radius: 16px;
+    border: 1px solid #dee2eb;
+    padding: 4px;
+    gap: 8px;
+
+    position: absolute;
+    bottom: 100px;
+    left: 10px;
+    cursor: pointer;
+}
+
+.stars {
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+    border: 1px solid #3B82F6;
+}
+
+.createContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
