@@ -29,9 +29,9 @@ const WorkSpace = ({userAccount}) => {
     await fetchData() 
   }
   
-  const handleWidgetClick = async (workspace_id) => {
+  const handleWidgetClick = async (workspace_id, workspace_name) => {
       if(typeof workspace_id === "number"){
-         navigate(`/homepage/project/${workspace_id}`)
+         navigate(`/homepage/project/${workspace_id}`, {state: {workspace_name}})
       }else{toast.error(`Cannot access this work space ${workspace_id}`)}
   }
 
@@ -62,14 +62,14 @@ const WorkSpace = ({userAccount}) => {
             <p>Loading...</p>
             ):(content.length != 0 ? (
               content.map((ws, idx) => (
-                <div key={ws.workspace_id} className={styles.widget} onClick={() => {handleWidgetClick(ws.workspace_id)}}>
+                <div key={ws.workspace_id} className={styles.widget} onClick={() => {handleWidgetClick(ws.workspace_id, ws.workspace_name)}}>
                   { ws.role === "admin" ?
                   (
                     <div className='flex flex-row justify-between items-center w-full'>
-                      <h1 className={`text-2xl font-semibold`}> Work Space {idx+1} </h1>
+                      <h1 className={`text-2xl font-semibold`}> WSpace {idx+1} </h1>
                       <div className='flex flex-row space-x-2'>
-                        <Button className='bg-black text-white w-8 h-8' onClick={(e) => {e.stopPropagation(), handleDelete(ws.workspace_id)}}> <Trash2 /> </Button>
-                        <Button className='bg-black text-white w-8 h-8' onClick={(e) => {e.stopPropagation(), setMode("addMember"), setDataWorkSpace({"workspace_id": ws.workspace_id, "workspace_name": ws.workspace_name})}}> 
+                        <Button className='bg-black text-white w-6 h-7' onClick={(e) => {e.stopPropagation(), handleDelete(ws.workspace_id)}}> <Trash2 /> </Button>
+                        <Button className='bg-black text-white w-6 h-7' onClick={(e) => {e.stopPropagation(), setMode("addMember"), setDataWorkSpace({"workspace_id": ws.workspace_id, "workspace_name": ws.workspace_name})}}> 
                           <Plus /> 
                         </Button>
                       </div>

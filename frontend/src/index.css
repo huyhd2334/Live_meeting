@@ -4,6 +4,17 @@
 @custom-variant dark (&:is(.dark *));
 @config "../tailwind.config.js";
 
+html,
+body,
+#root {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    overflow: hidden;
+}
+
 @layer base {
   :root {
     /* Modern todo app color palette */

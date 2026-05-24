@@ -27,8 +27,8 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 40px;
-    padding: 36px;
+    gap: 16px;
+    padding: 16px;
     border-radius: 15px;
     border: 1px solid #e2e8f0;
     overflow-wrap: break-word;
@@ -47,14 +47,15 @@
     flex-direction: column;
     align-items: start;
     color: black;
-    width: 320px;
-    height: 210px;
+    width: 275px;
+    height: 190px;
     border-radius: 16px;
     border: 2px solid rgb(255, 255, 255);
     padding: 8px;
     gap: 12px;
     box-shadow: 0 4px 10px rgba(235, 232, 232, 0.1);
     transition: all 0.3s ease;
+    overflow-y: auto;
 }
 
 .widget:hover {

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { useProject } from '@/hooks/useProject.js'
 import { useState } from 'react'
 
-const SideBarProject = ({id}) => {
+const SideBarProject = ({id, workspace_name}) => {
   const str = localStorage.getItem("userAccount") || JSON.stringify({name: "guest"})
   const userAccount = JSON.parse(str)
 
@@ -21,9 +21,11 @@ const SideBarProject = ({id}) => {
   // workspace_id, project_name, description, status
   const { createProject } = useProject()
   
+  console.log("workspace_name", workspace_name)
+  
   const handleCreateProject = async() => {
      try {
-        const res = await createProject({workspace_id:id, project_name, description, status})
+        await createProject({workspace_id:id, project_name, description, status})
      } catch (error) {
         console.log("Error when create new project")
      }
@@ -37,7 +39,7 @@ const SideBarProject = ({id}) => {
         ):(
         <Button className="bg-black" onClick={() => {setCreate("project"), setBack(pre => !pre)}}>+ Project</Button>)}
       </div>
-      
+      <label> {workspace_name} </label>
       <div>
         {create==="none"?(null):(
           <div>
@@ -55,7 +57,7 @@ const SideBarProject = ({id}) => {
                    onChange={(e) => setDescription(e.target.value)}/> 
             
             {/* 'active', 'completed', 'archived' */}
-            <label>Status: </label> 
+            <label> Status: </label> 
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value)}

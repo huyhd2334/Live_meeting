@@ -4,7 +4,7 @@ import { useWorkSpace } from '@/hooks/useWorkSpace.js'
 import ProjectItem from './ProjectItem.jsx'
 import SideBarProject from './SideBarProject.jsx'
 
-const MainProject = ({ id }) => {
+const MainProject = ({ id, workspace_name }) => {
   const [workspace, setWorkspace] = useState([])
   const { getWorkspaceFull } = useWorkSpace()
 
@@ -87,7 +87,7 @@ const MainProject = ({ id }) => {
 
   return (
     <div className={styles.layOut}>
-      <SideBarProject id={id}/>
+      <SideBarProject id={id} workspace_name={workspace_name}/>
     <div className={styles.Project}>
       {workspace.length === 0 ? (
         <h2 className={styles.subTitle}>No project found</h2>
