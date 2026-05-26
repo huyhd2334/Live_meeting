@@ -93,7 +93,7 @@ const MainProject = ({ id, workspace_name }) => {
         <h2 className={styles.subTitle}>No project found</h2>
       ) : (
         workspace.map(project => (
-          <ProjectItem key={project.project_id} project={project} />
+          <ProjectItem key={project.project_id} project={project} workspace_id={id} />
         ))
       )}
     </div>

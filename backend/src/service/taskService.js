@@ -8,7 +8,7 @@ export const createTaskService = async (data) => {
     try {
         const {workspace_id, project_id, title, description, status, priority, deadline, assigned_to} = data.body
         const created_by = data.user.user_id
-
+        console.log(workspace_id, project_id, title, description, status)
         await client.query("BEGIN")
         const check = await checkMember(client,{workspace_id, user_id: created_by})
         

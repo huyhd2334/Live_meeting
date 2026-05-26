@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const BASE_URL =  import.meta.env.MODE === "development"
-                                            ? "http://localhost:8386/api"
+                                            ? "https://ctpt0djm-8386.asse.devtunnels.ms/api"
                                             : "/api";
 
 const api = axios.create({

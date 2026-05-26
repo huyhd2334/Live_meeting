@@ -3,7 +3,7 @@ import SubTaskList from './SubTaskList'
 import CommentList from './CommentList'
 import AttachmentList from './AttachmentList'
 
-const TaskItem = ({ task }) => {
+const TaskItem = ({ task, project_id }) => {
   return (
     <div className={styles.task}>
       <div className='flex space-x-4'>
@@ -12,7 +12,7 @@ const TaskItem = ({ task }) => {
           {task.status}
         </span>
       </div>
-
+      
       <div className="text-sm text-gray-600">
         {task.description}
       </div>

@@ -43,7 +43,7 @@ const WorkSpace = ({userAccount}) => {
     contentUI = <AddMemberWSInterFace setMode={setMode} dataWorkSpace={dataWorkSpace}/>
   }
   return (
-    <div className='flex flex-col space-y-6'>
+    <div className='flex flex-col space-y-2'>
        <div className={styles.headerContainer}>
            <div className='space-x-4'>
               <span className={styles.headerTitle}>Your Work Spaces</span>

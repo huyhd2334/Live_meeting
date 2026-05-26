@@ -31,15 +31,15 @@ const SideBarProject = ({id, workspace_name}) => {
      }
   }
   return (
-    <div className={`${styles.SideBar}`}>
+    <div className={`${styles.sideBar}`}>
       <div className='flex space-x-2 items-center'>
-        <h1 className={styles.title}>Workspace ID: {id}</h1>
+        <h1 className={styles.title}>WorkspaceID: {id}</h1>
         {back?(
           <Button className="bg-black " onClick={() => {setCreate("none"), setBack(pre => !pre)}}>Return !</Button>
         ):(
         <Button className="bg-black" onClick={() => {setCreate("project"), setBack(pre => !pre)}}>+ Project</Button>)}
       </div>
-      <label> {workspace_name} </label>
+      <label> - {workspace_name} - </label>
       <div>
         {create==="none"?(null):(
           <div>

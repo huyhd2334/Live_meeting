@@ -1,4 +1,4 @@
-import { getTaskService } from "@/service/taskService"
+import { createTaskService, getTaskService } from "@/service/taskService.js"
 import { useState } from "react"
 import { toast } from "sonner"
 
@@ -25,5 +25,30 @@ export const useTask = () => {
       }
     }
 
-    return {fetchTaskByProject, loadingT}
+    const createTask = async({workspace_id, project_id, title, description, status, priority, deadline, assigned_to}) => {
+      try {
+        setLoadingT(true)
+        if(title === ""){
+          toast.error("Task title is empty")
+          return 
+        }
+        console.log(workspace_id, project_id, title, description, status)
+        const data = await createTaskService({workspace_id, project_id, title, description, status, priority, deadline, assigned_to})
+        console.log(data)
+        if(data.success){
+          toast.success(data.message)
+          return data
+        }else{
+          toast.error("create task Error")
+          return data.success   
+        }
+      } catch (error) {
+        toast.error("error when create task")
+        console.error(error)
+      } finally {
+        setLoadingT(false)
+      }
+    }
+
+    return {fetchTaskByProject, createTask, loadingT}
 }

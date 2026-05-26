@@ -24,7 +24,7 @@ app.use(cookieParser())
 
 cors
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: "https://ctpt0djm-5173.asse.devtunnels.ms",
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],

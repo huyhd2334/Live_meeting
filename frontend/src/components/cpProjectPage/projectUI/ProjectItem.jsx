@@ -2,12 +2,25 @@ import { Button } from '@/components/ui/button'
 import styles from './projectUI.module.css'
 import TaskItem from './TaskItem'
 import { useState } from 'react'
+import { useTask } from '@/hooks/useTask.js'
 
-const ProjectItem = ({ project }) => {
+const ProjectItem = ({ project, workspace_id }) => {
+  const {createTask} = useTask()
+
   const [openTaskBox, setOpenTaskBox] = useState(false)
   const [status, setStatus] = useState("todo") // 'todo', 'in_progress','done'
   const [priority, setPriority] = useState("high")
   const [deadline, setDeadline] = useState("")
+  const [title, setTitle] = useState("")
+  const [description, setDescription] = useState("")
+  const [assigned_to, setAssigned_to] = useState(1)
+
+  // task: workspace_id, project_id, title, description, status, priority, deadline, assigned_to
+
+  const handleCreateTask = async() => {
+      await createTask({workspace_id, project_id: project.project_id, title, description, status, priority, deadline, assigned_to})
+  }
+  
   return (
     <div className={styles.mainProject}>
       <div className={styles.headerProject}>
@@ -25,8 +38,10 @@ const ProjectItem = ({ project }) => {
           {openTaskBox && (
             <div className={styles.taskPopup}>
               <input
-                placeholder="Task title..."
+                placeholder="Task Title..."
                 className={styles.taskInput}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               />
               {/* piority - status */}
               <span> Status and Priority </span>
@@ -49,8 +64,10 @@ const ProjectItem = ({ project }) => {
               <input
                 placeholder="Task Description..."
                 className={styles.taskInput}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
               />
-              <Button>
+              <Button onClick={() => handleCreateTask()}>
                 Create
               </Button>
             </div>
@@ -59,7 +76,7 @@ const ProjectItem = ({ project }) => {
       </div>
       <div className="flex flex-col gap-4">
         {project.tasks.map(task => (
-          <TaskItem key={task.task_id} task={task} />
+          <TaskItem key={task.task_id} task={task} project_id={project.project_id}/>
         ))}
       </div>
     </div>
