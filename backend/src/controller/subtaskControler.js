@@ -3,7 +3,7 @@ import { createSubTaskService, deleteSubTaskService, getSubTaskService } from ".
 export const createSubTaskControler = async(req, res) => {
     try {
         const result = await createSubTaskService(req)
-        console.log("Created success", result.task)
+        console.log("Created success", result.subTask)
         res.status(201).json(result)
     } catch (error) {
         res.status(400).json({

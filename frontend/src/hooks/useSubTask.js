@@ -1,6 +1,4 @@
-// 
-
-import { getSubTaskService } from "@/service/subtaskService.js"
+import { createSubTaskService, getSubTaskService } from "@/service/subTaskService.js"
 import { useState } from "react"
 import { toast } from "sonner"
 
@@ -26,6 +24,28 @@ export const useSubTask = () => {
         setLoadingSb(false)
       }
     }
-
-    return {fetchSubTask, loadingSb}
+    
+    const createSubTask = async({workspace_id, task_id, title, status}) => {
+       try {
+        if(title === ""){
+          toast.error("SubTask title is empty!") 
+          return
+        }
+        const result = await createSubTaskService({workspace_id, task_id, title, status})
+        console.log(result)
+        if(result.success){
+          toast.success(result.message)
+          return result.subTask
+        }else{
+          toast.error("Error when create subtask")
+          return
+        }
+       } catch (error) {
+         console.error(error)
+         return
+       }finally{
+        setLoadingSb(false)
+       }
+    }
+    return {fetchSubTask, createSubTask, loadingSb}
 }

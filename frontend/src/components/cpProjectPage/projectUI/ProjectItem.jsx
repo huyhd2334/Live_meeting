@@ -35,6 +35,7 @@ const ProjectItem = ({ project, workspace_id }) => {
           >
             {openTaskBox ? 'Cancel' : '+ Task'}
           </Button>
+
           {openTaskBox && (
             <div className={styles.taskPopup}>
               <input
@@ -76,7 +77,7 @@ const ProjectItem = ({ project, workspace_id }) => {
       </div>
       <div className="flex flex-col gap-4">
         {project.tasks.map(task => (
-          <TaskItem key={task.task_id} task={task} project_id={project.project_id}/>
+          <TaskItem key={task.task_id} task={task} project_id={project.project_id} workspace_id={workspace_id}/>
         ))}
       </div>
     </div>
