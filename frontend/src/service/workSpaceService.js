@@ -27,5 +27,5 @@ export const findProjectByWorkspaceService = async(project_id) => {
 
 export const getAllService = async(project_id) => {
     const result = await api.get(`/workspace/get/full/${project_id}`, { withCredentials: true})
-    return result.data
+    return result.data.data
 }

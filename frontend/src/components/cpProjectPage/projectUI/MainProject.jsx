@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useMemo } from 'react'
 import styles from './projectUI.module.css'
 import { useWorkSpace } from '@/hooks/useWorkSpace.js'
 import ProjectItem from './ProjectItem.jsx'
 import SideBarProject from './SideBarProject.jsx'
 
 const MainProject = ({ id, workspace_name }) => {
-  const [workspace, setWorkspace] = useState([])
-  const { getWorkspaceFull } = useWorkSpace()
+  const { getWorkspaceFull } = useWorkSpace(id)
 
-  const buildWorkspaceTree = (rows) => {
+  const tree = useMemo(() => {
+    const rows = getWorkspaceFull?.data || []
     const projectMap = new Map()
 
     rows.forEach(row => {
@@ -22,6 +22,7 @@ const MainProject = ({ id, workspace_name }) => {
           project_status: row.project_status,
           tasks: []
         }
+
         projectMap.set(row.project_id, project)
       }
 
@@ -42,10 +43,14 @@ const MainProject = ({ id, workspace_name }) => {
           comments: [],
           attachments: []
         }
+
         project.tasks.push(task)
       }
 
-      if (row.subtask_id && !task.subTasks.find(st => st.subtask_id === row.subtask_id)) {
+      if (
+        row.subtask_id &&
+        !task.subTasks.find(st => st.subtask_id === row.subtask_id)
+      ) {
         task.subTasks.push({
           subtask_id: row.subtask_id,
           title: row.subtask_title,
@@ -53,7 +58,10 @@ const MainProject = ({ id, workspace_name }) => {
         })
       }
 
-      if (row.comment_id && !task.comments.find(c => c.comment_id === row.comment_id)) {
+      if (
+        row.comment_id &&
+        !task.comments.find(c => c.comment_id === row.comment_id)
+      ) {
         task.comments.push({
           comment_id: row.comment_id,
           content: row.comment_content,
@@ -62,7 +70,10 @@ const MainProject = ({ id, workspace_name }) => {
         })
       }
 
-      if (row.attachment_id && !task.attachments.find(a => a.attachment_id === row.attachment_id)) {
+      if (
+        row.attachment_id &&
+        !task.attachments.find(a => a.attachment_id === row.attachment_id)
+      ) {
         task.attachments.push({
           attachment_id: row.attachment_id,
           file_url: row.file_url,
@@ -72,31 +83,34 @@ const MainProject = ({ id, workspace_name }) => {
     })
 
     return Array.from(projectMap.values())
-  }
+  }, [getWorkspaceFull.data])
 
-  const fetchWorkspace = async () => {
-    if (!id) return
-    const res = await getWorkspaceFull(id)
-    const tree = buildWorkspaceTree(res?.data || [])
-    setWorkspace(tree)
+  if (getWorkspaceFull.isLoading) {
+    return <div>Loading...</div>
   }
-
-  useEffect(() => {
-    fetchWorkspace()
-  }, [id])
 
   return (
     <div className={styles.layOut}>
-      <SideBarProject id={id} workspace_name={workspace_name}/>
-    <div className={styles.Project}>
-      {workspace.length === 0 ? (
-        <h2 className={styles.subTitle}>No project found</h2>
-      ) : (
-        workspace.map(project => (
-          <ProjectItem key={project.project_id} project={project} workspace_id={id} />
-        ))
-      )}
-    </div>
+      <SideBarProject
+        id={id}
+        workspace_name={workspace_name}
+      />
+
+      <div className={styles.Project}>
+        {tree.length === 0 ? (
+          <h2 className={styles.subTitle}>
+            No project found
+          </h2>
+        ) : (
+          tree.map(project => (
+            <ProjectItem
+              key={project.project_id}
+              project={project}
+              workspace_id={id}
+            />
+          ))
+        )}
+      </div>
     </div>
   )
 }

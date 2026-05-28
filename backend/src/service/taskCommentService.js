@@ -9,7 +9,7 @@ export const createTaskCommentService = async (data) => {
         const created_by = data.user.user_id
 
         await client.query("BEGIN")
-        const check = await checkMember(client,{workspace_id, created_by})
+        const check = await checkMember(client,{workspace_id, user_id:created_by})
         
         if (check.length === 0) {
            throw new Error("You are not in this workspace")}

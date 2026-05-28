@@ -23,13 +23,10 @@ const SideBarProject = ({id, workspace_name}) => {
   
   console.log("workspace_name", workspace_name)
   
-  const handleCreateProject = async() => {
-     try {
-        await createProject({workspace_id:id, project_name, description, status})
-     } catch (error) {
-        console.log("Error when create new project")
-     }
+  const handleCreateProject = () => {
+      createProject.mutate({workspace_id:id, project_name, description, status}) 
   }
+  
   return (
     <div className={`${styles.sideBar}`}>
       <div className='flex space-x-2 items-center'>

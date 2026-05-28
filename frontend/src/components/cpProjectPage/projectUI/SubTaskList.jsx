@@ -4,28 +4,16 @@ import styles from './projectUI.module.css'
 import { useSubTask } from '@/hooks/useSubTask.js'
 
 const SubTaskList = ({ subTasks, task_id, workspace_id }) => {
-
   //workspace_id, task_id, title, status
   //todo', 'in_progress','done
   const {createSubTask} = useSubTask()
-
   const [title, setTitle] = useState("")
   const [status, setStatus] = useState("todo")
   const [pop, setPop] = useState(false)
   
-  const handleCreateSubTask = async() => {
-    await createSubTask({workspace_id, task_id, title, status})
+  const handleCreateSubTask = () => {
+     createSubTask.mutate({workspace_id, task_id, title, status})
   }
-  if (!subTasks.length) 
-    return (
-     <div className="text-sm pl-1.5">
-      <div className='flex space-x-2 items-center'>
-        <span>SubTasks:</span>
-        <Button className="bg-white text-black size-0.5"> + </Button>
-      </div>
-     </div>
-    )
-  
   return (
     <div className="text-sm pl-1.5">
       <div className='flex space-x-2 items-center'>

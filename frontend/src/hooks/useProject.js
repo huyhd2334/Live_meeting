@@ -1,25 +1,19 @@
 import { createProjectService } from "@/service/projectService.js";
 import { useState } from "react";
 import { toast } from 'sonner'
+import { useMutation } from "@tanstack/react-query";
 
 export const useProject = () => {
-  const [loading, setLoading] = useState(false)
-  const createProject = async ({workspace_id, project_name, description, status}) => {
-    try {
-      setLoading(true)
-      const data = await createProjectService({ workspace_id, project_name, description, status })
-      console.log(data)
-      if (data.success) {
-        toast.success(data.message)
-      } else {
-        toast.error(data.message)
-      }
-    } catch (err) {
-      toast.error("Error when create project 'useProject frontend' ")
-      console.log(err)
-    } finally {
-      setLoading(false)
+  const createProject = useMutation({
+    mutationFn: createProjectService,
+    onSuccess: (data) => {
+      console.log("project", data)
+      toast.success("Created project")
+    },
+    onError: (error) => {
+      console.error(error)
+      toast.error("Error when created project")
     }
-  }
-  return { createProject, loading }
+  }) 
+  return { createProject }
 }

@@ -6,7 +6,6 @@ import { useTask } from '@/hooks/useTask.js'
 
 const ProjectItem = ({ project, workspace_id }) => {
   const {createTask} = useTask()
-
   const [openTaskBox, setOpenTaskBox] = useState(false)
   const [status, setStatus] = useState("todo") // 'todo', 'in_progress','done'
   const [priority, setPriority] = useState("high")
@@ -17,10 +16,12 @@ const ProjectItem = ({ project, workspace_id }) => {
 
   // task: workspace_id, project_id, title, description, status, priority, deadline, assigned_to
 
-  const handleCreateTask = async() => {
-      await createTask({workspace_id, project_id: project.project_id, title, description, status, priority, deadline, assigned_to})
-  }
-  
+  const handleCreateTask = () => {
+    createTask.mutate({ workspace_id, project_id: project.project_id, 
+                        title, description, status, priority,
+                        deadline, assigned_to})
+    setOpenTaskBox(fasle)
+  }    
   return (
     <div className={styles.mainProject}>
       <div className={styles.headerProject}>
@@ -68,7 +69,7 @@ const ProjectItem = ({ project, workspace_id }) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
-              <Button onClick={() => handleCreateTask()}>
+              <Button onClick={() => handleCreateTask()} disabled={createTask.isPending}>
                 Create
               </Button>
             </div>

@@ -1,8 +1,9 @@
 import {addMemberService, createUserWorkSpaceService, deleteWorkSpaceService, findProjectByWorkspaceService, getAllService, getWorkSpaceByUserId } from "@/service/workSpaceService.js"
+import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 import { toast } from "sonner"
 
-export const useWorkSpace = () => {
+export const useWorkSpace = (workspace_id) => {
     const[loadingW, setLoadingW] = useState(false)
     const getUserWorkSpace = async() =>{
       try {
@@ -94,26 +95,13 @@ export const useWorkSpace = () => {
       } finally {
         setLoadingW(false)
       }}
-
-    const getWorkspaceFull = async(workspace_id) => {
-      try {
-          setLoadingW(true)
-          const data = await getAllService(workspace_id)
-          if(data.success){
-            toast.success(data.message)
-            return data
-          }
-          else{
-            toast.error(data.message) 
-            return []
-          }
-      } catch (error) {
-        toast.error("error when get all ")
-        console.error(error)
-      } finally {
-        setLoadingW(false)
-      }
- 
-    }
+    
+    
+  // FETCH
+    const getWorkspaceFull = useQuery({
+      queryKey: [ "fullws", workspace_id],
+      queryFn: () => getAllService(workspace_id),
+      enabled: !!workspace_id
+    })
     return {getUserWorkSpace, createUserWorkSpace, deleteWorkSpace, addMemberWorkSpace, getWorkSpaceProject, getWorkspaceFull, loadingW}
 }

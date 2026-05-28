@@ -43,9 +43,17 @@
 }
 
 .statusDone {
-    background-color: rgb(240, 53, 53);
+    background-color: rgb(73, 216, 104);
     color: white;
-    border-radius: 12px;
+    border-radius: 6px;
+    padding: 2px;
+}
+
+.status {
+    background-color: rgb(249, 37, 37);
+    color: white;
+    border-radius: 6px;
+    padding: 2px;
 }
 
 .layOut {

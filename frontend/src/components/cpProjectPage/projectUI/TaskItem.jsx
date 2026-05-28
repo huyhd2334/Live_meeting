@@ -19,7 +19,7 @@ const TaskItem = ({ task, project_id, workspace_id }) => {
       </div>
 
       <SubTaskList subTasks={task.subTasks} task_id = {task.task_id} workspace_id={workspace_id}/>
-      <CommentList comments={task.comments} />
+      <CommentList comments={task.comments} task_id = {task.task_id} workspace_id={workspace_id}/>
       <AttachmentList attachments={task.attachments} />
     </div>
   )
