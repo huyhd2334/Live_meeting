@@ -14,32 +14,32 @@
     gap: 12px;
     border-radius: 10px;
     font-size: x-large;
-    font-weight: 350;
-}
-
-
-.mainProject {
-    display: flex;
-    flex-direction: column;
-    padding-left: 5vh;
-    border-bottom: 1px solid #f0f2f5;
+    font-weight: 450;
+    color: #3B82F6;
 }
 
 .task {
     display: flex;
     flex-direction: row;
-    padding: 6px;
-    padding-left: 5vh;
-    gap: 4px;
-    font-size: medium;
-    font-weight: 500;
-    align-items: center;
+
+    padding: 6px 0 6px 24px;
+    gap: 8px;
+
     border-bottom: 1px solid rgb(222, 215, 215);
+
+    align-items: center;
 }
 
 .status {
-    color: rgb(155, 246, 18);
-    text-transform: uppercase
+    text-transform: uppercase;
+}
+
+.status::before {
+    content: '[';
+}
+
+.status::after {
+    content: ']';
 }
 
 .statusDone {
@@ -49,32 +49,34 @@
     padding: 2px;
 }
 
-.status {
-    background-color: rgb(249, 37, 37);
-    color: white;
-    border-radius: 6px;
-    padding: 2px;
-}
-
 .layOut {
-   height: 100vh;
    display: flex;
    gap: 12px;
 
    overflow: hidden;
-}
 
-.Project {
-   position: relative;
-   flex: 1;
-   display: flex;
    min-height: 0;
    min-width: 0;
 
-   overflow-y: auto;
+   flex: 1;
+}
 
-   display: flex;
-   flex-direction: column;
+.Project {
+   flex: 1;
+
+   min-width: 0;
+   min-height: 0;
+
+   height: calc(100dvh - 80px);
+
+   overflow-y: auto;
+   overflow-x: hidden;
+}
+
+
+.mainProject {
+    position: relative;
+    width: 100%;
 }
 
 .sideBar {
@@ -92,7 +94,6 @@
    gap: 4px;
    flex-shrink: 0;
    min-width: 250px;
-   min-height: 100vh;
 }
 
 

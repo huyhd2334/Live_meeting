@@ -75,7 +75,7 @@ const WorkSpace = ({userAccount}) => {
                       </div>
                     </div>
                   ): (
-                    <h1 className={`text-3xl font-semibold ${styles.highlightTitle}`}> Work Space {idx+1} </h1>)}
+                    <h1 className={`text-2xl font-semibold ${styles.highlightTitle}`}> WSpace {idx+1} </h1>)}
                     <span className={`${styles.widgetTitle} ${styles.highlight}`}> Name: {ws.workspace_name} </span>
                     <span className={`${styles.highlight}`}> ID {ws.workspace_id} </span>
                     <span className={`${styles.highlight}`}> Role {ws.role} </span>

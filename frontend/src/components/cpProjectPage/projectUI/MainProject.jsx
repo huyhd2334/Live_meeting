@@ -90,26 +90,25 @@ const MainProject = ({ id, workspace_name }) => {
   }
 
   return (
-    <div className={styles.layOut}>
+    <div className={`${styles.layOut} flex-1`}>
       <SideBarProject
         id={id}
         workspace_name={workspace_name}
       />
-
       <div className={styles.Project}>
         {tree.length === 0 ? (
-          <h2 className={styles.subTitle}>
-            No project found
-          </h2>
-        ) : (
-          tree.map(project => (
-            <ProjectItem
-              key={project.project_id}
-              project={project}
-              workspace_id={id}
-            />
-          ))
-        )}
+              <h2 className={styles.subTitle}>
+                No project found
+              </h2>
+            ) : (
+              tree.map(project => (
+                <ProjectItem
+                  key={project.project_id}
+                  project={project}
+                  workspace_id={id}
+                />
+              ))
+          )}
       </div>
     </div>
   )

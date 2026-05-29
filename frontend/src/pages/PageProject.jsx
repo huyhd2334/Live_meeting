@@ -21,8 +21,13 @@ const PageProject = () => {
 
   return (
     <div>
-      <MainNavigator/>
-      <MainProject id={workspaceId} workspace_name={workspace_name}/>
+      <MainNavigator />
+      <div>
+        <MainProject
+          id={workspaceId}
+          workspace_name={workspace_name}
+        />
+      </div>
     </div>
   )
 }
