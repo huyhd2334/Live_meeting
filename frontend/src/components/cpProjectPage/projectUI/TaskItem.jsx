@@ -7,17 +7,15 @@ import { CircleDashed } from 'lucide-react'
 const TaskItem = ({ task, project_id, workspace_id }) => {
   return (
     <div className={styles.task}>
-      <div className='flex space-x-4 items-center'>
-        <span className='flex flex-row gap-1.5'><CircleDashed />{task.title}</span>
-        <span className={task.status === "done" ? styles.statusDone : styles.status}>
-          {task.status}
-        </span>
+      <div className='flex flex-col items-start'>
+        <span className='flex flex-row gap-1.5 text-xl font-semibold'><CircleDashed />{task.title}</span>
+        <div className='flex flex-row gap-2 items-center'>
+          <span className={task.status === "done" ? styles.statusDone : styles.status}>
+            {task.status}
+          </span>
+          <span className="text-sm text-gray-600"> {task.description} </span>
+        </div>
       </div>
-      
-      <div className="text-sm text-gray-600">
-        {task.description}
-      </div>
-
       <SubTaskList subTasks={task.subTasks} task_id = {task.task_id} workspace_id={workspace_id}/>
       <CommentList comments={task.comments} task_id = {task.task_id} workspace_id={workspace_id}/>
       <AttachmentList attachments={task.attachments} />

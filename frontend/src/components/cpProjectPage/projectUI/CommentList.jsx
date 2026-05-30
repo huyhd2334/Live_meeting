@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-import { MessageSquareText } from 'lucide-react'
+import { CircleMinus, CirclePlus, MessageSquareText } from 'lucide-react'
 import styles from './projectUI.module.css'
 import { useState } from 'react'
 import { useComment } from '@/hooks/useComment.js'
@@ -16,12 +16,15 @@ const CommentList = ({ comments, task_id, workspace_id}) => {
   }
   
   return (
-    <div className="ml-6 mt-2 text-sm">
-      <div className='flex space-x-2 items-center'>
-        <span>comments:</span>
+    <div className={styles.mainComment}>
+      <div className='flex space-x-2 items-center text-[#64748B] justify-between'>
+        <div className='flex flex-row space-x-2 items-center'>
+          <MessageSquareText size={16} />
+          <span>Comment:</span>
+        </div>
         <div className={styles.taskButtonWrapper}>
-          <Button className="bg-white text-black size-0.5"
-                  onClick={() => {setPop(pre => !pre)}}> {pop?"-":"+"} </Button>
+          <Button className="bg-white text-blue-600"
+                  onClick={() => {setPop(pre => !pre)}}> {pop?<CircleMinus />:<CirclePlus />} </Button>
           {pop ? (
             <div className={styles.taskPopup}>
               <span>Add comment</span>
@@ -34,10 +37,9 @@ const CommentList = ({ comments, task_id, workspace_id}) => {
           ) : (null)}
         </div>
       </div>
-
+      
       {comments.map(c => (
         <div key={c.comment_id} className='flex space-x-2'>
-          <MessageSquareText size={16} />
           <span>{c.content}</span>
         </div>
       ))}

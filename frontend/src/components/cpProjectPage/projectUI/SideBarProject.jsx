@@ -15,7 +15,7 @@ const SideBarProject = ({id, workspace_name}) => {
   const [description, setDescription] = useState("")
   const [status, setStatus] = useState("active")
   
-  const [create, setCreate] = useState("none")
+  const [create, setCreate] = useState("project")
   const [back, setBack] = useState(false)
 
   // workspace_id, project_name, description, status
@@ -32,7 +32,8 @@ const SideBarProject = ({id, workspace_name}) => {
       <div className='flex space-x-2 items-center'>
         <h1 className={styles.title}>WorkspaceID: {id}</h1>
         {back?(
-          <Button className="bg-black " onClick={() => {setCreate("none"), setBack(pre => !pre)}}>Return !</Button>
+          null
+          // <Button className="bg-black " onClick={() => {setCreate("none"), setBack(pre => !pre)}}>Return !</Button>
         ):(
         <Button className="bg-black" onClick={() => {setCreate("project"), setBack(pre => !pre)}}>+ Project</Button>)}
       </div>

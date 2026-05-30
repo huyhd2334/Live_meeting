@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 .title {
     font-size: larger;
     font-weight: 500;
@@ -12,22 +16,21 @@
     flex-direction: row;
     padding: 12px;
     gap: 12px;
-    border-radius: 10px;
     font-size: x-large;
-    font-weight: 450;
-    color: #3B82F6;
+    font-weight: 550;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(0, 0, 0, 0.2);
 }
 
 .task {
     display: flex;
-    flex-direction: row;
-
+    flex-direction: column;
     padding: 6px 0 6px 24px;
     gap: 8px;
-
-    border-bottom: 1px solid rgb(222, 215, 215);
-
-    align-items: center;
+    border: 1px solid rgb(0, 0, 0, 0.2);
+    background: #FFFFFF;
+    border-radius: 10px;
+    align-items: flex-start;
 }
 
 .status {
@@ -61,6 +64,7 @@
    flex: 1;
 }
 
+
 .Project {
    flex: 1;
 
@@ -75,8 +79,11 @@
 
 
 .mainProject {
+    display: flex;
+    flex-direction: column;
     position: relative;
-    width: 100%;
+    gap: 20px;
+    padding: 16px;
 }
 
 .sideBar {
@@ -188,4 +195,52 @@
     border-radius: 8px;
     padding: 4px;
     outline: none;
+}
+
+.button {
+    font-size: medium;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+    padding: 6px 0px 6px 6px;
+    color: #2563EB;
+}
+
+.button::after {
+    content: "";
+    width: 0;
+    height: 4px;
+    background-color: #2563EB;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    transition: width 0.5s;
+}
+
+.button:hover::after {
+    width: 100%;
+}
+
+.mainSubTask {
+    width: calc(100% - 16px);    
+    padding: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    position: relative;
+}
+
+.listSubTask {
+    display: flex;
+    flex-direction: column;
+
+    overflow-y: auto;
+    max-height: 25vh;
+}
+
+.mainComment {
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    position: relative;
+    width: calc(100% - 16px);
 }

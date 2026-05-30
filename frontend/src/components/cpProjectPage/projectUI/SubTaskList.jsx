@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import styles from './projectUI.module.css'
 import { useSubTask } from '@/hooks/useSubTask.js'
+import { CircleMinus, CirclePlus } from 'lucide-react'
 
 const SubTaskList = ({ subTasks, task_id, workspace_id }) => {
   //workspace_id, task_id, title, status
@@ -15,12 +16,12 @@ const SubTaskList = ({ subTasks, task_id, workspace_id }) => {
      createSubTask.mutate({workspace_id, task_id, title, status})
   }
   return (
-    <div className="text-sm pl-1.5">
-      <div className='flex space-x-2 items-center'>
-        <span>SubTasks:</span>
+    <div className={styles.mainSubTask}>
+      <div className='flex space-x-2 items-center justify-between '>
+        <span className='font-semibold text-[#64748B]'>SUBTASKS:</span>
         <div className={styles.taskButtonWrapper}>
-          <Button className="bg-white text-black size-0.5"
-                  onClick={() => {setPop(pre => !pre)}}> {pop?"-":"+"} </Button>
+          <Button className="bg-white text-blue-600"
+                  onClick={() => {setPop(pre => !pre)}}> {pop?<CircleMinus />:<CirclePlus />} </Button>
           {pop ? (
             <div className={styles.taskPopup}>
               <span>Create subTask</span>
@@ -39,12 +40,14 @@ const SubTaskList = ({ subTasks, task_id, workspace_id }) => {
           ) : (null)}
         </div>
       </div>
-
-      {subTasks.map(st => (
-        <div key={st.subtask_id}>
-          • {st.title} ({st.status})
-        </div>
-      ))}
+      
+      <div className={styles.listSubTask}>
+        {subTasks.map(st => (
+          <div key={st.subtask_id}>
+            • {st.title} ({st.status})
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

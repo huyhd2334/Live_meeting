@@ -25,17 +25,20 @@ const ProjectItem = ({ project, workspace_id }) => {
   return (
     <div className={styles.mainProject}>
       <div className={styles.headerProject}>
+        <div className='flex flex-row gap-2'>
         <span>Project Name: {project.project_name}</span>
-        <span className="underline">
-          Status: {project.project_status}
+        <span className=" inline-flex items-center justify-center rounded-sm bg-[#2563EB] px-3 py-1 text-xs font-medium tracking-wide text-white ">
+          {project.project_status.toUpperCase()}
         </span>
+        </div>
+
         <div className={styles.taskButtonWrapper}>
-          <Button
-            className="bg-white text-sm px-2 py-1 h-7 text-black"
+          <div
+            className={styles.button}
             onClick={() => setOpenTaskBox(prev => !prev)}
           >
             {openTaskBox ? 'Cancel' : '+ Task'}
-          </Button>
+          </div>
 
           {openTaskBox && (
             <div className={styles.taskPopup}>
