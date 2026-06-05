@@ -10,8 +10,11 @@ import workSpaceRouter from "./routers/routeWorkSpace.js"
 import projectRouter from "./routers/routeProject.js"
 import taskRouter from "./routers/routeTask.js"
 import subTaskRouter from "./routers/routeSubtask.js";
-import taskCommentRouter from "./routers/routeTaskComment.js"
+import taskCommentRouter from "./routers/routeComment.js"
+import routerNLP from "./routers/routeNLP.js";
+
 const app = express()
+
 dotenv.config();
 
 const __dirname = path.resolve();
@@ -41,6 +44,7 @@ app.use("/api/project", protectedRouter, projectRouter)
 app.use("/api/task", protectedRouter, taskRouter)
 app.use("/api/subtask", protectedRouter, subTaskRouter)
 app.use("/api/taskcomment", protectedRouter, taskCommentRouter)
+app.use("/api/nlp/", protectedRouter, routerNLP)
 // private routers
 
 // twilio setup begin

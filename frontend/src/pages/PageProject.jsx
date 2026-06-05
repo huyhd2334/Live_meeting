@@ -1,5 +1,5 @@
 import MainNavigator from '@/components/cpMainNavigator/MainNavigator.jsx'
-import MainProject from '@/components/cpProjectPage/projectUI/MainProject.jsx'
+import MainProject from '@/components/cpProjectPage/MainProject.jsx'
 import { useEffect } from 'react'
 import { useParams, useNavigate } from "react-router-dom"
 import { useLocation } from 'react-router-dom'

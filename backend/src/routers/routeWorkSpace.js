@@ -1,5 +1,5 @@
 import express from "express"
-import { addWorkSpaceMemberControler, createWorkSpaceControler, deleteWorkSpaceControler, getFullControler, getUserWorkSpaceControler, getWorkSpaceProjectControler } from "../controller/workspaceControler.js"
+import { addWorkSpaceMemberControler, createWorkSpaceControler, deleteWorkSpaceControler, getFullControler, getUserWorkSpaceControler, getWorkSpaceProjectControler } from "../controller/workSpaceController.js"
 
 const workSpace = express.Router()
 

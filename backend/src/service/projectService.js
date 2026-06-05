@@ -15,7 +15,9 @@ export const createProjectService = async (data) => {
 
         const user = data.user.user_id
         console.log("user_id", user)
+
         await client.query("BEGIN")
+        
         console.log("checking member")
         const check = await checkMember(client,{workspace_id, user_id: user})
         console.log("check:", check.length)

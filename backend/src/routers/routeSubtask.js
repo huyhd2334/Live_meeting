@@ -1,5 +1,5 @@
 import express from "express"
-import { createSubTaskControler, deleteSubTaskControler, getSubTaskControler } from "../controller/subtaskControler.js"
+import { createSubTaskControler, deleteSubTaskControler, getSubTaskControler } from "../controller/subtaskController.js"
 
 const subTaskRouter = express.Router()
 

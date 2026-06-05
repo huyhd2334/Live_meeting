@@ -1,5 +1,5 @@
 import express from "express"
-import { createTaskCommentControler, deleteTaskCommentControler } from "../controller/taskCommentControler.js"
+import { createTaskCommentControler, deleteTaskCommentControler } from "../controller/taskCommentController.js"
 
 const taskCommentRouter = express.Router()
 

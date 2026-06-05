@@ -16,7 +16,7 @@ const TaskItem = ({ task, project_id, workspace_id }) => {
           <span className="text-sm text-gray-600"> {task.description} </span>
         </div>
       </div>
-      <SubTaskList subTasks={task.subTasks} task_id = {task.task_id} workspace_id={workspace_id}/>
+      <SubTaskList subTasks={task.subTasks} task_id = {task.task_id} workspace_id={workspace_id} description ={task.description} />
       <CommentList comments={task.comments} task_id = {task.task_id} workspace_id={workspace_id}/>
       <AttachmentList attachments={task.attachments} />
     </div>
