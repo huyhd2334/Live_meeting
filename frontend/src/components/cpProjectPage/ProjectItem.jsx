@@ -3,8 +3,10 @@ import styles from './projectUI.module.css'
 import TaskItem from './TaskItem'
 import { useState } from 'react'
 import { useTask } from '@/hooks/useTask.js'
+import { useProject } from '@/hooks/useProject.js'
+import { PanelBottomClose, PanelTopClose, Trash } from 'lucide-react'
 
-const ProjectItem = ({ project, workspace_id }) => {
+const ProjectItem = ({ project, workspace_id, project_id }) => {
   const {createTask} = useTask()
   const [openTaskBox, setOpenTaskBox] = useState(false)
   const [status, setStatus] = useState("todo") // 'todo', 'in_progress','done'
@@ -13,7 +15,9 @@ const ProjectItem = ({ project, workspace_id }) => {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [assigned_to, setAssigned_to] = useState(1)
+  const [show, setShow] = useState(false)
 
+  const {deleteProject} = useProject()
   // task: workspace_id, project_id, title, description, status, priority, deadline, assigned_to
 
   const handleCreateTask = () => {
@@ -21,17 +25,24 @@ const ProjectItem = ({ project, workspace_id }) => {
                         title, description, status, priority,
                         deadline, assigned_to})
     setOpenTaskBox(fasle)
-  }    
+  }
+  
+  const handleDeleteProject = async() => {
+    await deleteProject(project_id)
+  }
+
   return (
     <div className={styles.mainProject}>
-      <div className={styles.headerProject}>
-        <div className='flex flex-row gap-2'>
+      <div className={`${styles.headerProject} ${show ? 'sticky top-0 z-50 bg-white' : ''}`}>
+       <div className='flex flex-row gap-2'>
+        <span>ID: {project_id}</span>
         <span>Project Name: {project.project_name}</span>
         <span className=" inline-flex items-center justify-center rounded-sm bg-[#2563EB] px-3 py-1 text-xs font-medium tracking-wide text-white ">
           {project.project_status.toUpperCase()}
         </span>
         </div>
-
+        
+        <div className='flex flex-row gap-2'>
         <div className={styles.taskButtonWrapper}>
           <div
             className={styles.button}
@@ -78,11 +89,21 @@ const ProjectItem = ({ project, workspace_id }) => {
             </div>
           )}
         </div>
+
+        <div onClick={() => setShow(pre=>!pre)} className={styles.buton}> 
+          {!show?<PanelBottomClose />:<PanelTopClose />} 
+        </div>
+
+        <div onClick={() => handleDeleteProject()} className={styles.buton}> 
+          <Trash />
+        </div>
+        
+        </div>
       </div>
       <div className="flex flex-col gap-4">
-        {project.tasks.map(task => (
+        {show?project.tasks.map(task => (
           <TaskItem key={task.task_id} task={task} project_id={project.project_id} workspace_id={workspace_id}/>
-        ))}
+        )):(null)}
       </div>
     </div>
   )

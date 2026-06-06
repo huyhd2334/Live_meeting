@@ -2,13 +2,24 @@ import styles from './projectUI.module.css'
 import SubTaskList from './SubTaskList'
 import CommentList from './CommentList'
 import AttachmentList from './AttachmentList'
-import { CircleDashed } from 'lucide-react'
+import { CircleDashed, Trash } from 'lucide-react'
+import { useTask } from '@/hooks/useTask.js'
 
 const TaskItem = ({ task, project_id, workspace_id }) => {
+  const {deleteTask} = useTask()
+
+  const handleDeleteTask = async () => {
+    await deleteTask(task.task_id)
+  }
+
   return (
     <div className={styles.task}>
       <div className='flex flex-col items-start'>
-        <span className='flex flex-row gap-1.5 text-xl font-semibold'><CircleDashed />{task.title}</span>
+        <span className='flex flex-row gap-1.5 text-xl font-semibold items-center'><CircleDashed />{task.title} 
+          <div onClick={() => handleDeleteTask()} className={styles.buton}> 
+            <Trash />
+          </div>
+        </span>
         <div className='flex flex-row gap-2 items-center'>
           <span className={task.status === "done" ? styles.statusDone : styles.status}>
             {task.status}

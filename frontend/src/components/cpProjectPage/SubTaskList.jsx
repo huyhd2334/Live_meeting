@@ -29,8 +29,14 @@ const SubTaskList = ({ subTasks, task_id, workspace_id, description }) => {
       <div className='flex space-x-2 items-center justify-between '>
         <span className='font-semibold text-[#64748B]'>SUBTASKS:</span>
         <div className={styles.taskButtonWrapper}>
-          <Button className="bg-white text-blue-600"
-                  onClick={() => {setPop(pre => !pre), handleSuggestTask()}}> {pop?<CircleMinus />:<CirclePlus />} </Button>
+          {!pop?(
+            <Button className="bg-white text-blue-600"
+                  onClick={() => {setPop(pre => !pre), handleSuggestTask()}}> <CirclePlus /> </Button>
+          ):(
+            <Button className="bg-white text-blue-600"
+                  onClick={() => setPop(pre => !pre)}> <CircleMinus /> </Button>
+          )}
+
           {pop ? (
             <div className={styles.taskPopup}>
               <span>Create subTask</span>
@@ -42,7 +48,7 @@ const SubTaskList = ({ subTasks, task_id, workspace_id, description }) => {
               {/* suggest tasks */}
               {sgTasks ?(
                 <div className='flex flex-col'>
-                  <label>--AI suggest tasks--</label>
+                  <label>- -AI suggest tasks- -</label>
                   {sgTasks.map((task, idx) => (
                     <span className='opacity-70 cursor-pointer hover:opacity-100' key={idx} onClick={() => setTitle(task)}>{task}</span>
                   ))}

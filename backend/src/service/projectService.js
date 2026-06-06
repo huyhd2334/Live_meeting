@@ -50,6 +50,7 @@ export const deleteProjectService = async(data) => {
         const role = getRole[0].role
 
         if(!["admin", "manager"].includes(role) && project.created_by != created_by){
+                console.log("No permission")
                 throw new Error("No permission")
         }
         const deleProject = await deleteProject(client, project_id)

@@ -8,3 +8,10 @@ export const createProjectService = async({workspace_id, project_name, descripti
    console.log(result.data)
    return result.data
 }
+
+
+export const deleteProjectService = async(project_id) => {
+    const id = project_id
+    const result = await api.delete(`project/delete/${id}`, { withCredentials: true})
+    return result.data
+}

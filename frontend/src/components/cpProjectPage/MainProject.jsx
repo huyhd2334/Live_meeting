@@ -104,6 +104,7 @@ const MainProject = ({ id, workspace_name }) => {
               tree.map(project => (
                 <ProjectItem
                   key={project.project_id}
+                  project_id={project.project_id}
                   project={project}
                   workspace_id={id}
                 />

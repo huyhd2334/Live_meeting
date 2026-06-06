@@ -1,4 +1,4 @@
-import { createProjectService } from "@/service/projectService.js";
+import { createProjectService, deleteProjectService } from "@/service/projectService.js";
 import { useState } from "react";
 import { toast } from 'sonner'
 import { useMutation } from "@tanstack/react-query";
@@ -15,5 +15,22 @@ export const useProject = () => {
       toast.error("Error when created project")
     }
   }) 
-  return { createProject }
+
+  const deleteProject = async(project_id) => {
+      try{
+        const data = await deleteProjectService(project_id)
+ 
+        if(data.success){
+          console.log("Deleted project", data.project)
+          toast.success("Deleted project")
+          return data.project
+        }else{
+          toast.error("Delete project error")
+          return []
+        }
+      } catch (error) {
+        toast.error("error when delete project")
+        console.error(error)
+  }}
+  return { createProject, deleteProject }
 }

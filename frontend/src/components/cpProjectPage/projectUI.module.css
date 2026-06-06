@@ -17,7 +17,7 @@
     padding: 12px;
     gap: 12px;
     font-size: x-large;
-    font-weight: 550;
+    font-weight: 450;
     justify-content: space-between;
     border-bottom: 1px solid rgb(0, 0, 0, 0.2);
 }
@@ -97,10 +97,9 @@
    align-items: center;
    border: 1px solid #e2e8f0;
    padding: 12px;
-   padding-top: 20px;
    gap: 4px;
    flex-shrink: 0;
-   min-width: 250px;
+   min-width: 40vh;
 }
 
 
@@ -243,4 +242,11 @@
     border-radius: 10px;
     position: relative;
     width: calc(100% - 16px);
+}
+
+.buton {
+    background: #FFFFFF;
+    color: black;
+    cursor: pointer;
+    padding: 6px 0px 6px 6px;
 }

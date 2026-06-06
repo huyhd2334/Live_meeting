@@ -1,4 +1,4 @@
-import { createTaskService, getTaskService } from "@/service/taskService.js"
+import { createTaskService, deleteTaskService, getTaskService } from "@/service/taskService.js"
 import { useState } from "react"
 import { toast } from "sonner"
 import { useMutation } from "@tanstack/react-query" 
@@ -40,5 +40,22 @@ export const useTask = () => {
       }
     });
 
-    return {fetchTaskByProject, createTask, loadingT}
+    const deleteTask = async(task_id) => {
+        try{
+          const data = await deleteTaskService(task_id)
+  
+          if(data.success){
+            console.log("Deleted task", data.task)
+            toast.success("Deleted task")
+            return data.task
+          }else{
+            toast.error("Delete task error")
+            return []
+          }
+        } catch (error) {
+          toast.error("error when delete task")
+          console.error(error)
+    }}
+
+    return {fetchTaskByProject, createTask, deleteTask, loadingT}
 }

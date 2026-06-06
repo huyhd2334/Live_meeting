@@ -9,3 +9,9 @@ export const createTaskService = async({workspace_id, project_id, title, descrip
       const result = await api.post(`task/create`, {workspace_id, project_id, title, description, status, priority, deadline, assigned_to}, {withCredentials: true})
       return result.data
 }
+
+export const deleteTaskService = async(task_id) => {
+    const id = task_id
+    const result = await api.delete(`task/delete/${id}`, { withCredentials: true})
+    return result.data
+}
