@@ -1,5 +1,6 @@
 import { getMeService } from "@/service/authService.js";
 import { createContext, useContext, useEffect, useState } from "react";
+import { socket } from "@/lib/socket.js";
 
 const AuthContext = createContext()
 
@@ -23,6 +24,22 @@ export const AuthProvider = ({ children }) => {
     }
     fetchUser()
   }, [])
+
+  useEffect(() => {
+    if(user){
+        socket.connect()
+        socket.on("connect", () => {
+          console.log("Socket connected:", socket.id)
+        })    
+      }
+
+    return () => {
+      if(socket.connected){
+         socket.disconnect()
+      }
+    }
+
+  }, [user])
 
   const loginContex = (userData) => {
     setUser(userData)
