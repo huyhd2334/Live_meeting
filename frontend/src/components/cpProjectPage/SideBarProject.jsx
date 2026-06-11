@@ -37,10 +37,10 @@ const SideBarProject = ({id, workspace_name}) => {
     <div className={`${styles.sideBar}`}>
       <div className='flex space-x-2 items-center'>
         <h1 className={styles.title}>WorkspaceID: {id}</h1>
-        <Button className="text-[#2563EB] bg-white" onClick={() => handleBack()}>Back</Button>
+        <div className={styles.button} onClick={() => handleBack()}>Back to Home</div>
       </div>
       <label> - {workspace_name} - </label>
-      <div>
+      <div className='border-2 border-gray-300 p-7 rounded-2xl'>
         {create==="none"?(null):(
           <div>
             {create==="project"?(
@@ -67,7 +67,7 @@ const SideBarProject = ({id, workspace_name}) => {
               <option value="archived">archived</option>
             </select>
 
-            <Button className="text-[#2563EB] bg-white border-2 border-[#2563EB]" onClick={() => {handleCreateProject()}}>Comfirm</Button>
+            <Button className="text-[#2563EB] bg-white " onClick={() => {handleCreateProject()}}>Comfirm</Button>
 
             </div>
           ):(

@@ -1,0 +1,72 @@
+.header {
+    font-size: xx-large;
+    font-weight: 500;
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
+
+.sideBar {
+   position: relative;
+   display: flex; 
+   overflow-y: auto;
+   background-color:  #F0F1F1;
+   opacity: 0.95;
+   flex-direction: column;
+   justify-items: center;
+   align-items: center;
+   border: 1px solid #e2e8f0;
+   padding: 12px;
+   gap: 12px;
+   flex-shrink: 0;
+   min-width: 40vh;
+   padding-top: 30px;
+   height: 100vh;
+}
+
+
+.sideBarOption {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    flex-direction: row;
+    color: #000;
+    font-size: medium;
+    font-weight: 500;
+    cursor: pointer;
+    opacity: 1;
+    width: 100%;
+    padding-left: 40px;
+    gap: 12px;
+    align-items: center;
+    height: 50px;
+    border-radius: 12px;
+}
+
+.sideBarOption:hover {
+    opacity: 1;
+    background-color: #C5C6C8;
+}
+
+.chatSite {
+    padding: 32px;
+    background-color: #fff;
+    height: 100vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.messageComposer{
+    display: flex;
+    position: relative;
+    gap: 12px;
+    width: 100%;
+    align-items: center;
+    padding: 12px;
+    margin-bottom: 5vh;
+}
+
+.chatContainer{}
+
+.ChatMessages{}

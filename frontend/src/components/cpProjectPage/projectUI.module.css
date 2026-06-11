@@ -3,7 +3,7 @@
 }
 
 .title {
-    font-size: larger;
+    font-size: x-large;
     font-weight: 500;
 }
 .subTitle {
@@ -97,9 +97,10 @@
    align-items: center;
    border: 1px solid #e2e8f0;
    padding: 12px;
-   gap: 4px;
+   gap: 12px;
    flex-shrink: 0;
    min-width: 40vh;
+   padding-top: 30px;
 }
 
 
@@ -244,9 +245,17 @@
     width: calc(100% - 16px);
 }
 
-.buton {
+.button2 {
     background: #FFFFFF;
     color: black;
     cursor: pointer;
+    padding: 6px;
+
+    display:flex;
     padding: 6px 0px 6px 6px;
+    opacity: 0.6;
+}
+
+.button2:hover {
+    opacity: 1;
 }

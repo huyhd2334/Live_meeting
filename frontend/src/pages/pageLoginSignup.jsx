@@ -1,7 +1,7 @@
 import React from 'react'
 import MainAuth from '@/components/cpAuth/mainAuth.jsx'
 
-const pageLoginSignup = () => {
+const PageLoginSignup = () => {
   return (
     <div className='flex flex-col justify-center items-center min-h-screen'>
       <div className='shadow-xl shadow-gray-400/50 rounded-4xl w-150 h-90 items-center'>
@@ -11,4 +11,4 @@ const pageLoginSignup = () => {
   )
 }
 
-export default pageLoginSignup
+export default PageLoginSignup

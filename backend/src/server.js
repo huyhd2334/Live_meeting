@@ -78,23 +78,3 @@ if (process.env.NODE_ENV === "production") {
 server.listen(process.env.PORT, () => {
   console.log(`Server running at port ${process.env.PORT}`);
 });
-
-
-
-// const AccessToken = twilio.jwt.AccessToken;
-// const VideoGrant = AccessToken.VideoGrant;
-
-// app.get("/api/tokentwilio", (req, res) => {
-//   const identity = req.query.identity || "user" + Math.floor(Math.random() * 1000);
-//   const room = req.query.room || "defaultRoom";
-
-//   const token = new AccessToken(
-//     process.env.TWILIO_ACCOUNT_SID,
-//     process.env.TWILIO_API_KEY,
-//     process.env.TWILIO_API_SECRET,
-//     { identity }
-//   );
-//   token.addGrant(new VideoGrant({ room }));
-//   res.json({ token: token.toJwt(), identity });
-// });
-

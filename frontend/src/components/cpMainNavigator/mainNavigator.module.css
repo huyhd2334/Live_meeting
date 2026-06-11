@@ -6,7 +6,7 @@
    justify-content: space-between;
    align-items: center;
 
-   height: 90px;
+   height: 70px;
    background-color:  #FFFFFF;
    overflow: hidden;
 
@@ -34,10 +34,10 @@
    width: 250px;
 }
 
-.user {
-   background: linear-gradient(to top right, rgb(63, 37, 231), rgb(3, 3, 183));
+.logo {
+   background: linear-gradient(to top right, rgb(41, 39, 39), rgb(0, 0, 0));
    font-size:xx-large;
-   font-weight: 700;
+   font-weight: 650;
    display: flex;
    flex-direction: row;
    -webkit-background-clip:text;
@@ -45,7 +45,7 @@
    gap: 2px;
    justify-items: center;
    align-items: center;
-   height: 80px;
+   height: 60px;
 }
 
 .search {

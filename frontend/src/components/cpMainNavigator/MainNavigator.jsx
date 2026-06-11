@@ -10,8 +10,8 @@ const MainNavigator = () => {
    return (
     <div className={`${styles.mainNavigator}`}>
       <div className='flex flex-row space-x-12 justify-center items-center'>
-       <div className={`${styles.user}`}>
-          <Zap className='w-10 h-10 text-blue-700'/> <a>TECHFLOW</a>
+       <div className={`${styles.logo}`}>
+          <Zap className='w-10 h-10'/> <a>TECHFLOW</a>
        </div>
        <div className={`${styles.search}`}>
           <Search /> 

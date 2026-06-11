@@ -16,7 +16,7 @@ const TaskItem = ({ task, project_id, workspace_id }) => {
     <div className={styles.task}>
       <div className='flex flex-col items-start'>
         <span className='flex flex-row gap-1.5 text-xl font-semibold items-center'><CircleDashed />{task.title} 
-          <div onClick={() => handleDeleteTask()} className={styles.buton}> 
+          <div onClick={() => handleDeleteTask()} className={styles.button2}> 
             <Trash />
           </div>
         </span>

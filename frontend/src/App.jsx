@@ -7,6 +7,7 @@ import ProtectedRoute from "./routes/ProtectedRoute.jsx"
 import GuestRoute from "./routes/GuestRoute.jsx" 
 import { UIProvider } from "./context/UIContext.jsx"
 import PageProject from "./pages/pageProject.jsx"
+import PageRAG from "./Pages/PageRAG.jsx"
 
 function App() {
   return (
@@ -34,6 +35,14 @@ function App() {
                 element = {<UIProvider>
                             <ProtectedRoute>
                                 <PageProject/>
+                            </ProtectedRoute>
+                            </UIProvider>
+                        }/>
+            <Route
+                path = "/project/:id/rag"
+                element = {<UIProvider>
+                            <ProtectedRoute>
+                                <PageRAG/>
                             </ProtectedRoute>
                             </UIProvider>
                         }/>
