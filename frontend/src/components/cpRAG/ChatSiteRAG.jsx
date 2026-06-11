@@ -7,7 +7,7 @@ import { Button } from '../ui/button'
 const ChatSiteRAG = () => {
     const [message, setMessage] = useState("")
 
-    const handelSend = () => {
+    const handleSend = () => {
         toast.info(message)
         setMessage("")
     }
@@ -31,19 +31,22 @@ const handleChange = (e) => {
   return (
     <div className={styles.chatSite}>
        <div className={styles.chatContainer}> Helloooooooo </div>
-       <div className={styles.messageComposer}> 
-          <Button><Paperclip /></Button>
-          <textarea placeholder='Ask anything' 
-                 className='border-none bg-[#F0F1F1] p-2 rounded-2xl flex-1 resize-none overflow-y-auto outline-none'
-                 value={message} 
-                 onChange={handleChange}
-                 onKeyDown={(e) => {
-                  if(e.key == "Enter"){
-                     handelSend()
-                  }
-                 }} 
-                 rows={1}/>
-          <Button><Send /></Button>
+       <div className='flex flex-col mb-12 items-center'>
+            <div className={styles.messageComposer}> 
+                <Button><Paperclip /></Button>
+                <textarea placeholder='Ask anything' 
+                        className='border-none bg-[#F0F1F1] p-2 rounded-2xl flex-1 resize-none overflow-y-auto outline-none'
+                        value={message} 
+                        onChange={handleChange}
+                        onKeyDown={(e) => {
+                        if(e.key == "Enter"){
+                            handleSend()
+                        }
+                        }} 
+                        rows={1}/>
+                <Button><Send /></Button>
+            </div>
+            <span>AI can make mistakes. Check important info</span>
        </div>
     </div>
   )

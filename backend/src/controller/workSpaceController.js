@@ -61,6 +61,7 @@ export const getWorkSpaceProjectControler = async(req, res) => {
 export const getFullControler = async(req, res) => {
     try {
         const result = await getFullService(req)
+        console.log("getFullControler")
         console.log(result)
         res.status(200).json(result)
     } catch (error) {

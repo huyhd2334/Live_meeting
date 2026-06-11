@@ -170,15 +170,20 @@ export const getFullService = async(data) => {
     const client = await pool.connect()
     try {
         const workspace_id = data.params.id
-        const user_id = data.user.user_id
+        const user_id = Number(data.user.user_id)
+        console.log("workspace_id", workspace_id)
+        console.log("user_id", user_id)
 
         await client.query("BEGIN")
         const check = await checkMember(client,{workspace_id, user_id})
         
         if (check.length === 0) {
-           throw new Error("You are not in this workspace")}
-        
+            const err = new Error("You are not in this workspace")
+            err.status = 403
+            throw err
+        }        
         const fullData = await getFull(client, workspace_id)
+        console.log("fullData", fullData)
         await client.query("COMMIT")
 
         return {success: true, message: "got full workspace", data: fullData}

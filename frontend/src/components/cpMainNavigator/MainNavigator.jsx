@@ -4,7 +4,7 @@ import { Plus, Search, Zap } from 'lucide-react'
 import { toast } from 'sonner'
 const MainNavigator = () => {
    const [searchContent, setSearchContent] = useState("")
-   const handelSearch = () => {
+   const handleSearch = () => {
          toast.info(searchContent)
    }
    return (
@@ -20,7 +20,7 @@ const MainNavigator = () => {
                  onChange={(e) => setSearchContent(e.target.value)}
                  onKeyDown={(e) => {
                   if(e.key == "Enter"){
-                     handelSearch()
+                     handleSearch()
                   }
                  }}/>
        </div> 

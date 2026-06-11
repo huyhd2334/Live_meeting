@@ -39,7 +39,7 @@ function App() {
                             </UIProvider>
                         }/>
             <Route
-                path = "/project/:id/rag"
+                path = "/workspace/:workspace_id/project/:project_id/rag-chatbot"
                 element = {<UIProvider>
                             <ProtectedRoute>
                                 <PageRAG/>

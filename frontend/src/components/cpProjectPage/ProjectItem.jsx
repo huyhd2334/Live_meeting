@@ -32,11 +32,20 @@ const ProjectItem = ({ project, workspace_id, project_id }) => {
     await deleteProject(project_id)
   }
   
-  const handleRAG = async() => {
-      if(typeof project_id === "number"){
-         navigate(`/project/${project_id}/rag`, {state: {project_id}})
-      }else{toast.error(`Cannot access rag in this project ${project_id}`)}
+  const handleRAG = async () => {
+    if (!project_id || !workspace_id) {
+      toast.error("Missing ids")
+      return
+    }
+
+    console.log("workspace_id:", workspace_id);
+
+    navigate(
+      `/workspace/${workspace_id}/project/${project_id}/rag-chatbot`,
+      { state: { attachments: project.attachments } }
+    )
   }
+  
   return (
     <div className={styles.mainProject}>
       <div className={`${styles.headerProject} ${show ? 'sticky top-0 z-50 bg-white' : ''}`}>

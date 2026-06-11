@@ -1,7 +1,6 @@
 import styles from './projectUI.module.css'
 import SubTaskList from './SubTaskList'
 import CommentList from './CommentList'
-import AttachmentList from './AttachmentList'
 import { CircleDashed, Trash } from 'lucide-react'
 import { useTask } from '@/hooks/useTask.js'
 
@@ -29,7 +28,6 @@ const TaskItem = ({ task, project_id, workspace_id }) => {
       </div>
       <SubTaskList subTasks={task.subTasks} task_id = {task.task_id} workspace_id={workspace_id} description ={task.description} />
       <CommentList comments={task.comments} task_id = {task.task_id} workspace_id={workspace_id}/>
-      <AttachmentList attachments={task.attachments} />
     </div>
   )
 }

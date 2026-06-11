@@ -11,6 +11,7 @@ import projectRouter from "./routers/routeProject.js"
 import taskRouter from "./routers/routeTask.js"
 import subTaskRouter from "./routers/routeSubtask.js";
 import taskCommentRouter from "./routers/routeComment.js"
+import attachmentRouter from "./routers/routeAttachments.js"
 import routerNLP from "./routers/routeNLP.js";
 import { Server } from "socket.io"
 import http from "http"
@@ -64,6 +65,7 @@ app.use("/api/project", protectedRouter, projectRouter)
 app.use("/api/task", protectedRouter, taskRouter)
 app.use("/api/subtask", protectedRouter, subTaskRouter)
 app.use("/api/taskcomment", protectedRouter, taskCommentRouter)
+app.use("/api/attachment", protectedRouter, attachmentRouter)
 app.use("/api/nlp/", protectedRouter, routerNLP)
 
 if (process.env.NODE_ENV === "production") {

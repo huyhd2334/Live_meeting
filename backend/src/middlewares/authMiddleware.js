@@ -9,12 +9,10 @@ export const protectedRouter = async (req, res, next) => {
       return res.status(401).json({ message: "Access token is required" })
     }
     
-    console.log("AccessToken: ", req.cookies?.accessToken)
     
     let decodedUser
 
     try {
-      console.log("ACCESS_TOKEN_SECRET:", process.env.ACCESS_TOKEN_SECRET)
       decodedUser = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
 
     } catch (err) {
