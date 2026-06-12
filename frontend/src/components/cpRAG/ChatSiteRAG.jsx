@@ -16,6 +16,7 @@ const handleChange = (e) => {
     setMessage(e.target.value);
 
     e.target.style.height = "auto";
+    // e.target.style.backgroundColor = "red"
 
     const maxHeight = 150;
 
@@ -27,7 +28,6 @@ const handleChange = (e) => {
         e.target.style.overflowY = "hidden";
     }
 };
-
   return (
     <div className={styles.chatSite}>
        <div className={styles.chatContainer}> Helloooooooo </div>

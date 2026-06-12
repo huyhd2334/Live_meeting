@@ -1,6 +1,6 @@
 import { toast } from "sonner"
 import { useMutation } from "@tanstack/react-query" 
-import { suggestTaskService } from "@/service/nlpService.js"
+import { suggestTaskService, uploadAttachmentService } from "@/service/nlpService.js"
 
 export const useNLP = () => {    
     const suggestTask = async({workspace_id, description}) => {
@@ -17,6 +17,20 @@ export const useNLP = () => {
         toast.error("error when get suggest task")
       }
     }
-
-    return {suggestTask}
+    
+    const uploadAttachment = async({formData}) => {
+      try {
+        const data = await uploadAttachmentService({formData})
+        if(data.success){
+          toast.success("uploaded attachment")
+          return data
+        }else{
+          toast.error("upload attachment error")
+          return data.success
+        }
+      } catch (error) {
+        toast.error("error when upload attachment")
+      }
+    }
+    return {suggestTask, uploadAttachment}
 }

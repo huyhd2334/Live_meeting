@@ -5,3 +5,9 @@ export const suggestTaskService = async({workspace_id, description}) => {
       console.log(result.data)
       return result.data
 }
+
+export const uploadAttachmentService = async({formData}) => {
+      const result = await api.post(`attachment/upload`, formData, {withCredentials: true})
+      console.log(result.data)
+      return result.data
+}

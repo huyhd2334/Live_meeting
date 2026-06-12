@@ -9,13 +9,6 @@ export const addProjectAttachmentsService = async(data) => {
         const user = data.user.user_id 
         const project_id = data.body.project_id
         const workspace_id = data.body.workspace_id
-
-        console.log("file", file)
-        console.log("project_id", project_id)
-        console.log("workspace_id", workspace_id)
-
-        console.log("BODY:", data.body);
-        console.log("FILE:", data.file);
         
         await client.query("BEGIN")
 

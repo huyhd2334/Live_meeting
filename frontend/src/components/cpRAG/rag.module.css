@@ -20,6 +20,8 @@
    gap: 12px;
    flex-shrink: 0;
    min-width: 40vh;
+   max-width: 40vh;
+
    padding-top: 30px;
    height: 100vh;
 }
@@ -45,6 +47,12 @@
 .sideBarOption:hover {
     opacity: 1;
     background-color: #C5C6C8;
+}
+
+.sideBarOptionContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
 }
 
 .chatSite {
