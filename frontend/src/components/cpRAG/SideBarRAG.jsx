@@ -63,7 +63,7 @@ const SideBarRAG = ({workspace_id, project_id, attachments}) => {
                     style={{ display: "none" }}
                     onChange={handleFileChange}/>
             </div>
-            <div className="flex flex-col max-h-2/3 justify-start pl-13 overflow-y-auto">
+            <div className="flex flex-col max-h-1/3 justify-start pl-13 overflow-y-auto">
                 {attachments?.map((attachment) => (
                     <div key={attachment.attachment_id} className="flex flex-row space-x-2">
                         <input type="checkbox" className="cursor-pointer" 

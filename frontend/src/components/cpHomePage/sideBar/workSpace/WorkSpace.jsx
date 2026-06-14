@@ -68,8 +68,8 @@ const WorkSpace = ({userAccount}) => {
                     <div className='flex flex-row justify-between items-center w-full'>
                       <h1 className={`text-2xl font-semibold`}> WSpace {idx+1} </h1>
                       <div className='flex flex-row space-x-2'>
-                        <Button className='bg-black text-white w-6 h-7' onClick={(e) => {e.stopPropagation(), handleDelete(ws.workspace_id)}}> <Trash2 /> </Button>
-                        <Button className='bg-black text-white w-6 h-7' onClick={(e) => {e.stopPropagation(), setMode("addMember"), setDataWorkSpace({"workspace_id": ws.workspace_id, "workspace_name": ws.workspace_name})}}> 
+                        <Button className='bg-white text-black w-6 h-7' onClick={(e) => {e.stopPropagation(), handleDelete(ws.workspace_id)}}> <Trash2 /> </Button>
+                        <Button className='  bg-white text-black  w-6 h-7' onClick={(e) => {e.stopPropagation(), setMode("addMember"), setDataWorkSpace({"workspace_id": ws.workspace_id, "workspace_name": ws.workspace_name})}}> 
                           <Plus /> 
                         </Button>
                       </div>

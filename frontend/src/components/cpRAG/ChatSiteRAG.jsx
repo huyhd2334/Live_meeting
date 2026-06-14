@@ -3,6 +3,7 @@ import styles from '@/components/cpRAG/rag.module.css'
 import { Paperclip, Send } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '../ui/button'
+import MessageContainer from './MessageContainer.jsx'
 
 const ChatSiteRAG = () => {
     const [message, setMessage] = useState("")
@@ -30,7 +31,7 @@ const handleChange = (e) => {
 };
   return (
     <div className={styles.chatSite}>
-       <div className={styles.chatContainer}> Helloooooooo </div>
+       <MessageContainer></MessageContainer>
        <div className='flex flex-col mb-12 items-center'>
             <div className={styles.messageComposer}> 
                 <Button><Paperclip /></Button>
