@@ -2,6 +2,7 @@ import { addProjectAttachments } from "../models/attachmentsModel.js"
 import pool from "../../config/db.js";
 import { checkMember } from "../models/workSpaceModel.js";
 import { uploadFileToMinio } from "./minioService.js"
+import api from "../lib/axios.js";
 
 export const addProjectAttachmentsService = async(data) => {
     const client = await pool.connect()
@@ -10,14 +11,12 @@ export const addProjectAttachmentsService = async(data) => {
         const user = data.user.user_id 
         const project_id = data.body.project_id
         const workspace_id = data.body.workspace_id
-        
-        console.log("ACCESS:", process.env.ACCESSKEYMINIO);
-        console.log("SECRET:", process.env.SECRETKEYMINIO);
 
         console.log("file: ", file)
 
         const objectName = Date.now() + "-" + file.originalname
-        await uploadFileToMinio("documents-rag", objectName, file.buffer)
+        await uploadFileToMinio("documents-rag", objectName, file.buffer, file.mimetype)
+
         console.log("MINIO UPLOADED:", objectName)
 
         await client.query("BEGIN")
@@ -27,16 +26,17 @@ export const addProjectAttachmentsService = async(data) => {
            throw new Error("You are not in this workspace")}
 
         const newAttachment = await addProjectAttachments( client, {project_id, file_name: file.originalname, file_url: objectName, uploaded_by: user})        
+                
+        console.log({success: true, message: "add project attachment", attachment: newAttachment})
         
-        console.log("newAttachment: ", newAttachment)
-        
+        await api.post("/upload", {bucket_name: "documents-rag", object_name: objectName, file_id: String(newAttachment.attachment_id)})
+
         await client.query("COMMIT")
 
-        console.log({success: true, message: "add project attachment", attachment: newAttachment})
         return {success: true, message: "add project attachment", attachment: newAttachment}
+
         } catch (err) {
             console.error("SERVICE ERROR:", err);
-
             await client.query("ROLLBACK");
             throw err;
         }finally {

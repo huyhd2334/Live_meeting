@@ -1,6 +1,6 @@
 import minioClient from "../../config/minio.js";
 
-export const uploadFileToMinio = async (bucketName, objectName, buffer, mimeType = "application/octet-stream") => {
+export const uploadFileToMinio = async (bucketName, objectName, buffer, mimeType) => {
     
     const exists = await minioClient.bucketExists(bucketName)
     if (!exists) {
