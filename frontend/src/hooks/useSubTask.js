@@ -17,6 +17,7 @@ export const useSubTask = () => {
     onSuccess: (data) => {
       toast.success(data.message)
       console.log(data)
+      return data.subTask
     },
     onError: (error) => {
       toast.error(

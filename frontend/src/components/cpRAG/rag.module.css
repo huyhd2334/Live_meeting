@@ -75,6 +75,27 @@
     padding: 12px;
 }
 
-.messageContainer{}
+.messageContainer{
+    display: flex;
+    position: relative;
+    gap: 12px;
+    width: 100%;
+    padding: 12px;
+    flex-direction: column;
+}
 
-.ChatMessages{}
+.assistantMessage{
+    display: flex;
+    flex-direction: row;
+    width: 25%;
+    justify-content: flex-start;
+}
+
+.userMessage{
+    display: flex;
+    flex-direction: row;
+    width: 25%;
+    justify-content: flex-end;
+}
+
+

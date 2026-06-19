@@ -9,14 +9,23 @@ export const getConverstions = async(client, {user_id}) => {
     return result.rows
 }
 
-export const saveMessage = async (client,{conversation_id, role, content, token_count, model_name, prompt, retrieval_latency_ms, top_k, retrieved_chunks}) => {
+export const saveMessage = async (client,{conversation_id, role, content, token_count, sources}) => {
     const result = await client.query(
-        `INSERT INTO messages (conversation_id,role,content,token_count, model_name, prompt, retrieval_latency_ms, top_k, retrieved_chunks)
-        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
+        `INSERT INTO messages (conversation_id, role, content, token_count, sources)
+        VALUES ($1,$2,$3,$4,$5)
         RETURNING *
-        `,[conversation_id, role, content, token_count, model_name, prompt, retrieval_latency_ms, top_k, retrieved_chunks]
+        `,[conversation_id, role, content, token_count, sources]
     )
 
     return result.rows[0]
 }
 
+export const createConversation = async(client, {user_id, title}) => {
+    const result = await client.query(`INSERT INTO conversations (user_id, title) VALUES ($1,$2) RETURNING *`, [user_id, title])
+    return result.rows[0]
+}
+
+export const checkOwner = async(client,{user_id, conversation_id}) => {
+    const result = await client.query(`SELECT * FROM conversations WHERE user_id=$1 AND conversation_id=$2`, [user_id, conversation_id])
+    return result.rows
+}

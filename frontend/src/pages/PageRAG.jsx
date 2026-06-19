@@ -1,8 +1,8 @@
 import MainNavigator from "@/components/cpMainNavigator/MainNavigator";
-import SideBarRAG from "@/components/cpRAG/SideBarRAG";
-import ChatSiteRAG from "@/components/cpRAG/ChatSiteRAG";
+import SideBarRAG from "@/components/cpRAG/SideBarRAG.jsx";
+import ChatSiteRAG from "@/components/cpRAG/ChatSiteRAG.jsx";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -11,7 +11,10 @@ const PageRAG = () => {
 
   const location = useLocation();
   const attachments = location.state?.attachments || [];
-
+ 
+  const [selectedFiles, setSelectedFiles] = useState([])
+  const [selectedConversations, setSelectedConversations] = useState([])
+  
   useEffect(() => {
     console.log("MOUNT OK:", { project_id, workspace_id });
 
@@ -28,8 +31,15 @@ const PageRAG = () => {
           project_id={project_id}
           workspace_id={workspace_id}
           attachments={attachments}
+          setSelectedFiles={setSelectedFiles}
+          setSelectedConversations={setSelectedConversations}
         />
-        <ChatSiteRAG />
+        <ChatSiteRAG 
+          selectedFiles={selectedFiles} 
+          selectedConversations={selectedConversations} 
+          workspace_id={workspace_id}
+          setSelectedConversations={setSelectedConversations}
+          />
       </div>
     </div>
   );

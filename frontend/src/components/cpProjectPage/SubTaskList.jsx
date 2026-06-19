@@ -21,8 +21,10 @@ const SubTaskList = ({ subTasks, task_id, workspace_id, description }) => {
     setSgTasks(res.tasks)
   }
 
-  const handleCreateSubTask = () => {
-    createSubTask.mutate({workspace_id, task_id, title, status})
+  const handleCreateSubTask = async() => {
+    const result = await createSubTask.mutateAsync({workspace_id, task_id, title, status});
+    const subTask = result.subTask;
+    subTasks.push(subTask)
   }
   return (
     <div className={styles.mainSubTask}>

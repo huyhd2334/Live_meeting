@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from '@/components/cpRAG/rag.module.css'
 import { BotMessageSquare, ClipboardList, Folder, History } from 'lucide-react'
-import api from "@/lib/axios";
-import { toast } from "sonner";
 import { useNLP } from "@/hooks/useNLP";
+import { useChat } from "@/hooks/useChat.js";
 
-const SideBarRAG = ({workspace_id, project_id, attachments}) => {
+const SideBarRAG = ({workspace_id, project_id, attachments, setSelectedFiles, setSelectedConversation}) => {
     const fileInputRef = useRef(null);
-    const [selectedFiles, setSelectedFiles] = useState([])
     const {uploadAttachment} = useNLP()
+    const [conversations, setConversations] = useState([])
+    const {fetchConversations} = useChat()
 
     const handleAddAttach = () => {
         fileInputRef.current.click()
@@ -41,11 +41,15 @@ const SideBarRAG = ({workspace_id, project_id, attachments}) => {
             : [...pre, attachment_id]
           )
     }
-
-    useEffect(() => {
-        console.log("selectedFiles:", selectedFiles)
-    }, [selectedFiles])
     
+    useEffect(() => {
+       const handleFetchConversations = async() => {
+        const res = await fetchConversations({workspace_id});
+        setConversations(res);
+       };
+       handleFetchConversations();
+    }, []);
+
   return (
     <div className={styles.sideBar}>
         <div className={styles.header}>
@@ -67,7 +71,6 @@ const SideBarRAG = ({workspace_id, project_id, attachments}) => {
                 {attachments?.map((attachment) => (
                     <div key={attachment.attachment_id} className="flex flex-row space-x-2">
                         <input type="checkbox" className="cursor-pointer" 
-                               checked={selectedFiles.includes(attachment.attachment_id)}
                                onChange={() => handleSelectFile(attachment.attachment_id)}/>
                         <span className="max-w-[200px] truncate block cursor-pointer" 
                             title={attachment.file_name}>
@@ -82,11 +85,26 @@ const SideBarRAG = ({workspace_id, project_id, attachments}) => {
                     Tasks
                 </span>
             </div>
-            <div className={styles.sideBarOption}>
-                <History />
-                <span>
-                    Chat History
-                </span>
+
+            {/* HISTORY */}
+            <div className="flex flex-col space-y-5">
+                <div className={styles.sideBarOption}>
+                    <History />
+                    <span>
+                        Chat History
+                    </span>
+                </div>
+                
+                <div>
+                {conversations?.map((c) => (
+                    <li
+                    key={c.conversation_id}
+                    onClick={() => setSelectedConversation(c.conversation_id)}
+                    >
+                    {c.title}
+                    </li>
+                ))}
+                </div>
             </div>
         </div>
     </div>
