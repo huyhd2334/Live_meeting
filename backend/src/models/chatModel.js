@@ -1,11 +1,13 @@
 
 export const getMessages = async(client,{conversation_id}) => {
+   console.log("conversation_id =", conversation_id)
+   console.log("type =", typeof conversation_id)
    const result = await client.query(`select * from messages where conversation_id = $1 ORDER BY created_at`, [conversation_id])
    return result.rows
 }
 
 export const getConverstions = async(client, {user_id}) => {
-    const result = await client.query(`select * from conversations WHERE user_id = $1`, [user_id])
+    const result = await client.query(`select * from conversations WHERE user_id = $1 ORDER BY created_at DESC`, [user_id])
     return result.rows
 }
 

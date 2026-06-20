@@ -2,13 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from '@/components/cpRAG/rag.module.css'
 import { BotMessageSquare, ClipboardList, Folder, History } from 'lucide-react'
 import { useNLP } from "@/hooks/useNLP";
-import { useChat } from "@/hooks/useChat.js";
+import { Button } from "../ui/button";
 
-const SideBarRAG = ({workspace_id, project_id, attachments, setSelectedFiles, setSelectedConversation}) => {
+const SideBarRAG = ({workspace_id, project_id, attachments, setSelectedFiles, setSelectedConversation, conversations}) => {
     const fileInputRef = useRef(null);
     const {uploadAttachment} = useNLP()
-    const [conversations, setConversations] = useState([])
-    const {fetchConversations} = useChat()
 
     const handleAddAttach = () => {
         fileInputRef.current.click()
@@ -41,14 +39,6 @@ const SideBarRAG = ({workspace_id, project_id, attachments, setSelectedFiles, se
             : [...pre, attachment_id]
           )
     }
-    
-    useEffect(() => {
-       const handleFetchConversations = async() => {
-        const res = await fetchConversations({workspace_id});
-        setConversations(res);
-       };
-       handleFetchConversations();
-    }, []);
 
   return (
     <div className={styles.sideBar}>
@@ -67,7 +57,7 @@ const SideBarRAG = ({workspace_id, project_id, attachments, setSelectedFiles, se
                     style={{ display: "none" }}
                     onChange={handleFileChange}/>
             </div>
-            <div className="flex flex-col max-h-1/3 justify-start pl-13 overflow-y-auto">
+            <div className="flex flex-col max-h-3/5 justify-start pl-10 overflow-y-auto">
                 {attachments?.map((attachment) => (
                     <div key={attachment.attachment_id} className="flex flex-row space-x-2">
                         <input type="checkbox" className="cursor-pointer" 
@@ -87,7 +77,7 @@ const SideBarRAG = ({workspace_id, project_id, attachments, setSelectedFiles, se
             </div>
 
             {/* HISTORY */}
-            <div className="flex flex-col space-y-5">
+            <div className="flex flex-col space-y-5 max-h-50 ">
                 <div className={styles.sideBarOption}>
                     <History />
                     <span>
@@ -95,14 +85,14 @@ const SideBarRAG = ({workspace_id, project_id, attachments, setSelectedFiles, se
                     </span>
                 </div>
                 
-                <div>
+                <div className="flex flex-col space-y-3 overflow-y-auto">
                 {conversations?.map((c) => (
-                    <li
+                    <Button
                     key={c.conversation_id}
-                    onClick={() => setSelectedConversation(c.conversation_id)}
+                    onClick={() => {console.log("clicked", c.conversation_id); setSelectedConversation(c.conversation_id)}}
                     >
                     {c.title}
-                    </li>
+                    </Button>
                 ))}
                 </div>
             </div>

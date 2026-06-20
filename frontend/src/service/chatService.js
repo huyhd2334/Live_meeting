@@ -1,7 +1,7 @@
 import api from "@/lib/axios"
 
 export const getMessagesService = async({workspace_id, conversation_id}) => {
-      const result = await api.get(`/chat/message/${conversation_id}/${workspace_id}`, {withCredentials: true})
+      const result = await api.get(`/chat/messages/${conversation_id}/${workspace_id}`, {withCredentials: true})
       console.log(result.data)
       return result.data
 }

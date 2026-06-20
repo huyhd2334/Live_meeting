@@ -7,7 +7,7 @@ export const getMessagesService = async(data) => {
     const client = await pool.connect()
     try {
         const user = data.user.user_id 
-        const conversation_id = data.params.conversation_id
+        const conversation_id = Number(data.params.conversation_id)
         const workspace_id = data.params.workspace_id
 
         await client.query("BEGIN")
@@ -202,8 +202,9 @@ export const createConversationService = async(data) => {
         
         const workspace_id = data.params.workspace_id
         const user_id = data.user.user_id
-        const title = data.body
-
+        const title = data.body.title
+        
+        console.log("title", title)
         await client.query("BEGIN")
         const check = await checkMember(client, {workspace_id, user_id})
 

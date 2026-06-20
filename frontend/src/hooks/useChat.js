@@ -20,7 +20,7 @@ export const useChat = () => {
       try {
         const data = await getMessagesService({workspace_id, conversation_id})
         if(data.success){
-          return data
+          return data.messages
         }else{
           return data.success   
         }

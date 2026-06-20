@@ -5,32 +5,46 @@ import { Button } from '../ui/button'
 import MessageContainer from './MessageContainer.jsx'
 import { useChat } from '@/hooks/useChat.js'
 
-const ChatSiteRAG = ({selectedFiles, setSelectedConversations, selectedConversations, workspace_id}) => {
+const ChatSiteRAG = ({selectedFiles, setSelectedConversation, selectedConversation, workspace_id, setConversations}) => {
     const {sendMessage, fetchMessages, createConversation} = useChat()
     const [conversationMessages, setConversationMessages] = useState([])
     const [message, setMessage] = useState("")
     
     const handleSend = async() => {
-        if(!selectedConversations){
-            const con = await createConversation({workspace_id, message})
-            const conversation_id = con.conversation_id
+        console.log("selectedConversation =", selectedConversation)
+        if(!selectedConversation){
 
-            setSelectedConversations(con.conversation_id)
+            const con = await createConversation({workspace_id, title: message})
+            console.log("new conversation =", con);
+            setConversations(pre => [con, ...pre])
+            const conversation_id = con.conversation_id
+            setSelectedConversation(con.conversation_id)
+
             const res = await sendMessage({conversation_id: conversation_id, query: message, documents: selectedFiles, workspace_id})
-            // setConversationMessages(pre => [...pre, res.userMessage, res.ragMessage])
+            setConversationMessages([res.userMessage, res.ragMessage])
+            console.log(res)
+            setMessage("")
         }else{
-            const res = await sendMessage({conversation_id: selectedConversations, query: message, documents: selectedFiles, workspace_id})
-            // setConversationMessages(pre => [...pre, res.userMessage, res.ragMessage])
+            const res = await sendMessage({conversation_id: selectedConversation, query: message, documents: selectedFiles, workspace_id})
+            console.log("userMessage:", res.userMessage)
+            console.log("ragMessage:", res.ragMessage)
+            setConversationMessages(pre => [...pre, res.userMessage, res.ragMessage])
+            setMessage("")
       }
     }
     
     useEffect(() => {
+        console.log("selectedConversation =", selectedConversation)
        const fetchConversationMessages = async() => {
-            const res  = await fetchMessages({conversation_id: selectedConversations, workspace_id})
+            if (!selectedConversation) return;
+            console.log(selectedConversation)
+            const res  = await fetchMessages({conversation_id: Number(selectedConversation), workspace_id})
+            console.log(res)
+
             setConversationMessages(res)
        };
        fetchConversationMessages()
-    },[selectedConversations])
+    },[selectedConversation])
 
     const handleChange = (e) => {
         setMessage(e.target.value);
@@ -49,19 +63,11 @@ const ChatSiteRAG = ({selectedFiles, setSelectedConversations, selectedConversat
         }
     };
   return (
-    <div className={styles.chatSite}>
-       <MessageContainer></MessageContainer>
-       <div className='flex flex-col mb-12 items-center'>
-            <div>
-               {conversationMessages?.map((msg) => {
-                  msg.role === "user"?(
-                    <div className={styles.userMessage}>{msg.content}</div>
-                  ):(
-                    <div className={styles.assistantMessage}>{msg.content}</div>
-                  )
-               })}
-            </div>
+    <div className={styles.chatSite}> 
 
+       {/* Messages */}
+       <MessageContainer conversationMessages={conversationMessages}/>   
+       <div className='flex flex-col mb-12 items-center'>
             <div className={styles.messageComposer}> 
                 <Button><Paperclip /></Button>
                 <textarea placeholder='Ask anything' 

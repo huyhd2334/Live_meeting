@@ -5,22 +5,35 @@ import ChatSiteRAG from "@/components/cpRAG/ChatSiteRAG.jsx";
 import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { toast } from "sonner";
+import { useChat } from "@/hooks/useChat.js";
 
 const PageRAG = () => {
+  console.log("PageRAG render");
   const { workspace_id, project_id } = useParams();
+  const {fetchConversations} = useChat()
+  const [conversations, setConversations] = useState([])
 
   const location = useLocation();
   const attachments = location.state?.attachments || [];
  
   const [selectedFiles, setSelectedFiles] = useState([])
-  const [selectedConversations, setSelectedConversations] = useState([])
-  
+  const [selectedConversation, setSelectedConversation] = useState(null)
+
   useEffect(() => {
     console.log("MOUNT OK:", { project_id, workspace_id });
 
     if (workspace_id && project_id) {
       toast.info(`workspace: ${workspace_id}, project: ${project_id}`);
     }
+  }, []);
+
+  useEffect(() => {
+      const handleFetchConversations = async() => {
+      const res = await fetchConversations({workspace_id});
+      setConversations(res);
+      console.log("Conversations: ", res)
+      };
+      handleFetchConversations();
   }, []);
 
   return (
@@ -32,13 +45,15 @@ const PageRAG = () => {
           workspace_id={workspace_id}
           attachments={attachments}
           setSelectedFiles={setSelectedFiles}
-          setSelectedConversations={setSelectedConversations}
+          setSelectedConversation={setSelectedConversation}
+          conversations={conversations}
         />
         <ChatSiteRAG 
           selectedFiles={selectedFiles} 
-          selectedConversations={selectedConversations} 
+          selectedConversation={selectedConversation} 
           workspace_id={workspace_id}
-          setSelectedConversations={setSelectedConversations}
+          setSelectedConversation={setSelectedConversation}
+          setConversations={setConversations}
           />
       </div>
     </div>
