@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from '@/components/cpRAG/rag.module.css'
-import { Paperclip, Send } from 'lucide-react'
+import { BotMessageSquare, Paperclip, Send } from 'lucide-react'
 import { Button } from '../ui/button'
 import MessageContainer from './MessageContainer.jsx'
 import { useChat } from '@/hooks/useChat.js'
@@ -64,10 +64,13 @@ const ChatSiteRAG = ({selectedFiles, setSelectedConversation, selectedConversati
     };
   return (
     <div className={styles.chatSite}> 
-
+        {/* Logo */}
+        <div className={styles.header}>
+            RAG Retrive <BotMessageSquare size={40} />
+        </div>
        {/* Messages */}
        <MessageContainer conversationMessages={conversationMessages}/>   
-       <div className='flex flex-col mb-12 items-center'>
+       <div className='flex flex-col mb-16 items-center'>
             <div className={styles.messageComposer}> 
                 <Button><Paperclip /></Button>
                 <textarea placeholder='Ask anything' 

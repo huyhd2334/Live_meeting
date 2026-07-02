@@ -1,86 +1,111 @@
-import React, { useState } from 'react'
-import { Button } from '../ui/button'
-import { toast } from 'sonner'
-import { useAuth } from '@/hooks/useAuth.js'
+import React, { useState } from "react";
+import { Button } from "../ui/button";
+import { useAuth } from "@/hooks/useAuth";
+import { AnimatePresence, motion } from "framer-motion";
 
-const mainAuth = () => {
-  const [userName, setUserName] = useState("")
-  const [accountName, setAccountName] = useState("")
-  const [passW, setPassW] = useState("")
-  const [showSignup, setShowSignup] = useState(false)
+const MainAuth = () => {
+  const [userName, setUserName] = useState("");
+  const [accountName, setAccountName] = useState("");
+  const [passW, setPassW] = useState("");
+  const [showSignup, setShowSignup] = useState(false);
+
   const { login, signup } = useAuth();
 
   const handleLogin = () => {
     login(accountName, passW);
-  }
+  };
 
   const handleSignup = () => {
     signup(userName, accountName, passW);
-  }
-  
+  };
+
   return (
-    <div>
-      {!showSignup 
-      ?
-      <div className='flex flex-row items-center space-x-5 w-150 h-90 overflow-hidden'>
-      <div className={`flex flex-col justify-items-start items-center space-y-4 w-[250px] h-[300px] translate-x-2 mt-16 bg-cover bg-center transform opacity-100 -translate-x-5 transition-all ease-in-out duration-500 delay-100}`}>
-        <span className='text-2xl font-bold text-gray-700'> WELLCOME BACK </span>
-        <input id="useraccount" type="text" 
-               className='bg-gray-200 rounded-lg h-8 pl-2'
-               placeholder='user account'
-               value={accountName}
-               onChange={(e) => setAccountName(e.target.value)}/>
-        <input id="userpassword" type="text" 
-               className='bg-gray-200 rounded-lg h-8 pl-2'
-               placeholder='passwords'
-               value={passW}
-               onChange={(e) => setPassW(e.target.value)}/>
-        <Button className="w-[150px] h-7 text-white font-semibold text-sm" onClick={handleLogin}> Login </Button>
+    <div className="flex flex-col lg:flex-row w-full min-h-[450px] overflow-hidden rounded-3xl shadow-2xl">
+      
+          {/* Form */}
+          <div className={`flex flex-col relative w-full lg:w-1/2 justify-center items-center p-8 bg-white relative `}>
+            <div className={`flex flex-col ${showSignup?"translate-y-10":"translate-y-[150vw]"} transition-all duration-700 absolute inset-0 p-12 w-full gap-6`}>
+              <h1 className="text-xl font-semibold self-center"> Sign Up </h1>
+              <input
+                type="text"
+                placeholder="User Name"
+                className="w-full h-11 rounded-lg  px-3 border-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-blue-500"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+              />
+              <input
+                  type="password"
+                  placeholder="Password"
+                  className="w-full h-11 rounded-lg  px-3 border-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-blue-500"
+                  value={passW}
+                  onChange={(e) => setPassW(e.target.value)}
+                />
+              <Button onClick={() => handleSignup()} className="bg-blue-700"> 
+                  Sign Up !
+              </Button>
+            </div>       
+
+            <div className={`flex flex-col ${!showSignup?"translate-y-5":"translate-y-[150vw]"} transition-all duration-700 absolute inset-0 p-12 w-full gap-6`}>
+                <h1 className="text-xl font-semibold self-center"> Welcome Back! </h1>
+                <span> Please enter your information to log in.</span>
+                <input
+                  type="text"
+                  placeholder="User Account"
+                  className="w-full h-11 rounded-lg  px-3 border-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-blue-500"
+                  value={accountName}
+                  onChange={(e) => setAccountName(e.target.value)}
+                />
+
+                <input
+                  type="password"
+                  placeholder="Password"
+                  className="w-full h-11 rounded-lg  px-3 border-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-blue-500"
+                  value={passW}
+                  onChange={(e) => setPassW(e.target.value)}
+                />
+
+              <Button onClick={() => handleLogin()} className="bg-blue-700"> 
+                  Login !
+              </Button>
+            </div>
+          </div>
+
+      {/* RIGHT PANEL */}
+      <div
+        className={`relative w-full lg:w-1/2 min-h-[280px] lg:min-h-full bg-cover bg-center position`}
+        style={{
+          backgroundImage: "url('/bg_login.jpg')",
+        }}
+      >
+        <div className={`absolute inset-0 flex flex-col justify-center items-center text-white px-6`}>
+            <AnimatePresence mode="wait">
+                <motion.div
+                  key={showSignup ? "signup" : "login"}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.35 }}
+                  className="flex flex-col items-center gap-6"
+                >
+                  <h1 className="text-5xl font-bold">
+                    {showSignup ? "HELLO" : "WELCOME"}
+                  </h1>
+
+                  <p className="mt-2 text-center">
+                    {showSignup
+                      ? "Already have an account?"
+                      : "Is this your first time visiting my website?"}
+                  </p>
+
+                  <Button onClick={() => setShowSignup(pre => !pre)} className="bg-white opacity-70 text-black">
+                     {showSignup? "LOGIN":"SIGN UP"}
+                  </Button>
+                </motion.div>
+              </AnimatePresence>
+        </div>
       </div>
-      <div className="relative w-100 h-full rounded-4xl bg-cover bg-center bg-cover bg-center transform transition-transform duration-500 ease-in-out translate-x-0 delay-100" 
-          style={{ backgroundImage: "url('/bg_login.jpg')" }}>
-        <h1 className="absolute inset-0 flex items-center justify-center text-white text-3xl font-bold">
-          <Button className="w-40 h-15 absolute top-[170px] left-[50px] left-24 bg-transparent text-white hover:opacity-100 text-lg" onClick={() => {setShowSignup(pre => !pre)}}>"SIGNUP NOW"</Button>
-        </h1>
-        <h1 className='absolute flex top-10 left-22 items-center justify-center text-white text-6xl font-bold'>HELLO</h1>
-        <a className='absolute top-30 left-10 flex items-center justify-center text-white text-sm font-semibold'>
-           Is this your first time visiting my website?
-        </a>
-      </div>
-      </div>
-      :
-      <div className='flex flex-row items-center space-x-5 w-150 h-90'>
-      <div className='flex flex-col justify-items-start items-center space-y-3 w-[250px] h-[300px] transform -translate-x-2 mt-16 bg-cover bg-center transform transition-transform duration-500 ease-in-out translate-x-90 delay-75'>
-        <span className='text-4xl font-bold text-gray-700'> Hello ✨</span>
-        <input id="username" type="text" 
-               className='bg-gray-200 rounded-lg h-8 pl-2'
-               placeholder='user name'
-               value={userName}
-               onChange={(e) => setUserName(e.target.value)}/>
-        <input id="useraccount" type="text" 
-               className='bg-gray-200 rounded-lg h-8 pl-2'
-               placeholder='user account'
-               value={accountName}
-               onChange={(e) => setAccountName(e.target.value)}/>
-        <input id="userpassword" type="text" 
-               className='bg-gray-200 rounded-lg h-8 pl-2'
-               placeholder='passwords'
-               value={passW}
-               onChange={(e) => setPassW(e.target.value)}/>
-        <Button className="w-[150px] h-7 text-white font-semibold text-sm" onClick={handleSignup}> Sign Up </Button>
-      </div>
-      <div className="relative w-100 h-full rounded-4xl bg-cover bg-center transform transition-transform duration-500 ease-in-out -translate-x-62 delay-75" style={{ backgroundImage: "url('/bg_login.jpg')" }}>
-        <h1 className="absolute inset-0 flex items-center justify-center text-white text-3xl font-bold">
-          <Button className="w-40 h-15 absolute top-[170px] left-[50px] left-24 bg-transparent text-white hover:opacity-100 text-lg" onClick={() => {setShowSignup(pre => !pre)}}>"SIGNUP NOW"</Button>
-        </h1>
-        <h1 className='absolute flex top-10 left-22 items-center justify-center text-white text-6xl font-bold'>HELLO</h1>
-        <a className='absolute top-30 left-10 flex items-center justify-center text-white text-sm font-semibold'>
-           Is this your first time visiting my website?
-        </a>
-      </div>
-      </div>
-    }
     </div>
-  )
-}
-export default mainAuth
+  );
+};
+
+export default MainAuth;

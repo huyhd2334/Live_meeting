@@ -51,7 +51,7 @@ body {
 
 .activate{
     opacity: 1;
-    background: #c8ddf0;
+    background: #e9eef1;
     color: black;
 }
 
@@ -130,13 +130,8 @@ body {
     border: 1px solid #dee2eb;
     gap: 12px;
     justify-content: center;
-    cursor: pointer;
     position: static;
     margin-top: 42vh;
-}
-
-.stars {
-    border: 2px solid black;
 }
 
 .buttonLogOut {

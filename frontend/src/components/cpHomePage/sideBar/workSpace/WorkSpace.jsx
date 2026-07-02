@@ -3,7 +3,7 @@ import styles from '../subSideBar.module.css'
 import { useWorkSpace } from '@/hooks/useWorkSpace'
 import CreateWSInterFace from './CreateWSInterFace.jsx'
 import { Button } from '@/components/ui/button'
-import { Plus, Trash2 } from 'lucide-react'
+import { Plus, Target, Trash2, Waypoints } from 'lucide-react'
 import AddMemberWSInterFace from './AddMemberWSInterFace'
 import { useNavigate } from 'react-router'
 import { toast } from 'sonner'
@@ -43,15 +43,15 @@ const WorkSpace = ({userAccount}) => {
     contentUI = <AddMemberWSInterFace setMode={setMode} dataWorkSpace={dataWorkSpace}/>
   }
   return (
-    <div className='flex flex-col space-y-2'>
+    <div className='flex flex-col space-y-4 p-5 pt-0'>
        <div className={styles.headerContainer}>
-           <div className='space-x-4'>
-              <span className={styles.headerTitle}>Your Work Spaces</span>
+           <div className='space-x-4 flex flex-row items-center'>
+              <span className={styles.headerTitle}> <Waypoints className='text-blue-600' size={45} /> Your Work Spaces</span>
               <div className={styles.button} onClick={() => setMode(pre => pre === "create" ? "view" : "create")}> 
                 {mode === "create" ? "Cancel Process" : "+ New WorkSpace"} 
               </div>
            </div>
-           <span className={styles.headerText}> OverView </span>
+           <span className={styles.headerText}> OverView <Target className="text-[#5e6165]" size={40}/></span>
        </div>
 
        <div className={styles.mainContainer}>
@@ -66,7 +66,7 @@ const WorkSpace = ({userAccount}) => {
                   { ws.role === "admin" ?
                   (
                     <div className='flex flex-row justify-between items-center w-full'>
-                      <h1 className={`text-2xl font-semibold`}> WSpace {idx+1} </h1>
+                      <h1 className={`text-2xl font-semibold text-blue-500`}> WSpace {idx+1} </h1>
                       <div className='flex flex-row space-x-2'>
                         <Button className='bg-white text-black w-6 h-7' onClick={(e) => {e.stopPropagation(), handleDelete(ws.workspace_id)}}> <Trash2 /> </Button>
                         <Button className='  bg-white text-black  w-6 h-7' onClick={(e) => {e.stopPropagation(), setMode("addMember"), setDataWorkSpace({"workspace_id": ws.workspace_id, "workspace_name": ws.workspace_name})}}> 
@@ -75,7 +75,7 @@ const WorkSpace = ({userAccount}) => {
                       </div>
                     </div>
                   ): (
-                    <h1 className={`text-2xl font-semibold ${styles.highlightTitle}`}> WSpace {idx+1} </h1>)}
+                    <h1 className={`text-2xl font-semibold text-blue-500 ${styles.highlightTitle}`}> WSpace {idx+1} </h1>)}
                     <span className={`${styles.widgetTitle} ${styles.highlight}`}> Name: {ws.workspace_name} </span>
                     <span className={`${styles.highlight}`}> ID {ws.workspace_id} </span>
                     <span className={`${styles.highlight}`}> Role {ws.role} </span>

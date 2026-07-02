@@ -38,8 +38,7 @@ const MainSideBar = ({userAccount}) => {
         <Settings size={30}/> <span>Setting</span>
       </div>
 
-    <div className={`${styles.profileContainer} ${option === "user" ? styles.stars : ""}` } 
-         onClick={() => setOption("user")}>
+    <div className={`${styles.profileContainer} ${option === "user" ? "" : ""}` }>
        <div>
           <CircleUser size={36} />
        </div>

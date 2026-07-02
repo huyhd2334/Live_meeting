@@ -4,10 +4,8 @@ import { useAuthContext } from '@/context/AuthContext'
 import { Button } from '@/components/ui/button'
 import { useProject } from '@/hooks/useProject.js'
 import { useState } from 'react'
-import { useNavigate } from 'react-router'
 
 const SideBarProject = ({id, workspace_name}) => {
-  const navigator = useNavigate()
 
   const str = localStorage.getItem("userAccount") || JSON.stringify({name: "guest"})
   const userAccount = JSON.parse(str)
@@ -29,18 +27,13 @@ const SideBarProject = ({id, workspace_name}) => {
     createProject.mutate({workspace_id:id, project_name, description, status}) 
   }
   
-  const handleBack = () => {
-    navigator("/homepage")
-  }
-
   return (
     <div className={`${styles.sideBar}`}>
-      <div className='flex space-x-2 items-center'>
+      <div className='flex flex-col space-x-2 items-center'>
         <h1 className={styles.title}>WorkspaceID: {id}</h1>
-        <div className={styles.button} onClick={() => handleBack()}>Back to Home</div>
       </div>
       <label> - {workspace_name} - </label>
-      <div className='border-2 border-gray-300 p-7 rounded-2xl'>
+      <div className='border border-gray-300 p-4 rounded-lg'>
         {create==="none"?(null):(
           <div>
             {create==="project"?(
@@ -57,16 +50,18 @@ const SideBarProject = ({id, workspace_name}) => {
                    onChange={(e) => setDescription(e.target.value)}/> 
             
             {/* 'active', 'completed', 'archived' */}
-            <label> Status: </label> 
-            <select
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-            >
-              <option value="active">active</option>
-              <option value="completed">completed</option>
-              <option value="archived">archived</option>
-            </select>
-
+            <div className='flex flex-row space-x-4'>
+              <label> Status: </label> 
+              <select
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+              >
+                <option value="active">active</option>
+                <option value="completed">completed</option>
+                <option value="archived">archived</option>
+              </select>
+            </div>
+            
             <Button className="text-[#2563EB] bg-white " onClick={() => {handleCreateProject()}}>Comfirm</Button>
 
             </div>

@@ -6,7 +6,7 @@
    justify-content: space-between;
    align-items: center;
 
-   height: 70px;
+   height: 85px;
    background-color:  #FFFFFF;
    overflow: hidden;
 
@@ -28,7 +28,6 @@
    display: flex;
    flex-direction: column;
    gap: 4px;
-   color: #000;
    font-weight: 600;
    font-size: large;  
    width: 250px;
@@ -46,6 +45,7 @@
    justify-items: center;
    align-items: center;
    height: 60px;
+   color: #3B82F6;
 }
 
 .search {
@@ -69,21 +69,25 @@
 }
 
 .button {
-    background: #3B82F6;
-    color:white;
-    font-size: large;
+    font-size: medium;
     font-weight: 500;
-    text-align: center;
     cursor: pointer;
-    border-radius: 15px;
-    padding: 14px;
-    display: flex;
-    flex-direction: row;
-    justify-items: center;
-    align-items: center;
+    position: relative;
+    padding: 6px 0px 6px 6px;
+    color: #2563EB;
 }
 
-.button:hover{
-    background-color: white;
-    color:#3B82F6;
+.button::after {
+    content: "";
+    width: 0;
+    height: 4px;
+    background-color: #2563EB;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    transition: width 0.5s;
+}
+
+.button:hover::after {
+    width: 100%;
 }

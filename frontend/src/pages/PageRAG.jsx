@@ -46,6 +46,7 @@ const PageRAG = () => {
           attachments={attachments}
           setSelectedFiles={setSelectedFiles}
           setSelectedConversation={setSelectedConversation}
+          selectedConversation={selectedConversation} 
           conversations={conversations}
         />
         <ChatSiteRAG 

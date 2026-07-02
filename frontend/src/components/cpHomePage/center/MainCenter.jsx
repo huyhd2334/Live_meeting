@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import styles from '../homePage.module.css'
 import CenterContentControler from './CenterContentControler.jsx'
-import RightPanel from '../rightPanel/MainRightPanel.jsx'
 import SideBar from '../sideBar/MainSideBar.jsx'
 import { useUIContext } from '@/context/UIContext.jsx'
 
@@ -11,7 +9,6 @@ const MainCenter = ({userAccount}) => {
     <div className={`${styles.layOut} ${option === "dashboard" ? "" : styles.expandMain}`}>
         <SideBar userAccount = {userAccount}/>
         <CenterContentControler userAccount = {userAccount}/>
-        <RightPanel/>
     </div>
   )
 }
