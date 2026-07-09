@@ -18,13 +18,6 @@ const MainSideBar = ({userAccount}) => {
       </div>
 
       <div
-        className={`${styles.sideBarOption} ${option === "meeting" ? styles.activate : ""}`}
-        // onClick={() => setOption("meeting")}
-      >
-        <Video size={30}/> <span>Meeting</span>
-      </div>
-
-      <div
         className={`${styles.sideBarOption} ${option === "workspace" ? styles.activate : ""}`}
         onClick={() => setOption("workspace")}
       >

@@ -138,7 +138,7 @@ const MainAuth = () => {
         className="relative w-full lg:w-1/2 min-h-[300px] lg:min-h-full bg-cover bg-center"
         style={{ backgroundImage: "url('/bg_login.jpg')" }}
       >
-        <div className="absolute inset-0 flex flex-col justify-center items-center text-white px-6 bg-black/30">
+        <div className="absolute inset-0 flex flex-col justify-center items-center text-white px-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={showSignup ? "signup-txt" : "login-txt"}

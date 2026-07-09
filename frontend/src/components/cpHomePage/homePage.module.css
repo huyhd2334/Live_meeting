@@ -1,153 +1,170 @@
+* {
+  box-sizing: border-box; 
+}
+
 body {
   margin: 0;
   overflow: hidden;
+  height: 100vh;
+  width: 100vw;
 }
 
 .layOut {
-   height: 100vh;
-   display: flex;
-}
-
-.SideBar {
-   position: relative;
-   display: flex; 
-   overflow-y: auto;
-   background-color:  #FFFFFF;
-   opacity: 0.95;
-   flex-direction: column;
-   justify-items: center;
-   align-items: center;
-   border: 1px solid #e2e8f0;
-   padding: 12px;
-   padding-top: 20px;
-   gap: 4px;
-   flex-shrink: 0;
-   min-width: 40vh;
-   min-height: 100vh;
-}
-
-
-.sideBarOption {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    display: flex;
-    flex-direction: row;
-    color: #475569;
-    font-size: medium;
-    font-weight: 500;
-    cursor: pointer;
-    opacity: 1;
-    width: 100%;
-    padding-left: 40px;
-    gap: 12px;
-    align-items: center;
-    height: 50px;
-    border-radius: 12px;
-}
-
-.sideBarOption:hover {
-    opacity: 1;
-    background-color: #eef1f4;
-}
-
-.activate{
-    opacity: 1;
-    background: #e9eef1;
-    color: black;
-}
-
-
-.RightPanel {
-    flex:1.5;
-    overflow-y: auto;
-    background-color:  #FFFFFF;
-    opacity: 0.95;
-    flex-direction: column;
-    align-items: center;
-    justify-items: start;
-    padding: 16px;
-    border: 1px solid #e2e8f0;
-}
-
-.chatContainer {
-    display: flex;
-    flex-direction: column;
-    padding-top: 18px;
-    width: 100%;
-}
-
-.friendChat {
-    display: flex;
-    flex-direction: column;
-    color: black;
-    font-size: larger;
-    font-weight: 400;
-    width: 100%;
-    padding: 12px;
-    cursor: pointer;
-    opacity: 0.8;
-}
-
-.chat {
-    display: flex;
-    flex-direction: row;
-    color: black;
-    font-size: medium;
-    font-weight: 400;
-}
-
-.friendChat:hover{
-    opacity: 1;
-    background-color: #eef1f4;
-    border-radius: 15px;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  overflow: hidden; 
 }
 
 .MainContent {
-    flex:4.5;
-    overflow-y: auto;
-    background-color: #F8FAFC;
-    border: 1px solid #e2e8f0;
-    padding: 24px;
+  flex: 4.5;
+  background-color: #F8FAFC;
+  border: 1px solid #e2e8f0;
+  
+  height: 100% !important;     
+  min-height: 0 !important;    
+  min-width: 0;                
+  overflow-y: auto !important; 
+  padding-bottom: 120px !important; 
+}
+
+.expandMain .MainContent {
+  flex: 6.15;
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+}
+
+.RightPanel {
+  flex: 1.5;
+  background-color: #FFFFFF;
+  opacity: 0.95;
+  border: 1px solid #e2e8f0;
+  padding: 16px;
+  
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  
+  display: flex;
+  flex-direction: column;
 }
 
 .expandMain .RightPanel {
   display: none;
 }
 
-.expandMain .MainContent {
-  flex: 6.15;
+.SideBar {
+  position: relative;
+  display: flex; 
+  overflow-y: auto;
+  background-color: #FFFFFF;
+  opacity: 0.95;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #e2e8f0;
+  padding: 12px;
+  padding-top: 20px;
+  gap: 4px;
+  flex-shrink: 0;
+  min-width: 280px;
+  height: 100%;
+}
+
+.sideBarOption {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: row;
+  color: #475569;
+  font-size: medium;
+  font-weight: 500;
+  cursor: pointer;
+  opacity: 1;
+  width: 100%;
+  padding-left: 40px;
+  gap: 12px;
+  align-items: center;
+  height: 50px;
+  border-radius: 12px;
+}
+
+.sideBarOption:hover {
+  opacity: 1;
+  background-color: #eef1f4;
+}
+
+.activate {
+  opacity: 1;
+  background: #e9eef1;
+  color: black;
+}
+
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  padding-top: 18px;
+  width: 100%;
+}
+
+.friendChat {
+  display: flex;
+  flex-direction: column;
+  color: black;
+  font-size: larger;
+  font-weight: 400;
+  width: 100%;
+  padding: 12px;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.chat {
+  display: flex;
+  flex-direction: row;
+  color: black;
+  font-size: medium;
+  font-weight: 400;
+}
+
+.friendChat:hover {
+  opacity: 1;
+  background-color: #eef1f4;
+  border-radius: 15px;
 }
 
 .profileContainer {
-    color: #1E293B;
-    font-size: small;
-    font-weight: 600;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 230px;
-    height: 90px;
-    border-radius: 16px;
-    border: 1px solid #dee2eb;
-    gap: 12px;
-    justify-content: center;
-    position: static;
-    margin-top: 42vh;
+  color: #1E293B;
+  font-size: small;
+  font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  max-width: 230px;
+  height: 90px;
+  border-radius: 16px;
+  border: 1px solid #dee2eb;
+  gap: 12px;
+  justify-content: center;
+  margin-top: auto; 
+  margin-bottom: 85px; 
+  flex-shrink: 0;
 }
 
 .buttonLogOut {
-    display: inline-block;
-    opacity: 0.8;
-    color: aliceblue;
-    background-color: black;
-    padding: 4px;
-    border-radius: 10px;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    text-align: center;
+  display: inline-block;
+  opacity: 0.8;
+  color: aliceblue;
+  background-color: black;
+  padding: 4px;
+  border-radius: 10px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  text-align: center;
 }
 
-.buttonLogOut:hover{
-    opacity: 1;
+.buttonLogOut:hover {
+  opacity: 1;
 }

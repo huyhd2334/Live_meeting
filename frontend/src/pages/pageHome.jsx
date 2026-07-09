@@ -1,15 +1,24 @@
 import MainHomePage from '@/components/cpHomePage/center/MainCenter.jsx'
 import HeaderHomePage from '@/components/cpMainNavigator/MainNavigator.jsx'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 const PageHome = () => {
-  const str = localStorage.getItem("userAccount") || JSON.stringify({name: "guest"});
-  const userAccount = JSON.parse(str);
-  console.log(userAccount)
+  const [userAccount, setUserAccount] = React.useState({ name: "guest" });
+
+  React.useEffect(() => {
+    const str = localStorage.getItem("userAccount") || JSON.stringify({ name: "guest" });
+    setUserAccount(JSON.parse(str));
+  }, []);
+
   return (
-    <div>
+    <div className="flex flex-col h-screen w-screen overflow-hidden m-0 p-0">
+      
       <HeaderHomePage/>
-      <MainHomePage userAccount = {userAccount}/>
+      
+      <div className="flex-1 h-0 w-full min-h-0">
+        <MainHomePage userAccount={userAccount}/>
+      </div>
+
     </div>
   )
 }

@@ -1,40 +1,49 @@
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import styles from './mainNavigator.module.css'
-import {Search, Zap } from 'lucide-react'
+import { Search, Zap } from 'lucide-react'
 import { toast } from 'sonner'
 import { useNavigate } from 'react-router'
 
-const MainNavigator = ({page}) => {
-   const navigator = useNavigate()
+const MainNavigator = ({ page }) => {
+   const navigate = useNavigate() 
    const [searchContent, setSearchContent] = useState("")
+   
    const handleSearch = () => {
-         toast.info(searchContent)
+      toast.info(searchContent)
    }
 
    const handleBack = () => {
-      navigator("/homepage")
+      navigate("/homepage")
    }
 
    return (
     <div className={`${styles.mainNavigator}`}>
-      <div className='flex flex-row space-x-12 justify-center items-center '>
-       <div className={`${styles.logo}`}>
-          <Zap className='w-10 h-10'/> <a>TECHFLOW</a>
-       </div>
-       <div className={`${styles.search}`} style={{display: page === "login" ? "none" : "flex"}}>
-          <Search /> 
-          <input type='text' placeholder='project name' className={`border-none outline-none focus:outline-none focus:ring-0 `}
-                 value={searchContent} 
-                 onChange={(e) => setSearchContent(e.target.value)}
-                 onKeyDown={(e) => {
-                  if(e.key == "Enter"){
-                     handleSearch()
-                  }
-                 }}/>
-       </div>
-    </div>
+      <div className='flex flex-row space-x-12 justify-center items-center'>
+        <div className={`${styles.logo} flex items-center gap-2 cursor-pointer`} onClick={handleBack}>
+          <Zap className='w-8 h-8 text-indigo-500 fill-indigo-500'/> 
+          <span className="font-bold tracking-wider text-slate-800">TECHFLOW</span>
+        </div>
+        
+        <div className={`${styles.search} flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200`} style={{ display: page === "login" ? "none" : "flex" }}>
+          <Search className="w-4 h-4 text-slate-400" /> 
+          <input 
+            type='text' 
+            placeholder='Search project...' 
+            className="border-none outline-none focus:outline-none focus:ring-0 bg-transparent text-sm w-48"
+            value={searchContent} 
+            onChange={(e) => setSearchContent(e.target.value)}
+            onKeyDown={(e) => {
+              if(e.key === "Enter"){
+                 handleSearch()
+              }
+            }}
+          />
+        </div>
+      </div>
 
-    <div className={styles.button} onClick={() => handleBack()}>Back to HomePage</div>
+      <button className={`${styles.button} text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors`} onClick={handleBack}>
+        Back to HomePage
+      </button>
 
     </div>
   )

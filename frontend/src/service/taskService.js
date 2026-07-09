@@ -6,6 +6,12 @@ export const getTaskService = async(project_id) => {
       return result.data
 }
 
+export const getTaskDashBoardService = async() => {
+      const result = await api.get(`task/get`, { withCredentials: true})
+      console.log("Tasks: ",  result.data)
+      return result.data
+}
+
 export const createTaskService = async({workspace_id, project_id, title, description, status, priority, deadline, assigned_to}) => {
       if(!workspace_id || !project_id || !title || !description || !status || !priority){
          toast.info("Please fill all imformations");

@@ -19,6 +19,11 @@ export const findByProjectId = async(client, project_id) => {
     return result.rows
 }
 
+export const findByUserId = async(client, user_id) => {
+    const result = await client.query(`SELECT * FROM tasks WHERE assigned_to=$1 ORDER BY updated_at DESC`, [user_id])
+    return result.rows
+}
+
 export const findByTaskId = async(client, task_id) => {
     const result = await client.query(`SELECT * FROM tasks WHERE task_id=$1`, [task_id])
     return result.rows[0]

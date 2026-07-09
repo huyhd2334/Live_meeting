@@ -15,3 +15,9 @@ export const deleteProjectService = async(project_id) => {
     const result = await api.delete(`project/delete/${id}`, { withCredentials: true})
     return result.data
 }
+
+export const getProjectDashBoardService = async() => {
+    const result = await api.get(`project/get`, { withCredentials: true})
+    console.log("Projects: ", result.data)
+    return result.data
+}

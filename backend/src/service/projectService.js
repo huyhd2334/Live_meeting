@@ -1,5 +1,5 @@
 import pool from "../../config/db.js";
-import { createProject, deleteProject, findByProjectId, findByProjectName, getProjectAndTask, roleCheck } from "../models/projectModel.js";
+import { createProject, deleteProject, findByProjectId, findByProjectName, getProject, getProjectAndTask, roleCheck } from "../models/projectModel.js";
 import { checkMember } from "../models/workSpaceModel.js";
 
 export const createProjectService = async (data) => {
@@ -121,6 +121,20 @@ export const getProjectAndTaskService = async(data) => {
         
         await client.query("COMMIT")
         return {success: true, message: "fetch done", project_task: result}
+    } catch (error) {
+        throw error
+    }finally{
+        client.release()
+    }
+}
+
+export const getProjectService = async(data) => {
+    const client = await pool.connect()
+    try {
+        const user_id = data.user.user_id
+        const projects = await getProject(client, user_id)
+        return {success: true, message: "Fetch Project successfully", projects: projects}
+
     } catch (error) {
         throw error
     }finally{

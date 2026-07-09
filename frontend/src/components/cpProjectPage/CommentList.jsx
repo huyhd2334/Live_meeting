@@ -11,10 +11,10 @@ const CommentList = ({ comments, task_id, workspace_id, project_id, setProjects 
 
   const handleCreateComment = async () => {
     if (!content.trim()) return
-
     try {
       const result = await createComment.mutateAsync({ workspace_id, task_id, content })
-      console.log("comment: ",result)
+      console.log("comment: ", result)
+      
       // Create a flat row representation to append to the global state
       const newFlatCommentRow = {
         project_id,

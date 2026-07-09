@@ -78,4 +78,16 @@ export const getProjectAndTask = async (client, project_id) => {
     return project;
 };
 
-
+export const getProject = async(client, user_id) => {
+    const result = await client.query(`SELECT
+                                    p.project_id,
+                                    p.project_name,
+                                    p.updated_at,
+                                    p.status,
+                                    p.created_at
+                                FROM workspacemembers wm
+                                JOIN projects p
+                                    ON wm.workspace_id = p.workspace_id
+                                WHERE wm.user_id = $1`, [user_id])
+    return result.rows
+}

@@ -1,22 +1,19 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styles from '../homePage.module.css'
 import DashBoard from '../sideBar/DashBoard';
-import Task from '../sideBar/Task';
-import Meeting from '../sideBar/Meeting';
 import WorkSpace from '../sideBar/workSpace/WorkSpace.jsx';
 import Setting from '../sideBar/Setting';
 import { useUIContext } from '@/context/UIContext.jsx';
 
-const CenterContentControler = ({ userAccount}) => {
-  const {option} = useUIContext()
+const CenterContentControler = ({ userAccount }) => {
+  const { option } = useUIContext()
+
   const renderContent = () => {
     switch (option) {
-      case "meeting":
-        return <Meeting />;
       case "workspace":
         return <WorkSpace userAccount={userAccount}/>;
       case "task":
-        return <div> Loading task </div>
+        return <div className="p-6 text-slate-500">Loading task...</div>;
       case "setting":
         return <Setting />;
       default:
