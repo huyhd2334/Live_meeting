@@ -12,7 +12,7 @@ export const loginService = async ({ accountName, passW }) => {
   return res.data
 }
 
-export const signupService = async ({ userName, accountName, passW }) => {
-  const res = await api.post("auth/signup", {userName, accountName, passW})
+export const signupService = async ({ user_name, user_account, email, password, avatar_url }) => {
+  const res = await api.post("auth/signup", {user_name, user_account, email, password, avatar_url})
   return res.data
 }

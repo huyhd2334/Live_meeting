@@ -39,7 +39,7 @@ export const loginService = async (data) => {
         console.log("account: ", checkExisUser)
 
         if (!checkExisUser){
-            throw new Error("user doesn't exist (login service)", 404)
+            throw new Error("User doesn't exist", 404)
         }
 
         // check
@@ -47,7 +47,7 @@ export const loginService = async (data) => {
         console.log("password: ", isPasswCorrect)
 
         if(!isPasswCorrect){
-            throw new Error("pass and hash not correct!")
+            throw new Error("PassWord is not correct!")
         }
 
         // access token

@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import styles from './projectUI.module.css'
 import { useWorkSpace } from '@/hooks/useWorkSpace.js'
 import ProjectItem from './ProjectItem.jsx'
@@ -6,15 +6,23 @@ import SideBarProject from './SideBarProject.jsx'
 
 const MainProject = ({ id, workspace_name }) => {
   const { getWorkspaceFull } = useWorkSpace(id)
+  
+  const [rawData, setRawData] = useState([])
 
-  const tree = useMemo(() => {
-    const rows = getWorkspaceFull?.data || []
+  useEffect(() => {
+    if (getWorkspaceFull?.data) {
+      setRawData(getWorkspaceFull.data)
+    }
+  }, [getWorkspaceFull?.data])
+
+  const projectsTree = useMemo(() => {
     const projectMap = new Map()
 
-    rows.forEach(row => {
-      // ===== PROJECT =====
-      let project = projectMap.get(row.project_id)
+    rawData.forEach(row => {
+      if (!row.project_id) return
 
+      // ===== 1. PROJECT =====
+      let project = projectMap.get(row.project_id)
       if (!project) {
         project = {
           project_id: row.project_id,
@@ -24,11 +32,10 @@ const MainProject = ({ id, workspace_name }) => {
           tasks: [],
           attachments: []
         }
-
         projectMap.set(row.project_id, project)
       }
 
-      // ===== PROJECT ATTACHMENTS =====
+      // ===== 2. PROJECT ATTACHMENTS =====
       if (
         row.attachment_id &&
         !project.attachments.some(a => a.attachment_id === row.attachment_id)
@@ -41,12 +48,10 @@ const MainProject = ({ id, workspace_name }) => {
         })
       }
 
-      // ===== TASK =====
-      const hasTask = !!row.task_id
-      if (!hasTask) return
+      // ===== 3. TASK =====
+      if (!row.task_id) return
 
       let task = project.tasks.find(t => t.task_id === row.task_id)
-
       if (!task) {
         task = {
           task_id: row.task_id,
@@ -59,11 +64,10 @@ const MainProject = ({ id, workspace_name }) => {
           subTasks: [],
           comments: []
         }
-
         project.tasks.push(task)
       }
 
-      // ===== SUBTASKS =====
+      // ===== 4. SUBTASKS =====
       if (
         row.subtask_id &&
         !task.subTasks.some(st => st.subtask_id === row.subtask_id)
@@ -75,7 +79,7 @@ const MainProject = ({ id, workspace_name }) => {
         })
       }
 
-      // ===== COMMENTS =====
+      // ===== 5. COMMENTS =====
       if (
         row.comment_id &&
         !task.comments.some(c => c.comment_id === row.comment_id)
@@ -90,9 +94,10 @@ const MainProject = ({ id, workspace_name }) => {
     })
 
     return Array.from(projectMap.values())
-  }, [getWorkspaceFull?.data])
-  if (getWorkspaceFull.isLoading) {
-    return <div>Loading...</div>
+  }, [rawData])
+
+  if (getWorkspaceFull?.isLoading) {
+    return <div className="flex justify-center items-center h-screen">Loading...</div>
   }
 
   return (
@@ -102,20 +107,20 @@ const MainProject = ({ id, workspace_name }) => {
         workspace_name={workspace_name}
       />
       <div className={styles.Project}>
-        {tree.length === 0 ? (
-              <h2 className={styles.subTitle}>
-                No project found
-              </h2>
-            ) : (
-              tree.map(project => (
-                <ProjectItem
-                  key={project.project_id}
-                  project_id={project.project_id}
-                  project={project}
-                  workspace_id={id}
-                />
-              ))
-          )}
+        {projectsTree.length === 0 ? (
+          <h2 className={styles.subTitle}>
+            No project found
+          </h2>
+        ) : (
+          projectsTree.map(project => (
+            <ProjectItem
+              key={project.project_id}
+              project={project}
+              setProjects={setRawData}
+              workspace_id={id}
+            />
+          ))
+        )}
       </div>
     </div>
   )

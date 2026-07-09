@@ -19,7 +19,7 @@ export const useTask = () => {
           return data.success   
         }
       } catch (error) {
-        toast.error("error when get task")
+        toast.error("Error when get task")
         console.error(error)
       } finally {
         setLoadingT(false)
@@ -47,10 +47,10 @@ export const useTask = () => {
           if(data.success){
             console.log("Deleted task", data.task)
             toast.success("Deleted task")
-            return data.task
+            return true
           }else{
             toast.error("Delete task error")
-            return []
+            return false
           }
         } catch (error) {
           toast.error("error when delete task")

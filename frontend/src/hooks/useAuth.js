@@ -22,20 +22,20 @@ export const useAuth = () => {
         toast.error("invalid password or account name")
       }
     } catch (err) {
-      toast.error("error when call login")
+      toast.error(err.response.data.message)
       console.log(err)
     } finally {
       setLoading(false)
     }
   }
 
-  const signup = async (userName, accountName, passW) => {
+  const signup = async ({user_name, user_account, email, password, avatar_url = "null"}) => {
     try {
-      if (!userName || !accountName || !passW) {
+      if (!user_name || !user_account || !password) {
         return toast.error("information is empty");
       }
       setLoading(true)
-      const data = await signupService({ userName, accountName, passW })
+      const data = await signupService({ user_name, user_account, email, password, avatar_url })
 
       if (data.success) {
         toast.success("signup successful")
@@ -44,7 +44,7 @@ export const useAuth = () => {
         toast.error("Account Name invalid!")
       }
     } catch (err) {
-      toast.error("error when call signup")
+      toast.error(err.response.data.message)
       console.log(err)
     } finally {
       setLoading(false)
