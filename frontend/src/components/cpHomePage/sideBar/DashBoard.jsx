@@ -9,7 +9,7 @@ const DashBoard = ({ userAccount = { user_name: "User" } }) => {
   
   const [projects, setProjects] = useState([])
   const [tasksList, setTasksList] = useState([])
-  const [loading, setLoading] = useState(true) // Thêm trạng thái loading
+  const [loading, setLoading] = useState(true)
   const [taskStats, setTaskStats] = useState({
     count_tasks: 0,
     count_done: 0,
@@ -28,13 +28,11 @@ const DashBoard = ({ userAccount = { user_name: "User" } }) => {
     { name: 'CN', tokens: 4300 },
   ]
 
-  // Sử dụng async/await bên trong useEffect để giải quyết Promise
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true)
         
-        // Đợi Promise từ hook giải quyết xong (chú ý thêm await nếu hook gọi trực tiếp service)
         const taskRes = await getTaskDashBoard()
         const projectRes = await getProjectDashBoard()
 
