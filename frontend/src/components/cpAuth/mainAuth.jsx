@@ -1,169 +1,140 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import { Button } from "../ui/button";
-import { useAuth } from "@/hooks/useAuth";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
+import LoginSignUp from "./LoginSignUp.jsx";
+
+const FEATURES = [
+  {
+    cmd: "$ create-workspace",
+    title: "Smart workspaces",
+    copy: "Spin up a hub, lay out an agile roadmap, and watch your team's velocity update in real time.",
+  },
+  {
+    cmd: "$ ask-copilot",
+    title: "AI RAG ",
+    copy: "Ask questions in plain language and get answers pulled straight from your docs, codebase, and project history.",
+  },
+  {
+    cmd: "$ suggest-next",
+    title: "Predictive tasks",
+    copy: "Get the next step suggested automatically, tuned to what your sprint actually needs right now.",
+  },
+];
 
 const MainAuth = () => {
-  const [userName, setUserName] = useState("");
-  const [accountName, setAccountName] = useState("");
-  const [email, setEmail] = useState("");
+  const formRef = useRef(null); // Quản lý ref tại file cha
 
-  const [passW, setPassW] = useState("");
-  const [showSignup, setShowSignup] = useState(false);
-  
-  const { login, signup, loading, } = useAuth();
+  const scrollToForm = () => {
+    if (formRef.current) {
+      formRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
-  const formVariants = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -20 },
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", stiffness: 100, damping: 15 },
+    },
   };
 
   return (
-    <div className="flex flex-col lg:flex-row w-full min-h-[500px] overflow-hidden rounded-3xl shadow-2xl bg-white">
-      
-      <div className="relative flex flex-col w-full lg:w-1/2 justify-center items-center p-12 min-h-[400px]">
-        <AnimatePresence mode="wait">
-          {showSignup ? (
-            /* ---- FORM SIGN UP ---- */
-            <motion.div
-              key="signup"
-              variants={formVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              transition={{ duration: 0.3 }}
-              className="flex flex-col w-full gap-5"
-            >
-              <h1 className="text-2xl font-semibold text-center">Sign Up</h1>
+    <div
+      className="w-full flex flex-col items-center bg-[var(--paper)]"
+      style={{
+        "--ink": "#10152B",
+        "--paper": "#FAFAFC",
+        "--signal": "#4C6FFF",
+        "--cyan": "#23D3C3",
+        "--amber": "#FFB020",
+        "--slate": "#5B6478",
+        "--line": "#E4E7F2",
+        fontFamily: "'Inter', ui-sans-serif, system-ui, sans-serif",
+        touchAction: "pan-y", // Đảm bảo toàn vùng bọc lớn cho phép vuốt Y tự do
+      }}
+    >
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+        .tf-display { font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif; }
+        .tf-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+      `}</style>
 
-              <form 
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  signup({user_name: userName, user_account: accountName, email: email, password: passW});
-                }}
-                className="flex flex-col gap-2">
-
-                <input
-                  type="text"
-                  placeholder="Account Name"
-                  className="w-full h-11 rounded-lg px-3 border-2 border-gray-200 focus:outline-none focus:border-blue-500"
-                  value={accountName}
-                  onChange={(e) => setAccountName(e.target.value)}
-                />
-                <input
-                  type="text"
-                  placeholder="Email"
-                  className="w-full h-11 rounded-lg px-3 border-2 border-gray-200 focus:outline-none focus:border-blue-500"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <input
-                  type="text"
-                  placeholder="User Name"
-                  className="w-full h-11 rounded-lg px-3 border-2 border-gray-200 focus:outline-none focus:border-blue-500"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                />
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="w-full h-11 rounded-lg px-3 border-2 border-gray-200 focus:outline-none focus:border-blue-500"
-                  value={passW}
-                  onChange={(e) => setPassW(e.target.value)}
-                />
-                <Button 
-                    disabled={loading}
-                    onClick={() => signup({user_name: userName, user_account: accountName, email: email, password: passW})}
-                    className={`bg-blue-700 w-full ${loading?"disabled":""}`}>
-                    {loading?(
-                    <div className="flex justify-center items-center gap-2">
-                      <div className="border-2 rounded-full border-white border-t-blue-700 animate-spin w-5 h-5"></div>
-                      <span>Processing...</span>
-                    </div>
-                    ):"Sign Up!"}              
-                </Button>
-              </form>
-            </motion.div>
-          ) : (
-            /* ---- FORM LOGIN ---- */
-            <motion.div
-              key="login"
-              variants={formVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              transition={{ duration: 0.3 }}
-              className="flex flex-col w-full gap-5"
-            >
-
-              <h1 className="text-2xl font-semibold text-center">Welcome Back!</h1>
-              <p className="text-gray-500 text-sm text-center">Please enter your information to log in.</p>
-              <form className="flex flex-col gap-2"
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      login(accountName, passW)
-                    }}>
-              <input
-                type="text"
-                placeholder="User Account"
-                className="w-full h-11 rounded-lg px-3 border-2 border-gray-200 focus:outline-none focus:border-blue-500"
-                value={accountName}
-                onChange={(e) => setAccountName(e.target.value)}
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                className="w-full h-11 rounded-lg px-3 border-2 border-gray-200 focus:outline-none focus:border-blue-500"
-                value={passW}
-                onChange={(e) => setPassW(e.target.value)}
-              />
-              <Button onClick={() => login(accountName, passW)} className="bg-blue-700 w-full"
-                  disabled={loading}>
-                {loading?(
-                <div className="flex justify-center items-center gap-2">
-                  <div className="border-2 rounded-full border-white border-t-blue-700 animate-spin w-5 h-5"></div>
-                  <span>Processing...</span>
-                </div>
-                ):"Login!"}
-              </Button>
-            </form>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-
-      {/* RIGHT PANEL: BACKGROUND & TEXT */}
-      <div
-        className="relative w-full lg:w-1/2 min-h-[300px] lg:min-h-full bg-cover bg-center"
-        style={{ backgroundImage: "url('/bg_login.jpg')" }}
+      {/* ---- HERO ---- */}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        viewport={{ once: true }} // Chỉ chạy animation 1 lần để buông tha luồng cuộn trình duyệt
+        className="text-center max-w-4xl my-14 md:my-24 flex flex-col items-center gap-7 px-6"
       >
-        <div className="absolute inset-0 flex flex-col justify-center items-center text-white px-6">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={showSignup ? "signup-txt" : "login-txt"}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3 }}
-              className="flex flex-col items-center gap-6"
-            >
-              <h1 className="text-5xl font-bold">
-                {showSignup ? "HELLO" : "WELCOME"}
-              </h1>
-              <p className="mt-2 text-center max-w-[300px]">
-                {showSignup
-                  ? "Already have an account?"
-                  : "Is this your first time visiting my website?"}
-              </p>
-              <Button onClick={() => setShowSignup(prev => !prev)} className="bg-white text-black hover:bg-gray-100">
-                {showSignup ? "LOGIN" : "SIGN UP"}
-              </Button>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </div>
+        <motion.span
+          variants={itemVariants}
+          className="tf-mono text-xs tracking-[0.2em] text-[var(--signal)] uppercase border border-[var(--line)] rounded-full px-3 py-1"
+        >
+          workspace os for fast-moving teams
+        </motion.span>
 
+        <motion.h1
+          variants={itemVariants}
+          className="tf-display text-5xl md:text-7xl font-bold tracking-tight bg-gradient-to-r from-[var(--signal)] to-[var(--cyan)] bg-clip-text text-transparent"
+        >
+          Tech Flow
+        </motion.h1>
+
+        <motion.p
+          variants={itemVariants}
+          className="text-lg md:text-xl text-[var(--slate)] max-w-xl leading-relaxed"
+        >
+          Plan, build, and ship together — without leaving the thread of what
+          your team already knows.
+        </motion.p>
+
+        <motion.div
+          variants={itemVariants}
+          className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-4 text-left w-full"
+        >
+          {FEATURES.map((f) => (
+            <div
+              key={f.cmd}
+              className="p-6 bg-white rounded-xl border border-[var(--line)] transition-all hover:border-[var(--signal)]/40 hover:-translate-y-0.5"
+            >
+              <p className="tf-mono text-[11px] text-[var(--cyan)] mb-3">
+                {f.cmd}
+              </p>
+              <h3 className="font-semibold text-[var(--ink)] text-base mb-2">
+                {f.title}
+              </h3>
+              <p className="text-[var(--slate)] text-sm leading-relaxed">
+                {f.copy}
+              </p>
+            </div>
+          ))}
+        </motion.div>
+
+        <motion.div variants={itemVariants}>
+          <Button
+            onClick={scrollToForm}
+            className="mt-3 bg-[var(--ink)] hover:bg-[var(--ink)]/90 text-white font-medium rounded-full px-7 py-6 text-sm tracking-wide transition-all hover:scale-[1.03] active:scale-95 group"
+          >
+            Jump into a workspace
+            <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">
+              →
+            </span>
+          </Button>
+        </motion.div>
+      </motion.div>
+
+      {/* ---- AUTH CARD ---- */}
+      <div className="w-full flex justify-center px-4">
+        {/* Truyền Ref xuống component con nhận forwardRef */}
+        <LoginSignUp ref={formRef} />
+      </div>
     </div>
   );
 };

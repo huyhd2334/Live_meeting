@@ -1,122 +1,96 @@
-.headerContainer {
-    display: flex;
-    justify-content: start;
-    gap: 16px;
-    flex-direction: column;
-}
-
-.headerTitle {
-    color: #343538;
-    font-size: 35px;
-    font-weight: 550;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.headerText {
-    color: #5e6165;
-    font-size: xx-large;
-    font-weight: 700;
-    gap: 8px;
-    display: flex;
-    align-items: center;
-}
-
-.note {
-    color: #8a9bb2;
-    font-size: medium;
-    font-weight: 400;
-}
-
-.mainContainer{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 16px;
-    padding: 16px;
-    border-radius: 15px;
-    border: 1px solid #e2e8f0;
-    align-content: flex-start;
-    align-items: flex-start;
-}
-
-.highlight {
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: 6px;
+.mainContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .widget {
-    display: flex;
-    justify-items: center;
-    flex-direction: column;
-    align-items: start;
-    color: black;
-    width: 275px;
-    height: 190px;
-    border-radius: 16px;
-    box-shadow: 0 4px 10px rgba(235, 232, 232, 0.1);
-    transition: all 0.3s ease;
-    overflow-y: auto;
-    padding: 12px;
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  color: #1E293B;
+  width: 280px;
+  height: 180px;
+  border-radius: 14px;
+  border: 1px solid #E2E8F0;
+  padding: 18px;
+  box-sizing: border-box;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  font-weight: 300;
+  font-size: larger;
 }
 
 .widget:hover {
-    transform: scale(1.05) translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-    /* box-shadow: offset-x offset-y blur-radius color; */
-}
-
-.widgetTitle {
-    color: #1E293B;
-    font-size: large;
-    font-weight: 600;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
+  transform: translateY(-4px);
+  border-color: #CBD5E1;
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .button {
-    display: inline-block;
-    opacity: 0.5;
-    color: #ffff;
-    background-color: #2365cf;
-    padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  outline: none;
 }
 
-.buttonBack {
-    display: inline-block;
-    opacity: 0.6;
-    color: aliceblue;
-    background-color: black;
-    padding: 8px;
-    border-radius: 15px;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    text-align: center;
+.buttonCreate {
+  color: #FFFFFF;
+  background-color: #4C6FFF;
+  border-radius: 10px;
+  width: fit-content;
+  padding: 10px;
+  cursor: pointer;
 }
 
-.button:hover {
-    opacity: 1;
+.buttonCreate:hover {
+  background-color: #3859E8;
+  box-shadow: 0 4px 12px rgba(76, 111, 255, 0.25);
+  border-radius: 10px
 }
 
+.buttonCancel {
+  color: #64748B;
+  background-color: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  width: fit-content;
+  padding: 10px;
+  cursor: pointer
+}
+
+.buttonCancel:hover {
+  color: #0F172A;
+  background-color: #E2E8F0;
+}
+
+/* ---- UTILITIES / CONTROLS ---- */
 .input {
-    color: #5e6165;
-    border-radius: 15px;
-    border: 1px solid;
-    text-align: start;
-    font-size: medium;
-    font-weight: 400;
-    padding: 12px;
-    opacity: 0.8;
+  color: #334155;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  border: 1px solid #E2E8F0;
+  font-size: 14px;
+  padding: 10px 14px;
+  width: 100%;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: #4C6FFF;
+  box-shadow: 0 0 0 3px rgba(76, 111, 255, 0.15);
 }

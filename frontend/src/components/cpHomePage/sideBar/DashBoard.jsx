@@ -72,13 +72,15 @@ const DashBoard = ({ userAccount = { user_name: "User" } }) => {
     return date.toLocaleDateString('vi-VN', { hour: '2-digit', minute: '2-digit' });
   }
 
-  // Nếu đang đợi giải quyết Promise từ API, hiển thị màn hình chờ
   if (loading) {
     return <div className='flex justify-center items-center h-screen text-slate-500 font-medium'>Đang tải dữ liệu dashboard...</div>
   }
 
   return (
-    <div className='flex flex-col space-y-8 p-6 max-w-7xl mx-auto w-full text-[#1e293b] box-border'>
+    <div 
+      className='flex flex-col space-y-8 p-6 max-w-7xl mx-auto w-full text-[#1e293b] box-border h-auto min-h-screen'
+      style={{ touchAction: 'pan-y' }}
+    >
       
       <div className='flex flex-col justify-start items-start space-y-1'>
         <div className='flex items-center gap-3'>
@@ -132,9 +134,12 @@ const DashBoard = ({ userAccount = { user_name: "User" } }) => {
       </div>
 
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+        {/* Bọc các vùng Chart bằng pointer-events-none vào Tooltip/Responsive để các thao tác cuộn 
+          bằng chuột hoặc vuốt ngón tay đi XUYÊN QUA biểu đồ, tác động trực tiếp lên thanh cuộn của trình duyệt.
+        */}
         <div className='bg-white p-5 rounded-xl border border-slate-100 shadow-sm flex flex-col'>
           <h3 className='text-base font-semibold text-slate-800 mb-4'>Trạng thái công việc</h3>
-          <div className='h-64 w-full flex items-center justify-center'>
+          <div className='h-64 w-full flex items-center justify-center pointer-events-auto'>
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -150,7 +155,7 @@ const DashBoard = ({ userAccount = { user_name: "User" } }) => {
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip />
+                <Tooltip wrapperStyle={{ pointerEvents: 'none' }} />
                 <Legend verticalAlign="bottom" height={36}/>
               </PieChart>
             </ResponsiveContainer>
@@ -159,12 +164,12 @@ const DashBoard = ({ userAccount = { user_name: "User" } }) => {
 
         <div className='bg-white p-5 rounded-xl border border-slate-100 shadow-sm flex flex-col'>
           <h3 className='text-base font-semibold text-slate-800 mb-4'>Lượng Token RAG đã sử dụng tuần này</h3>
-          <div className='h-64 w-full'>
+          <div className='h-64 w-full pointer-events-auto'>
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={tokenUsageData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <XAxis dataKey="name" fontSize={12} tickLine={false} axisLine={false} />
                 <YAxis fontSize={12} tickLine={false} axisLine={false} />
-                <Tooltip cursor={{fill: '#f8fafc'}}/>
+                <Tooltip cursor={{fill: '#f8fafc'}} wrapperStyle={{ pointerEvents: 'none' }} />
                 <Bar dataKey="tokens" fill="#6366f1" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -173,12 +178,18 @@ const DashBoard = ({ userAccount = { user_name: "User" } }) => {
       </div>
 
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+        {/* Thêm lớp `overscroll-behavior: contain` (qua CSS thô hoặc style inline) 
+          vào các hộp danh sách nội bộ để khi cuộn hết danh sách, nó không kéo tuột cả trang web đi.
+        */}
         <div className='bg-white p-5 rounded-xl border border-slate-100 shadow-sm'>
           <div className='flex items-center gap-2 mb-4'>
             <FolderGit2 className='w-5 h-5 text-indigo-500' />
             <h3 className='text-base font-semibold text-slate-800'>Recent Project</h3>
           </div>
-          <div className='divide-y divide-slate-100 max-h-80 overflow-y-auto'>
+          <div 
+            className='divide-y divide-slate-100 max-h-80 overflow-y-auto'
+            style={{ overscrollBehavior: 'contain' }}
+          >
             {projects.length > 0 ? (
               projects.map((project, idx) => (
                 <div key={project.project_id ? `${project.project_id}-${idx}` : idx} className='py-3 flex justify-between items-center hover:bg-slate-50 px-2 rounded-lg transition-colors cursor-pointer'>
@@ -205,7 +216,10 @@ const DashBoard = ({ userAccount = { user_name: "User" } }) => {
             <AlertCircle className='w-5 h-5 text-rose-500' />
             <h3 className='text-base font-semibold text-slate-800'>Tasks List</h3>
           </div>
-          <div className='space-y-3 max-h-80 overflow-y-auto'>
+          <div 
+            className='space-y-3 max-h-80 overflow-y-auto'
+            style={{ overscrollBehavior: 'contain' }}
+          >
             {tasksList.length > 0 ? (
               tasksList.map((task, idx) => (
                 <div key={task.task_id || idx} className='p-3 border border-slate-100 rounded-lg flex items-start justify-between hover:border-slate-200 transition-all'>

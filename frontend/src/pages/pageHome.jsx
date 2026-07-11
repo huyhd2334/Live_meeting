@@ -11,7 +11,7 @@ const PageHome = () => {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden m-0 p-0">
+    <div className="flex flex-col h-screen w-screen m-0 p-0">
       
       <HeaderHomePage/>
       

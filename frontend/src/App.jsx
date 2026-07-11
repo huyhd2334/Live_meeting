@@ -6,8 +6,8 @@ import { AuthProvider } from "./context/AuthContext.jsx"
 import ProtectedRoute from "./routes/ProtectedRoute.jsx" 
 import GuestRoute from "./routes/GuestRoute.jsx" 
 import { UIProvider } from "./context/UIContext.jsx"
-import PageProject from "./pages/pageProject.jsx"
-import PageRAG from "./Pages/PageRAG.jsx"
+import PageProject from "./pages/PageProject.jsx"
+import PageRAG from "./pages/PageRAG.jsx"
 
 function App() {
   return (

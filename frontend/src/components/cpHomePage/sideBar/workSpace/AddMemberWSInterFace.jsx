@@ -18,7 +18,7 @@ const AddMemberWSInterFace = ({setMode, dataWorkSpace}) => {
   }
   return (
     <div className='flex flex-col space-y-6 w-1/2'>
-       <h1 className={`text-2xl font-semibold ${styles.highlightTitle} `}> Add New Member </h1>
+       <h1 className={`text-4xl font-semibold text-blue-500`}> Add New Member </h1>
        <h1 className={`text-2xl font-semibold `}> WorkSpace: {dataWorkSpace.workspace_name} </h1>
        <input placeholder='Enter Member ID '
                  value={id}
@@ -30,9 +30,10 @@ const AddMemberWSInterFace = ({setMode, dataWorkSpace}) => {
                  onChange={(e) => setRole(e.target.value)}
                  className={styles.input}>
        </input>
-       <div className={`${styles.button}`} onClick={() => handleAddMember()}> Add +</div>
-       <div className={`${styles.buttonBack} bg-red-400`} onClick={() => setMode("view")}> Go Back </div>
-
+       <div className='flex flex-row gap-4'>
+        <div className={`${styles.buttonCreate}`} onClick={() => handleAddMember()}> Add +</div>
+        <div className={`${styles.buttonCancel} bg-red-400`} onClick={() => setMode("view")}> Go Back </div>
+       </div>
     </div>
   )
 }

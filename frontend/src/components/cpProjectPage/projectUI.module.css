@@ -2,258 +2,250 @@
     box-sizing: border-box;
 }
 
-.title {
-    font-size: xx-large;
-    font-weight: 600;
-}
-.subTitle {
-    font-size: larger;
-    font-weight: 400;
-}
-
-.headerProject {
-    display: flex;
-    flex-direction: row;
-    padding: 12px;
-    gap: 12px;
-    font-size: x-large;
-    font-weight: 450;
-    justify-content: space-between;
-    border-bottom: 1px solid rgb(0, 0, 0, 0.2);
-}
-
-.task {
-    display: flex;
-    flex-direction: column;
-    padding: 6px 0 6px 24px;
-    gap: 8px;
-    border: 1px solid rgb(0, 0, 0, 0.2);
-    background: #FFFFFF;
-    border-radius: 10px;
-    align-items: flex-start;
-}
-
-.status {
-    text-transform: uppercase;
-}
-
-.status::before {
-    content: '[';
-}
-
-.status::after {
-    content: ']';
-}
-
-.statusDone {
-    background-color: rgb(73, 216, 104);
-    color: white;
-    border-radius: 6px;
-    padding: 2px;
-}
-
+/* ---- SYSTEM LAYOUT ---- */
 .layOut {
-   display: flex;
-   gap: 12px;
-
-   overflow: hidden;
-
-   min-height: 0;
-   min-width: 0;
-
-   flex: 1;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-color: #F8FAFC;
+    overflow: hidden;
 }
-
 
 .Project {
    flex: 1;
-
    min-width: 0;
    min-height: 0;
-
    height: calc(100dvh - 80px);
 
    overflow-y: auto;
    overflow-x: hidden;
 }
 
-
 .mainProject {
     display: flex;
     flex-direction: column;
-    position: relative;
     gap: 20px;
-    padding: 16px;
-}
-
-.sideBar {
-   position: relative;
-   display: flex; 
-   overflow-y: auto;
-   background-color:  #FFFFFF;
-   opacity: 0.95;
-   flex-direction: column;
-   justify-items: center;
-   align-items: center;
-   border: 1px solid #e2e8f0;
-   gap: 12px;
-   flex-shrink: 0;
-   min-width: 40vh;
-   padding-top: 20px;
-}
-
-
-.sideBarOption {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    display: flex;
-    flex-direction: row;
-    color: #475569;
-    font-size: medium;
-    font-weight: 500;
-    cursor: pointer;
-    opacity: 1;
+    padding: 24px;
     width: 100%;
-    padding-left: 40px;
-    gap: 12px;
-    align-items: center;
-    height: 50px;
-    border-radius: 12px;
 }
 
-.sideBarOption:hover {
-    opacity: 1;
-    background-color: #eef1f4;
-}
-
-.buttonLogOut {
-    display: inline-block;
-    opacity: 0.8;
-    color: aliceblue;
-    background-color: black;
-    padding: 4px;
-    border-radius: 10px;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    text-align: center;
-}
-
-.profileContainer {
-    color: #1E293B;
-    font-size: small;
-    font-weight: 600;
+.headerProject {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 230px;
-    height: 90px;
-    border-radius: 16px;
-    border: 1px solid #dee2eb;
-    gap: 12px;
-    justify-content: center;
-    position: static;
-    margin-top: clamp(10px, 10vh, 50px);
+    justify-content: space-between;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #E2E8F0;
+    width: 100%;
+    padding: 16px;
+    border-radius: 15px;
 }
 
-.stars {
-    box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
-    border: 1px solid #3B82F6;
+/* ---- SIDEBAR STRUCTURE ---- */
+.sideBar {
+    display: flex; 
+    flex-direction: column;
+    background-color: #FFFFFF;
+    border-right: 1px solid #E2E8F0;
+    width: 280px; /* Cố định width thay vì dùng 40vh bấp bênh */
+    height: 100vh;
+    flex-shrink: 0;
+    padding: 20px 0;
+    box-sizing: border-box;
+}
+
+.title {
+    color: #3b73f5;
+    font-size: 20px;
+    font-weight: 700;
 }
 
 .createContainer {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-}
-
-.taskButtonWrapper {
-    position: relative;
-}
-
-.taskPopup {
-    position: absolute;
-    top: 40px;
-    right: 0;
-    width: 280px;
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    z-index: 999;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    font-size: small;
+    gap: 14px;
 }
 
 .taskInput {
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    padding: 4px;
-    outline: none;
-}
-
-.button {
-    font-size: medium;
-    font-weight: 500;
-    cursor: pointer;
-    position: relative;
-    padding: 6px 0px 6px 6px;
-    color: #2563EB;
-}
-
-.button::after {
-    content: "";
-    width: 0;
-    height: 4px;
-    background-color: #2563EB;
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    transition: width 0.5s;
-}
-
-.button:hover::after {
     width: 100%;
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #334155;
+    outline: none;
+    transition: all 0.2s ease;
 }
 
-.mainSubTask {
-    width: calc(100% - 16px);    
+.taskInput:focus {
+    border-color: #4C6FFF;
+    box-shadow: 0 0 0 3px rgba(76, 111, 255, 0.15);
+}
+
+/* ---- FOOTER PROFILE CONTAINER ---- */
+.profileContainer {
+    margin-top: auto; /* Đẩy khối này xuống sát đáy */
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-bottom: 70px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #E2E8F0;
+    background-color: #F8FAFC;
+    flex-shrink: 0; 
+}
+
+.buttonLogOut {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748B;
+    background-color: transparent;
+    border: 1px solid #E2E8F0;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.buttonLogOut:hover {
+    color: #EF4444;
+    background-color: #FEE2E2;
+    border-color: #FCA5A5;
+}
+
+/* ---- TASKS & CARDS ---- */
+.task {
+    display: flex;
+    flex-direction: column;
     padding: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    gap: 12px;
+    border: 1px solid #E2E8F0;
+    background: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.statusDone {
+    background-color: #10B981;
+    color: white;
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.mainSubTask, .mainComment {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid #E2E8F0;
     border-radius: 10px;
-    position: relative;
+    background-color: #F8FAFC;
 }
 
 .listSubTask {
     display: flex;
     flex-direction: column;
-
     overflow-y: auto;
     max-height: 25vh;
+    gap: 6px;
+}
+
+
+.mainSubTask {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid #E2E8F0;
+    border-radius: 14px;
+    background-color: #FFFFFF;
+    box-sizing: border-box;
+}
+
+.taskButtonWrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.taskPopup {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 290px;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 100;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+}
+
+.taskInput {
+    width: 100%;
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 13px;
+    color: #334155;
+    outline: none;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.taskInput:focus {
+    border-color: #4C6FFF;
+}
+
+.listSubTask {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 2px;
+}
+
+.listSubTask::-webkit-scrollbar {
+    width: 4px;
+}
+.listSubTask::-webkit-scrollbar-thumb {
+    background-color: #CBD5E1;
+    border-radius: 2px;
 }
 
 .mainComment {
-    padding: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    position: relative;
-    width: calc(100% - 16px);
+    width: 100%;
+    padding: 16px;
+    border: 1px solid #E2E8F0;
+    border-radius: 14px;
+    background-color: #FFFFFF;
+    box-sizing: border-box;
 }
 
-.button2 {
+.taskPopupFixed {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 260px;
     background: #FFFFFF;
-    color: black;
-    cursor: pointer;
-    padding: 6px;
-
-    display:flex;
-    padding: 6px 0px 6px 6px;
-    opacity: 0.6;
-}
-
-.button2:hover {
-    opacity: 1;
+    border: 1px solid #E2E8F0;
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+    z-index: 150; 
+    
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
 }

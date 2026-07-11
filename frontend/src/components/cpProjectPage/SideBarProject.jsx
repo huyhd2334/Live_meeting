@@ -1,95 +1,121 @@
+import React, { useState } from 'react'
 import styles from './projectUI.module.css'
-import { CircleUser, LogOut} from 'lucide-react'
+import { CircleUser, LogOut } from 'lucide-react'
 import { useAuthContext } from '@/context/AuthContext'
 import { Button } from '@/components/ui/button'
 import { useProject } from '@/hooks/useProject.js'
-import { useState } from 'react'
 
-const SideBarProject = ({id, workspace_name}) => {
-
-  const str = localStorage.getItem("userAccount") || JSON.stringify({name: "guest"})
+const SideBarProject = ({ id, workspace_name }) => {
+  const str = localStorage.getItem("userAccount") || JSON.stringify({ name: "guest" })
   const userAccount = JSON.parse(str)
 
-  const {logoutContex} = useAuthContext()
+  const { logoutContex } = useAuthContext()
   
   const [project_name, setProjectName] = useState("")
   const [description, setDescription] = useState("")
   const [status, setStatus] = useState("active")
-  
   const [create, setCreate] = useState("project")
 
-  // workspace_id, project_name, description, status
   const { createProject } = useProject()
   
-  console.log("workspace_name", workspace_name)
-  
   const handleCreateProject = () => {
-    createProject.mutate({workspace_id:id, project_name, description, status}) 
+    if (!project_name.trim()) return
+    createProject.mutate({ workspace_id: id, project_name, description, status }) 
   }
   
   return (
-    <div className={`${styles.sideBar}`}>
-      <div className='flex flex-col space-x-2 items-center'>
-        <h1 className={styles.title}>WorkspaceID: {id}</h1>
+    <div className={styles.sideBar}>
+      {/* Workspace Branding */}
+      <div className='w-full flex flex-col items-center text-center px-4 mt-2'>
+        <h1 className={styles.title}>Workspace #{id}</h1>
+        <span className="text-sm font-medium text-slate-400 mt-1 px-3 py-1 bg-slate-50 rounded-full max-w-full truncate">
+          {workspace_name}
+        </span>
       </div>
-      <label> - {workspace_name} - </label>
-      <div className='border border-gray-300 p-4 rounded-lg'>
-        {create==="none"?(null):(
-          <div>
-            {create==="project"?(
-            <div className={styles.createContainer}>
-            <span>ProjectName</span>
-            <input className='border-2 rounded-sm p-1' 
-                   placeholder="Enter project's name" 
-                   value={project_name}
-                   onChange={(e) => setProjectName(e.target.value)}/> 
-            <span>Description</span>
-            <input className='border-2 rounded-sm p-1 ' 
-                   placeholder="Enter project's Description" 
-                   value={description}
-                   onChange={(e) => setDescription(e.target.value)}/> 
-            
-            {/* 'active', 'completed', 'archived' */}
-            <div className='flex flex-row space-x-4'>
-              <label> Status: </label> 
-              <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-              >
-                <option value="active">active</option>
-                <option value="completed">completed</option>
-                <option value="archived">archived</option>
-              </select>
-            </div>
-            
-            <Button className="text-[#2563EB] bg-white " onClick={() => {handleCreateProject()}}>Comfirm</Button>
 
-            </div>
-          ):(
-            <div>
-            <span>TaskName</span>
-            <input className='border-2 rounded-sm p-1 ' 
-                   placeholder="Enter project's name" 
-                   value={project_name}
-                   onChange={(e) => setProjectName(e.target.value)}/>
+      {/* Form Container */}
+      <div className="w-full px-4 flex-1 overflow-y-auto mt-4">
+        {create !== "none" && (
+          <div className="border border-slate-100 bg-slate-50/50 p-4 rounded-xl shadow-sm">
+            {create === "project" ? (
+              <div className={styles.createContainer}>
+                <h3 className="text-sm text-xl text-black">New Project</h3>
+                
+                <div className="flex flex-col gap-1">
+                  <span className="text-xs font-semibold text-slate-500">Project Name</span>
+                  <input 
+                    className={styles.taskInput} 
+                    placeholder="Enter project's name" 
+                    value={project_name}
+                    onChange={(e) => setProjectName(e.target.value)}
+                  /> 
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <span className="text-xs font-semibold text-slate-500">Description</span>
+                  <textarea 
+                    className={`${styles.taskInput} min-h-[60px] resize-none`}
+                    placeholder="Enter description" 
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  /> 
+                </div>
+                
+                <div className='flex items-center justify-between bg-white p-2.5 rounded-lg border border-slate-200/60 text-sm'>
+                  <span className="font-medium text-slate-600">Status</span> 
+                  <select
+                    className="bg-transparent font-semibold text-indigo-600 outline-none cursor-pointer"
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                  >
+                    <option value="active">Active</option>
+                    <option value="completed">Completed</option>
+                    <option value="archived">Archived</option>
+                  </select>
+                </div>
+                
+                <Button 
+                  className="w-full mt-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow-sm" 
+                  onClick={handleCreateProject}
+                >
+                  Confirm Project
+                </Button>
+              </div>
+            ) : (
+              <div className={styles.createContainer}>
+                <h3 className="text-sm font-bold text-slate-700 uppercase tracking-wider mb-1">New Task</h3>
+                <div className="flex flex-col gap-1">
+                  <span className="text-xs font-semibold text-slate-500">Task Name</span>
+                  <input 
+                    className={styles.taskInput} 
+                    placeholder="Enter task's name" 
+                    value={project_name}
+                    onChange={(e) => setProjectName(e.target.value)}
+                  />
+                </div>
+              </div>
+            )}
           </div>
-          )}
-        </div>
-        )} 
+        )}
       </div>
       
-    <div className={`${styles.profileContainer}` } >
-       <div>
-          <CircleUser size={36} />
-       </div>
-       <div className='flex flex-col'>
-            <a className='text-lg font-semibold'>{userAccount.user_name}</a>
-            <a className='text-sm'>Account: {userAccount.user_account}</a>
-       </div>
-       <div className={styles.buttonLogOut} onClick={()=>logoutContex()}>
-          <LogOut />
-       </div>
-    </div>
+      <div className={styles.profileContainer}>
+        <div className='flex items-center gap-3 min-w-0 flex-1'>
+          <CircleUser size={38} className="text-slate-400 flex-shrink-0" />
+          <div className='flex flex-col min-w-0'>
+            <span className='text-sm font-bold text-slate-800 truncate'>{userAccount.user_name}</span>
+            <span className='text-xs text-slate-500 truncate'>@{userAccount.user_account}</span>
+          </div>
+        </div>
+        <button 
+          type="button"
+          className={styles.buttonLogOut} 
+          onClick={() => logoutContex()}
+          title="Log out"
+        >
+          <LogOut size={16} />
+        </button>
+      </div>
     </div>
   )
 }

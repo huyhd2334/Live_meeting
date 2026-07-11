@@ -103,7 +103,7 @@ const ProjectItem = ({ project, workspace_id, setProjects }) => {
           <span className="inline-flex items-center justify-center rounded-sm text-[#2563EB] bg-blue-50 px-3 py-1 text-xs font-medium">
             {project.project_status?.toUpperCase()}
           </span>
-          <div className={`${styles.button2} flex items-center gap-1`} onClick={handleRAG}> 
+          <div className={`cursor-pointer flex items-center gap-1`} onClick={handleRAG}> 
             <span>RAG</span> <BotMessageSquare size={16} /> 
           </div>
         </div>
@@ -111,7 +111,7 @@ const ProjectItem = ({ project, workspace_id, setProjects }) => {
         <div className='flex flex-row gap-2 items-center'>
           <div className={styles.taskButtonWrapper}>
             <div
-              className={styles.button}
+              className={`cursor-pointer`}
               onClick={() => setOpenTaskBox(prev => !prev)}
             >
               {openTaskBox ? 'Cancel' : '+ Task'}
@@ -159,11 +159,11 @@ const ProjectItem = ({ project, workspace_id, setProjects }) => {
             )}
           </div>
 
-          <div onClick={() => setShow(prev => !prev)} className={styles.button2}> 
+          <div onClick={() => setShow(prev => !prev)} className={`cursor-pointer`}> 
             {!show ? <PanelBottomClose size={18} /> : <PanelTopClose size={18} />} 
           </div>
 
-          <div onClick={handleDeleteProject} className={`${styles.button2} text-red-500 hover:bg-red-50`}> 
+          <div onClick={handleDeleteProject} className={`text-red-500 hover:bg-red-50 cursor-pointer`}> 
             <Trash size={18} />
           </div>
         </div>

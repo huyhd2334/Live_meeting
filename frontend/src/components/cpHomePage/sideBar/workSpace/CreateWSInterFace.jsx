@@ -40,7 +40,7 @@ const CreateWSInterFace = ({setMode}) => {
                   onChange={(e)=> setDes(e.target.value)}
                   className={styles.input}>
        </input>
-       <div className={`${styles.button}`} onClick={() => handleCreate()}> Create +</div>
+       <div className={`${styles.buttonCreate}`} onClick={() => handleCreate()}> Create +</div>
     </div>
   )
 }
