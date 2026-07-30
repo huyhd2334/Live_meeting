@@ -3,6 +3,7 @@ import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 import path from 'path';
+import { fileURLToPath } from "url";
 import routerAuth from "./routers/routeAuth.js"
 import twilio from "twilio"; 
 import { protectedRouter } from "./middlewares/authMiddleware.js"
@@ -20,7 +21,9 @@ import http from "http"
 const app = express()
 const server = http.createServer(app)
 
-const __dirname = path.resolve();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const frontendDist = path.resolve(__dirname, "../../frontend/dist");
 
 // middleware
 app.use(express.json())
@@ -44,14 +47,6 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
-
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "frontend/dist")));
-
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "frontend/dist/index.html"));
-  });
-}
 
 // socket io
 io.on("connection", (socket) => {
@@ -79,10 +74,10 @@ app.use("/api/chat/", protectedRouter, chatRouter)
 
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  app.use(express.static(frontendDist));
 
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+    res.sendFile(path.join(frontendDist, "index.html"));
   });
 }
 
