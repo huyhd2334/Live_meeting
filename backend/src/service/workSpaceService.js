@@ -26,8 +26,16 @@ export const createWorkSpaceService = async (data) => {
 
         console.log({success: true, message: "created workspace", workSpace: workspace})
         return {success: true, message: "created workspace", workSpace: workspace}
+    
     } catch (err) {
         await client.query("ROLLBACK")
+
+        console.group("Create Workspace")
+        console.error(err);
+        console.error(err.message);
+        console.error(err.code);
+        console.groupEnd()
+
         throw err
     } finally {
         client.release()

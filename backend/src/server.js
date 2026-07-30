@@ -1,6 +1,6 @@
+import "dotenv/config";
 import express from "express"
 import cors from "cors"
-import dotenv from "dotenv"
 import cookieParser from "cookie-parser"
 import path from 'path';
 import routerAuth from "./routers/routeAuth.js"
@@ -20,8 +20,6 @@ import http from "http"
 const app = express()
 const server = http.createServer(app)
 
-dotenv.config();
-
 const __dirname = path.resolve();
 
 // middleware
@@ -30,21 +28,30 @@ app.use(express.json())
 // cookie
 app.use(cookieParser())
 
+const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
+
 const io = new Server(server, {
   cors: {
-    // origin: "https://ctpt0djm-5173.asse.devtunnels.ms",
-    origin: "http://localhost:5173",
+    origin: CLIENT_URL,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
-  }
-})
+  },
+});
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: CLIENT_URL,
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "frontend/dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "frontend/dist/index.html"));
+  });
+}
 
 // socket io
 io.on("connection", (socket) => {

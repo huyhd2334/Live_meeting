@@ -53,7 +53,7 @@ const SideBarRAG = ({
             onClick={handleAddAttach}
           >
             <FolderPlus size={18} />
-            <span className="font-semibold text-slate-700">Attachments +</span>
+            <span className="font-semibold text-slate-700 cursor-pointer">Attachments +</span>
             <input
               type="file"
               ref={fileInputRef}

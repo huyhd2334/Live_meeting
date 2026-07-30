@@ -20,9 +20,17 @@ export const createTaskService = async (data) => {
 
         console.log({success: true, message: "created task", task: newTask})
         return {success: true, message: "created task", task: newTask}
-    } catch (err) {
-        await client.query("ROLLBACK")
-        throw err
+
+        } catch (err) {
+            await client.query("ROLLBACK");
+
+            console.group("Create Task");
+            console.error(err);
+            console.error(err.message);
+            console.error(err.code);
+            console.groupEnd();
+
+            throw err;
     } finally {
         client.release()
     }

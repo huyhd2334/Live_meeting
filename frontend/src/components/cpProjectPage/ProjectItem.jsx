@@ -141,7 +141,7 @@ const ProjectItem = ({ project, workspace_id, setProjects }) => {
                 </div>
 
                 <input 
-                  type="datetime-local"
+                  type="date"
                   className="border rounded p-1 core-input"
                   value={deadline}
                   onChange={(e) => setDeadline(e.target.value)}
