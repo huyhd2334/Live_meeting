@@ -5,7 +5,7 @@ import { Bot, User, Bookmark } from 'lucide-react'
 const MessageContainer = ({ conversationMessages = [] }) => {
   const messagesEndRef = useRef(null)
 
-  // Tự động cuộn xuống đáy khi có tin nhắn mới
+  // auto scroll to bottom (new message)
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }
@@ -27,7 +27,7 @@ const MessageContainer = ({ conversationMessages = [] }) => {
     <div className={styles.messageContainer}>
       {conversationMessages.map((msg, index) => {
         const isUser = msg?.role === "user"
-        // Dùng message_id hoặc fallback về index nếu data dev tạm thời chưa có id biệt lập
+        // message_id or fallback index
         const uniqueKey = msg?.message_id || index 
 
         return (
@@ -35,7 +35,7 @@ const MessageContainer = ({ conversationMessages = [] }) => {
             key={uniqueKey} 
             className={`${isUser ? styles.userMessage : styles.assistantMessage} group`}
           >
-            {/* Header Icon + Tên để phân biệt rõ vai trò */}
+            {/* Header Icon */}
             <div className="flex items-center gap-1.5 text-[11px] font-bold tracking-wide uppercase mb-1.5 opacity-60">
               {isUser ? (
                 <>

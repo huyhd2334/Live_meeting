@@ -73,7 +73,7 @@ const DashBoard = ({ userAccount = { user_name: "User" } }) => {
   }
 
   if (loading) {
-    return <div className='flex justify-center items-center h-screen text-slate-500 font-medium'>Đang tải dữ liệu dashboard...</div>
+    return <div className='flex justify-center items-center h-screen text-slate-500 font-medium'>Loading dashboard data...</div>
   }
 
   return (
@@ -84,7 +84,7 @@ const DashBoard = ({ userAccount = { user_name: "User" } }) => {
       
       <div className='flex flex-col justify-start items-start space-y-1'>
         <div className='flex items-center gap-3'>
-          <h1 className={`${styles.headerTitle} text-3xl font-bold tracking-tight text-slate-900`}>
+          <h1 className={`${styles.headerTitle} text-4xl font-bold tracking-tight text-slate-900`}>
             Welcome back, {userAccount.user_name}
           </h1>
           <Goal size={32} className="text-indigo-500 animate-pulse" />
@@ -93,52 +93,10 @@ const DashBoard = ({ userAccount = { user_name: "User" } }) => {
           Here's a snapshot of your project performance and operations today.
         </p>
       </div>
-      
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-        <div className={`${styles.widget} bg-white p-5 rounded-xl border border-slate-100 shadow-sm flex flex-col justify-between`}>
-          <div className='flex justify-between items-center text-slate-500 font-medium mb-3 gap-2'>
-            <span className='text-sm'>Tasks Summary</span>
-            <ClipboardCheck className='w-5 h-5 text-indigo-500' />
-          </div>
-          <div className='flex justify-between items-end'>
-            <div>
-              <span className='text-3xl font-bold text-slate-800'>{taskStats.count_tasks}</span>
-              <p className='text-xs text-slate-400 mt-1'>Total tasks</p>
-            </div>
-            <div className='text-right text-xs space-y-1 font-medium'>
-              <div className='text-emerald-600 flex items-center gap-1'>
-                <CheckCircle2 className='w-3 h-3'/> Hoàn thành: {taskStats.count_done}
-              </div>
-              <div className='text-amber-600 flex items-center gap-1'>
-                <Clock className='w-3 h-3'/> Chưa hoàn thành: {taskStats.count_unComplete}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className={`${styles.widget} bg-white p-5 rounded-xl border border-slate-100 shadow-sm flex flex-col justify-between`}>
-          <div className='flex justify-between items-center text-slate-500 font-medium mb-3 gap-2'>
-            <span className='text-sm'>RAG Token Usage</span>
-            <Cpu className='w-5 h-5 text-emerald-500' />
-          </div>
-          <div className='flex justify-between items-end'>
-            <div>
-              <span className='text-3xl font-bold text-slate-800'>30.6k</span>
-              <p className='text-xs text-slate-400 mt-1'>Tokens sử dụng hôm nay</p>
-            </div>
-            <span className='text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-md'>
-              -12% yesterday
-            </span>
-          </div>
-        </div>
-      </div>
 
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
-        {/* Bọc các vùng Chart bằng pointer-events-none vào Tooltip/Responsive để các thao tác cuộn 
-          bằng chuột hoặc vuốt ngón tay đi XUYÊN QUA biểu đồ, tác động trực tiếp lên thanh cuộn của trình duyệt.
-        */}
         <div className='bg-white p-5 rounded-xl border border-slate-100 shadow-sm flex flex-col'>
-          <h3 className='text-base font-semibold text-slate-800 mb-4'>Trạng thái công việc</h3>
+          <h3 className='text-base font-semibold text-slate-800 mb-4'>Work static</h3>
           <div className='h-64 w-full flex items-center justify-center pointer-events-auto'>
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -163,7 +121,7 @@ const DashBoard = ({ userAccount = { user_name: "User" } }) => {
         </div>
 
         <div className='bg-white p-5 rounded-xl border border-slate-100 shadow-sm flex flex-col'>
-          <h3 className='text-base font-semibold text-slate-800 mb-4'>Lượng Token RAG đã sử dụng tuần này</h3>
+          <h3 className='text-base font-semibold text-slate-800 mb-4'>The number of RAG tokens used this week</h3>
           <div className='h-64 w-full pointer-events-auto'>
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={tokenUsageData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
@@ -178,9 +136,6 @@ const DashBoard = ({ userAccount = { user_name: "User" } }) => {
       </div>
 
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
-        {/* Thêm lớp `overscroll-behavior: contain` (qua CSS thô hoặc style inline) 
-          vào các hộp danh sách nội bộ để khi cuộn hết danh sách, nó không kéo tuột cả trang web đi.
-        */}
         <div className='bg-white p-5 rounded-xl border border-slate-100 shadow-sm'>
           <div className='flex items-center gap-2 mb-4'>
             <FolderGit2 className='w-5 h-5 text-indigo-500' />
@@ -206,7 +161,7 @@ const DashBoard = ({ userAccount = { user_name: "User" } }) => {
                 </div>
               ))
             ) : (
-              <p className='text-xs text-slate-400 py-4 text-center'>Không có dự án nào.</p>
+              <p className='text-xs text-slate-400 py-4 text-center'>You have no projects to work on.</p>
             )}
           </div>
         </div>
@@ -225,7 +180,7 @@ const DashBoard = ({ userAccount = { user_name: "User" } }) => {
                 <div key={task.task_id || idx} className='p-3 border border-slate-100 rounded-lg flex items-start justify-between hover:border-slate-200 transition-all'>
                   <div className='flex flex-col gap-1'>
                     <span className='text-sm font-medium text-slate-700'>{task.title}</span>
-                    <span className='text-xs text-slate-400 line-clamp-1'>{task.description || 'Không có mô tả'}</span>
+                    <span className='text-xs text-slate-400 line-clamp-1'>{task.description || 'No description'}</span>
                   </div>
                   <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
                     task.status === 'todo' ? 'bg-slate-100 text-slate-600' :
@@ -236,7 +191,7 @@ const DashBoard = ({ userAccount = { user_name: "User" } }) => {
                 </div>
               ))
             ) : (
-              <p className='text-xs text-slate-400 py-4 text-center'>Không có công việc nào được giao.</p>
+              <p className='text-xs text-slate-400 py-4 text-center'>No task has been assigned to you.</p>
             )}
           </div>
         </div>

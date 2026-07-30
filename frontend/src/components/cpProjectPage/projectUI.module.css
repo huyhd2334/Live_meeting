@@ -85,10 +85,10 @@
 
 /* ---- FOOTER PROFILE CONTAINER ---- */
 .profileContainer {
-    margin-top: auto; /* Đẩy khối này xuống sát đáy */
+    margin-top: auto;
     margin-left: 16px;
     margin-right: 16px;
-    margin-bottom: 70px;
+    margin-bottom: 90px;
     display: flex;
     flex-direction: row;
     align-items: center;

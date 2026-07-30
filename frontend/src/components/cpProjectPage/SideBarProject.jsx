@@ -24,7 +24,7 @@ const SideBarProject = ({ id, workspace_name }) => {
   }
   
   return (
-    <div className={styles.sideBar}>
+    <div className='flex flex-col border border-t-0 h-full'>
       {/* Workspace Branding */}
       <div className='w-full flex flex-col items-center text-center px-4 mt-2'>
         <h1 className={styles.title}>Workspace #{id}</h1>
@@ -103,7 +103,7 @@ const SideBarProject = ({ id, workspace_name }) => {
         <div className='flex items-center gap-3 min-w-0 flex-1'>
           <CircleUser size={38} className="text-slate-400 flex-shrink-0" />
           <div className='flex flex-col min-w-0'>
-            <span className='text-sm font-bold text-slate-800 truncate'>{userAccount.user_name}</span>
+            <span className='text-sm font-semibold text-slate-800 truncate'>{userAccount.user_name}</span>
             <span className='text-xs text-slate-500 truncate'>@{userAccount.user_account}</span>
           </div>
         </div>

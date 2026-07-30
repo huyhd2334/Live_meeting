@@ -1,38 +1,52 @@
 import axios from "axios";
 
-const BASE_URL =  import.meta.env.MODE === "development"
-                                            // ? "https://ctpt0djm-8386.asse.devtunnels.ms/api"
-                                            ? "http://localhost:8386/api"
-                                            : "/api";
+const BASE_URL =
+  import.meta.env.MODE === "development"
+    ? "http://localhost:8386/api"
+    : "/api";
 
+// API for all requests
 const api = axios.create({
   baseURL: BASE_URL,
-  withCredentials: true, 
+  withCredentials: true,
 });
 
-// Gọi API refresh token
+// API for login/refresh
+const authApi = axios.create({
+  baseURL: BASE_URL,
+  withCredentials: true,
+});
+
 export const getNewAccessToken = async () => {
   try {
-    await api.post("/auth/refresh-accesstoken");
-    return true
+    const response = await authApi.post("/auth/refresh-accesstoken");
+    return response.status === 200;
   } catch (err) {
-    return false
+    return false;
   }
 };
 
 api.interceptors.response.use(
-  (res) => res,
+  (response) => response,
   async (error) => {
-    const original = error.config;
+    const originalRequest = error.config;
 
-    if (error.response?.status === 401 && !original._retry) {
-      original._retry = true;
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      !originalRequest.url.includes("/auth/login") &&
+      !originalRequest.url.includes("/auth/logout") &&
+      !originalRequest.url.includes("/auth/refresh-accesstoken")
+    ) {
+      originalRequest._retry = true;
 
       const refreshed = await getNewAccessToken();
+
       if (refreshed) {
-        return api(original);
+        return api(originalRequest);
       }
     }
+
     return Promise.reject(error);
   }
 );

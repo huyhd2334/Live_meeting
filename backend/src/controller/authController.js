@@ -1,10 +1,10 @@
-import { registerService, loginService, refreshTokenService } from "../service/authService.js"
+import { registerService, loginService, refreshTokenService, logoutService } from "../service/authService.js"
 
 // constance
 const REFRESH_TOKEN_TTL = 14 * 24 * 60 * 60 * 1000
 const ACCESS_TOKEN_TTL = '30m'
 
-export const registerControler = async(req, res) => {
+export const registerController = async(req, res) => {
     try {
         const result = await registerService(req.body) 
         res.status(200).json({success: true, message: result.message})
@@ -15,6 +15,35 @@ export const registerControler = async(req, res) => {
         })
     }
 }
+
+export const logOutController = async (req, res) => {
+  try {
+    const result = await logoutService(req);
+
+    res
+      .clearCookie("accessToken", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      })
+      .clearCookie("refreshToken", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      })
+      .status(200)
+      .json({
+        success: true,
+        message: result.message,
+      });
+
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
 
 export const loginController = async (req, res) => {
     try {
@@ -63,9 +92,10 @@ export const loginController = async (req, res) => {
     }
 }
 
-export const refreshTokenControler = async(req, res) => {
+export const refreshTokenController = async(req, res) => {
   try {
     const newAccessToken = await refreshTokenService(req)    
+
     // Web → cookie
     if (req.cookies?.refreshToken) {
       return res
@@ -82,7 +112,7 @@ export const refreshTokenControler = async(req, res) => {
     return res.status(200).json({ accessToken: newAccessToken })} 
     
     catch (error) {
-        return res.status(400).json({
+        return res.status(401).json({
             success: false,
             message: error.message })
   }

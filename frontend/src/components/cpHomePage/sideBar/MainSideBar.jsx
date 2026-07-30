@@ -2,16 +2,21 @@ import styles from '../homePage.module.css'
 import { CircleUser, LayoutDashboard, LogOut, Settings, Users } from 'lucide-react'
 import { useUIContext } from '@/context/UIContext.jsx'
 import { useAuthContext } from '@/context/AuthContext'
+import { useAuth } from '@/hooks/useAuth'
 
 const MainSideBar = ({ userAccount = { user_name: "User", user_account: "N/A" } }) => {
   const { setOption, option } = useUIContext()
   const { logoutContex } = useAuthContext()
-
+  const {logout} = useAuth()
   const menuItems = [
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
     { id: "workspace", label: "Workspace", icon: Users },
     { id: "setting", label: "Setting", icon: Settings },
   ]
+  
+  const handleLogOut = async() => {
+    await logout()
+  }
 
   return (
     <div className={styles.SideBar}>
@@ -48,7 +53,7 @@ const MainSideBar = ({ userAccount = { user_name: "User", user_account: "N/A" } 
         <button 
           type="button"
           className={styles.buttonLogOut} 
-          onClick={() => logoutContex()}
+          onClick={() => {handleLogOut(), logoutContex()}}
           title="Log out"
         >
           <LogOut size={16} />

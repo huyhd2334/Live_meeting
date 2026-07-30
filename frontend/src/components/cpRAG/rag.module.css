@@ -1,7 +1,6 @@
 .chatSite {
     padding: 16px;
     background-color: #ffffff;
-    /* Đổi từ 100vh sang 100% để nó ăn khớp hoàn toàn với chiều cao flex-1 từ PageRAG */
     height: 100%; 
     flex: 1;
     display: flex;

@@ -102,10 +102,13 @@ const MainProject = ({ id, workspace_name }) => {
 
   return (
     <div className={`${styles.layOut} flex-1`}>
-      <SideBarProject
-        id={id}
-        workspace_name={workspace_name}
-      />
+      <div className='min-w-[300px]'>
+        <SideBarProject
+          id={id}
+          workspace_name={workspace_name}
+        />
+      </div>
+
       <div className={styles.Project}>
         {projectsTree.length === 0 ? (
           <h2 className={styles.subTitle}>

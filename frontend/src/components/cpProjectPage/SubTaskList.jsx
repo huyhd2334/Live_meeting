@@ -91,9 +91,9 @@ const SubTaskList = ({ subTasks = [], task_id, workspace_id, project_id, descrip
               {/* AI Suggestion Box */}
               {(loadingAi || (sgTasks && sgTasks.length > 0)) && (
                 <div className='flex flex-col gap-1.5 my-2 bg-gradient-to-sm from-indigo-50/60 to-purple-50/40 p-3 rounded-xl border border-indigo-100'>
-                  <div className="flex items-center gap-1 text-xs text-indigo-600 font-bold uppercase tracking-wide">
+                  <div className="flex items-center gap-1 text-xs text-indigo-600 uppercase">
                     <Sparkles size={12} className="animate-pulse" />
-                    <span>AI Copilot Suggestions</span>
+                    <span>AI Suggestions</span>
                   </div>
                   
                   {loadingAi ? (

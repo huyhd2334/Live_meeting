@@ -62,7 +62,7 @@ const SideBarRAG = ({
             />
           </button>
           
-          {/* Sub-list File đính kèm */}
+          {/* Sub-list File */}
           <div className="flex flex-col gap-1 max-h-[180px] overflow-y-auto pl-7 pr-1">
             {attachments.length > 0 ? (
               attachments.map((attachment) => {

@@ -16,3 +16,12 @@ export const addSession = async ({ user_id, refresh_token, expiresAt }) => {
     return result.rows[0];
 };
 
+export const deleteSessionByToken = async ({refresh_token}) => {
+    const result = await pool.query(
+        `DELETE From sessions WHERE refresh_token = $1
+         RETURNING *`,
+        [refresh_token]
+    );
+
+    return result.rows[0];
+};

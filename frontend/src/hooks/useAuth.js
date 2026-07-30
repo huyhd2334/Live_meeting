@@ -1,4 +1,4 @@
-import { loginService, signupService } from "@/service/authService.js";
+import { loginService, logoutService, signupService } from "@/service/authService.js";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'sonner'
@@ -51,5 +51,23 @@ export const useAuth = () => {
     }
   }
 
-  return { login, signup, loading }
+  const logout = async () => {
+    try{
+      setLoading(true)
+      const data = await logoutService()
+      localStorage.clear()
+      if (data.success) {
+        toast.success("Loged Out successful")
+      } else {
+        toast.error("LogOut Error")
+      }
+    } catch (err) {
+      toast.error(err.response.data.message)
+      console.log(err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return { login, signup, logout, loading }
 }

@@ -16,3 +16,11 @@ export const signupService = async ({ user_name, user_account, email, password, 
   const res = await api.post("auth/signup", {user_name, user_account, email, password, avatar_url})
   return res.data
 }
+
+export const logoutService = async () => {
+    const res = await api.post("/auth/logout", {}, {
+        withCredentials: true
+    });
+
+    return res.data;
+};

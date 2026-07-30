@@ -40,25 +40,24 @@ const PageRAG = () => {
   }, [workspace_id])
 
   return (
-    // Sử dụng flex-col và h-screen cho khung ngoài cùng để cố định toàn màn hình
     <div className="flex flex-col h-screen w-screen overflow-hidden bg-slate-50">
-      {/* Thanh điều hướng tổng của ứng dụng (Cố định ở trên) */}
-      <div className="flex-shrink-0">
+      <div className="shrink-0">
         <MainNavigator />
       </div>
       
-      {/* Khung làm việc chính chia đôi Sidebar và Chat Box */}
       <div className="flex flex-row flex-1 min-h-0 w-full">
-        <SideBarRAG
-          project_id={project_id}
-          workspace_id={workspace_id}
-          attachments={attachments}
-          selectedFiles={selectedFiles}
-          setSelectedFiles={setSelectedFiles}
-          setSelectedConversation={setSelectedConversation}
-          selectedConversation={selectedConversation} 
-          conversations={conversations}
-        />
+        <div className="w-full max-w-[280px] shrink-0 border-r border-slate-200 bg-white">
+          <SideBarRAG
+            project_id={project_id}
+            workspace_id={workspace_id}
+            attachments={attachments}
+            selectedFiles={selectedFiles}
+            setSelectedFiles={setSelectedFiles}
+            setSelectedConversation={setSelectedConversation}
+            selectedConversation={selectedConversation} 
+            conversations={conversations}
+          />
+        </div>
         
         <ChatSiteRAG 
           selectedFiles={selectedFiles} 
