@@ -56,7 +56,7 @@ const MainAuth = () => {
         "--slate": "#5B6478",
         "--line": "#E4E7F2",
         fontFamily: "'Inter', ui-sans-serif, system-ui, sans-serif",
-        touchAction: "pan-y", // Đảm bảo toàn vùng bọc lớn cho phép vuốt Y tự do
+        touchAction: "pan-y", 
       }}
     >
       <style>{`
@@ -70,7 +70,7 @@ const MainAuth = () => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        viewport={{ once: true }} // Chỉ chạy animation 1 lần để buông tha luồng cuộn trình duyệt
+        viewport={{ once: false }}
         className="text-center max-w-4xl my-14 md:my-24 flex flex-col items-center gap-7 px-6"
       >
         <motion.span
@@ -86,7 +86,17 @@ const MainAuth = () => {
         >
           Tech Flow
         </motion.h1>
-
+        <motion.div variants={itemVariants}>
+          <Button
+            onClick={scrollToForm}
+            className="mt-3 bg-[var(--ink)] hover:bg-[var(--ink)]/90 text-white font-medium rounded-full px-7 py-6 text-sm tracking-wide transition-all hover:scale-[1.03] active:scale-95 group"
+          >
+            Jump into a workspace
+            <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">
+              →
+            </span>
+          </Button>
+        </motion.div>
         <motion.p
           variants={itemVariants}
           className="text-lg md:text-xl text-[var(--slate)] max-w-xl leading-relaxed"
@@ -117,17 +127,6 @@ const MainAuth = () => {
           ))}
         </motion.div>
 
-        <motion.div variants={itemVariants}>
-          <Button
-            onClick={scrollToForm}
-            className="mt-3 bg-[var(--ink)] hover:bg-[var(--ink)]/90 text-white font-medium rounded-full px-7 py-6 text-sm tracking-wide transition-all hover:scale-[1.03] active:scale-95 group"
-          >
-            Jump into a workspace
-            <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">
-              →
-            </span>
-          </Button>
-        </motion.div>
       </motion.div>
 
       {/* ---- AUTH CARD ---- */}
