@@ -6,6 +6,7 @@ import api from "../lib/axios.js";
 
 export const addProjectAttachmentsService = async (data) => {
     const client = await pool.connect();
+    const formData = new FormData();
 
     try {
         const file = data.file;
@@ -49,11 +50,17 @@ export const addProjectAttachmentsService = async (data) => {
             message: "add project attachment",
             attachment: newAttachment,
         });
+        
+        // send to NLP server
+        formData.append(
+            "file",
+            new Blob([data.file.buffer]),
+            data.file.originalname
+        );
 
-        await api.post("/upload", {
-            file_url: fileUrl,
-            file_id: String(newAttachment.attachment_id),
-        });
+        formData.append("file_id", fileId);
+
+        await api.post("/upload", formData, {headers: formData.headers?.()});
 
         await client.query("COMMIT");
 
