@@ -58,7 +58,7 @@ export const addProjectAttachmentsService = async (data) => {
             data.file.originalname
         );
 
-        formData.append("file_id", fileId);
+        formData.append("file_id", newAttachment.attachment_id);
 
         await api.post("/upload", formData, {headers: formData.headers?.()});
 
